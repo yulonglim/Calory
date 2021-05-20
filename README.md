@@ -1,6 +1,6 @@
 # Calory
 
-Orbital 2021 with Renee Lee & Lim Yu Long TESTING hallo is this alive 333
+Orbital 2021 with Renee Lee & Lim Yu Long
 
 ## Milestone 1
 
