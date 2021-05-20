@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import './HomePage.dart';
 
 
@@ -20,8 +19,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
-        primaryColor: Colors.grey[800],
-        secondaryHeaderColor: Colors.blueGrey[400],
+        primaryColor:Color.fromRGBO(184, 15, 10, 1),
+        secondaryHeaderColor: Colors.grey,
         brightness: Brightness.dark
       ),
       themeMode: ThemeMode.light ,
