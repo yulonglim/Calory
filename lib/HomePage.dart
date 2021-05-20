@@ -6,7 +6,6 @@ import './PlannerPage.dart';
 import './ProgressPage.dart';
 
 class Homepage extends StatelessWidget {
-
   String dateTime() {
     String Day;
     String Month;
@@ -64,9 +63,7 @@ class Homepage extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
             "Calory",
-            style: TextStyle(
-                fontSize: 30,
-            ),
+            style: TextStyle(fontSize: 30),
           ),
         ),
         body: Wrap(
@@ -141,23 +138,23 @@ class Homepage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      // ElevatedButton(
-                      //     style: ElevatedButton.styleFrom(
-                      //       primary: Theme.of(context).primaryColor,
-                      //     ),
-                      //     onPressed: () {
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => WorkoutPage()),
-                      //       );
-                      //     },
-                      //     child: Text(
-                      //       'Adjust',
-                      //       style: TextStyle(
-                      //         fontSize: 30,
-                      //       ),
-                      //     ))
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WorkoutPage()),
+                            );
+                          },
+                          child: Text(
+                            'Adjust',
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),
+                          ))
                     ],
                   )
                 ],
