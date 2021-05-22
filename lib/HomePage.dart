@@ -90,8 +90,10 @@ class Homepage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
+                        Icon(
+                          Icons.whatshot,
+                          size: 80,
+                          color: Theme.of(context).primaryColor,
                         ),
                         Column(
                           children: [
@@ -147,11 +149,12 @@ class Homepage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
-                        Icons.accessibility_new_sharp,
-                        size: 48,
-                        color: Theme.of(context).primaryColor,
-                      ),
+                      // Icon(
+                      //   Icons.accessibility_new_sharp,
+                      //   size: 48,
+                      //   color: Theme.of(context).primaryColor,
+                      // ),
+
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
@@ -175,23 +178,26 @@ class Homepage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      // ElevatedButton(
-                      //     style: ElevatedButton.styleFrom(
-                      //       primary: Theme.of(context).primaryColor,
-                      //     ),
-                      //     onPressed: () {
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => WorkoutPage()),
-                      //       );
-                      //     },
-                      //     child: Text(
-                      //       'Adjust',
-                      //       style: TextStyle(
-                      //         fontSize: 30,
-                      //       ),
-                      //     ))
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WorkoutPage()),
+                            );
+                          },
+                          child: Text(
+                            'Snooze',
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),
+                          )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                      ),
                     ],
                   )
                 ],
