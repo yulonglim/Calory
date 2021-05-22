@@ -7,28 +7,26 @@ import './PlannerPage.dart';
 import './ProgressPage.dart';
 
 class Homepage extends StatelessWidget {
-
   String dateTime() {
-    String Day;
-    String Month = DateFormat.MMMM().format(DateTime.now());
-    String Year = DateTime.now().year.toString();
+    String day;
+    String month = DateFormat.MMMM().format(DateTime.now());
+    String year = DateTime.now().year.toString();
 
     if (DateTime.now().day == 11 ||
         DateTime.now().day == 12 ||
         DateTime.now().day == 13) {
-      Day = DateTime.now().day.toString() + "th";
+      day = DateTime.now().day.toString() + "th";
     } else if (DateTime.now().day % 10 == 1) {
-      Day = DateTime.now().day.toString() + "st";
+      day = DateTime.now().day.toString() + "st";
     } else if (DateTime.now().day % 10 == 2) {
-      Day = DateTime.now().day.toString() + "nd";
+      day = DateTime.now().day.toString() + "nd";
     } else if (DateTime.now().day % 10 == 3) {
-      Day = DateTime.now().day.toString() + "rd";
+      day = DateTime.now().day.toString() + "rd";
     } else {
-      Day = DateTime.now().day.toString() + "th";
+      day = DateTime.now().day.toString() + "th";
     }
 
-    return Day + " " + Month + " " + Year;
-
+    return day + " " + month + " " + year;
   }
 
   @override
@@ -39,7 +37,7 @@ class Homepage extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
             "Calory",
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 32),
           ),
         ),
         body: Wrap(
@@ -56,7 +54,7 @@ class Homepage extends StatelessWidget {
                 child: Text(
                   dateTime(),
                   style: TextStyle(
-                    fontSize: 50,
+                    fontSize: 48,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -73,22 +71,85 @@ class Homepage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.4,
               child: Column(
                 children: [
-                  Text(
-                    "Today's Workout",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 40,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      "Today's Workout",
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 40,
+                      ),
                     ),
                   ),
+                  Divider(
+                    height: 15,
+                    thickness: 2,
+                    color: Theme.of(context).primaryColor.withAlpha(400),
+                  ),
                   Container(
-
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                //color: Theme.of(context).primaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Difficulty : eg',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                //color: Theme.of(context).primaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Duration : eg',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
                         Icons.accessibility_new_sharp,
-                        size: 50,
+                        size: 48,
                         color: Theme.of(context).primaryColor,
                       ),
                       SizedBox(
@@ -114,23 +175,23 @@ class Homepage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WorkoutPage()),
-                            );
-                          },
-                          child: Text(
-                            'Adjust',
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
-                          ))
+                      // ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       primary: Theme.of(context).primaryColor,
+                      //     ),
+                      //     onPressed: () {
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => WorkoutPage()),
+                      //       );
+                      //     },
+                      //     child: Text(
+                      //       'Adjust',
+                      //       style: TextStyle(
+                      //         fontSize: 30,
+                      //       ),
+                      //     ))
                     ],
                   )
                 ],
@@ -159,14 +220,14 @@ class Homepage extends StatelessWidget {
                             Text(
                               'Start a',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
                             Text(
                               'Workout',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
@@ -198,14 +259,14 @@ class Homepage extends StatelessWidget {
                             Text(
                               'Generate',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
                             Text(
                               'Workout',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
@@ -225,27 +286,26 @@ class Homepage extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
-
                     ),
                     child: Column(
                       children: [
                         Icon(
                           Icons.calendar_today_rounded,
-                          size: 50,
+                          size: 48,
                         ),
                         Column(
                           children: [
                             Text(
                               'View',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
                             Text(
                               'Progress',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color:
                                       Theme.of(context).secondaryHeaderColor),
                             ),
