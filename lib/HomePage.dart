@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './WorkoutPage.dart';
 import './GeneratePage.dart';
@@ -6,10 +7,12 @@ import './PlannerPage.dart';
 import './ProgressPage.dart';
 
 class Homepage extends StatelessWidget {
+
   String dateTime() {
     String Day;
-    String Month;
+    String Month = DateFormat.MMMM().format(DateTime.now());
     String Year = DateTime.now().year.toString();
+
     if (DateTime.now().day == 11 ||
         DateTime.now().day == 12 ||
         DateTime.now().day == 13) {
@@ -24,35 +27,8 @@ class Homepage extends StatelessWidget {
       Day = DateTime.now().day.toString() + "th";
     }
 
-    int month = DateTime.now().month;
-
-    if (month == 1) {
-      Month = "January";
-    } else if (month == 2) {
-      Month = "February";
-    } else if (month == 3) {
-      Month = "March";
-    } else if (month == 4) {
-      Month = "April";
-    } else if (month == 5) {
-      Month = "May";
-    } else if (month == 6) {
-      Month = "June";
-    } else if (month == 7) {
-      Month = "July";
-    } else if (month == 8) {
-      Month = "August";
-    } else if (month == 9) {
-      Month = "September";
-    } else if (month == 10) {
-      Month = "October";
-    } else if (month == 11) {
-      Month = "November";
-    } else if (month == 12) {
-      Month = "December";
-    }
-
     return Day + " " + Month + " " + Year;
+
   }
 
   @override
