@@ -61,146 +61,147 @@ class Homepage extends StatelessWidget {
               ),
             ),
 
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).primaryColor.withAlpha(600),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor.withAlpha(600),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      "Today's Workout",
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 40,
-                      ),
-                    ),
-                  ),
-                  Divider(
-                    height: 15,
-                    thickness: 2,
-                    color: Theme.of(context).primaryColor.withAlpha(400),
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.whatshot,
-                          size: 80,
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        "Today's Workout",
+                        style: TextStyle(
                           color: Theme.of(context).primaryColor,
+                          fontSize: 40,
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                //color: Theme.of(context).primaryColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Difficulty : eg',
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                      color: Theme.of(context)
-                                          .secondaryHeaderColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                //color: Theme.of(context).primaryColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Duration : eg',
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                      color: Theme.of(context)
-                                          .secondaryHeaderColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Icon(
-                      //   Icons.accessibility_new_sharp,
-                      //   size: 48,
-                      //   color: Theme.of(context).primaryColor,
-                      // ),
-
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).primaryColor,
+                    Divider(
+                      height: 16,
+                      thickness: 2,
+                      color: Theme.of(context).primaryColor.withAlpha(600),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            Icons.whatshot,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WorkoutPage()),
-                            );
-                          },
-                          child: Text(
-                            'Start',
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
-                          )),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8))),
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  //color: Theme.of(context).primaryColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Difficulty : eg',
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8))),
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  //color: Theme.of(context).primaryColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Duration : eg',
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).primaryColor,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.1,
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WorkoutPage()),
-                            );
-                          },
-                          child: Text(
-                            'Snooze',
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
-                          )),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Theme.of(context).primaryColor,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WorkoutPage()),
+                                );
+                              },
+                              child: Text(
+                                'Start',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.1,
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Theme.of(context).primaryColor,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WorkoutPage()),
+                                );
+                              },
+                              child: Text(
+                                'Snooze',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.1,
+                          ),
+                        ],
                       ),
-                    ],
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
