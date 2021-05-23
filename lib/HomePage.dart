@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/elements/rectangle_display.dart';
+import 'package:flutter_app/elements/square_button.dart';
 import 'package:intl/intl.dart';
 
 import './WorkoutPage.dart';
@@ -100,50 +102,8 @@ class Homepage extends StatelessWidget {
                           ),
                           Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8))),
-                                  width: MediaQuery.of(context).size.width * 0.6,
-                                  //color: Theme.of(context).primaryColor,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Difficulty : eg',
-                                      style: TextStyle(
-                                        fontSize: 32,
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8))),
-                                  width: MediaQuery.of(context).size.width * 0.6,
-                                  //color: Theme.of(context).primaryColor,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Duration : eg',
-                                      style: TextStyle(
-                                        fontSize: 32,
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              RectangleDisplay('Difficulty: eg'),
+                              RectangleDisplay('Duration: eg'),
                             ],
                           )
                         ],
@@ -211,123 +171,9 @@ class Homepage extends StatelessWidget {
               //buttons
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                    ),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.accessibility_new_sharp,
-                          size: 50,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Start a',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                            Text(
-                              'Workout',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PlannerPage()),
-                      );
-                    },
-                  ),
-                ),
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                    ),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          size: 50,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Generate',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                            Text(
-                              'Workout',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => GeneratePage()),
-                      );
-                    },
-                  ),
-                ),
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                    ),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.calendar_today_rounded,
-                          size: 48,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'View',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                            Text(
-                              'Progress',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).secondaryHeaderColor),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProgressPage()),
-                      );
-                    },
-                  ),
-                ),
+                SquareButton(Icons.accessibility_new_sharp, 'Start a', 'Workout', PlannerPage()),
+                SquareButton(Icons.settings, 'Generate', 'Workout', GeneratePage()),
+                SquareButton(Icons.calendar_today_rounded, 'View', 'Progress', ProgressPage()),
               ],
             ), //the buttons
           ],
