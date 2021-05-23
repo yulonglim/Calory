@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//Used for the Difficulty and Duration display on the HomePage
+
 class RectangleDisplay extends StatelessWidget {
   final String _text;
 

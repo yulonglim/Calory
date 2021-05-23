@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Used for the 3 square buttons at the bottom of the HomePage
+
 class SquareButton extends StatelessWidget {
   final IconData _icon;
   final String _text1;
