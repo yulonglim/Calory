@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'CoolDownPage.dart';
+import 'MainWorkOutPage.dart';
+import 'WarmUpPage.dart';
 
 class WorkoutPage extends StatefulWidget {
   @override
@@ -10,7 +15,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 1,
           leading: IconButton(
             onPressed: () {
@@ -18,94 +23,117 @@ class _WorkoutPageState extends State<WorkoutPage> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).secondaryHeaderColor,
             ),
+          ),
+          title: Text(
+            "Today's Workout",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
           ),
         ),
         body: Container(
-          padding: EdgeInsets.only(left: 16, top: 20, right: 16),
-          child: ListView(
-            children: [
-              Text(
-                "Your Progress",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: Theme.of(context).primaryColor,
+            padding: EdgeInsets.only(left: 16, top: 20, right: 16),
+            child: ListView(children: [
+              Card(
+                child: new InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WarmUpPage()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.whatshot,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Text(
+                            "Warm Up",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    width: 8,
+                ),
+              ),
+              Card(
+                child: new InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainWorkOutPage()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.sports_handball_outlined,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Text(
+                            "Main Workout",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  Text(
-                    "Account",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )
-                ],
+                ),
               ),
-              Divider(
-                height: 15,
-                thickness: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "null",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
+              Card(
+                child: new InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CoolDownPage()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.ac_unit_outlined,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Text(
+                            "Cool Down",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "null",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "null",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "null",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
+            ])));
   }
 }

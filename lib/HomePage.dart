@@ -77,7 +77,7 @@ class Homepage extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Today's Workout",
                         style: TextStyle(
@@ -86,11 +86,11 @@ class Homepage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Divider(
-                      height: 16,
-                      thickness: 2,
-                      color: Theme.of(context).primaryColor.withAlpha(600),
-                    ),
+                    // Divider(
+                    //   height: 16,
+                    //   thickness: 2,
+                    //   color: Theme.of(context).primaryColor.withAlpha(600),
+                    // ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,25 +137,15 @@ class Homepage extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.1,
                           ),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Theme.of(context).primaryColor,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => WorkoutPage()),
-                                );
-                              },
-                              child: Text(
-                                'Snooze',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                ),
-                              )),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.1,
+                          Text(
+                            'Snooze',
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                          Switch(
+                            value: false,
+                            onChanged: null,
                           ),
                         ],
                       ),
