@@ -172,7 +172,7 @@ class Homepage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SquareButton(Icons.accessibility_new_sharp, 'Start a', 'Workout', PlannerPage()),
-                SquareButton(Icons.settings, 'Generate', 'Workout', GeneratePage()),
+                SquareButton(Icons.settings, 'Set your', 'Goal', GeneratePage()),
                 SquareButton(Icons.calendar_today_rounded, 'View', 'Progress', ProgressPage()),
               ],
             ), //the buttons
