@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
 class GeneratePage extends StatelessWidget {
@@ -34,7 +35,7 @@ class GeneratePage extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: Text(
                   'What is your Goal?',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
@@ -42,6 +43,26 @@ class GeneratePage extends StatelessWidget {
             ),
 
             MyToggleButtons('Weight Loss', 'Strength', 'Endurance'),
+
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                  'Difficulty Level',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
+              ),
+            ),
+
+            MyToggleButtons('Easy', 'Medium', 'Hard'),
+
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                  'When will you reach your goal?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
+              ),
+            ),
+
+            DateSelector(),
           ],
         ),
       )

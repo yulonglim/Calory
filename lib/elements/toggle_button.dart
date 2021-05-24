@@ -63,11 +63,14 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
                   //otherwise there will be no rounded corner
                   border: Border.all(color: Theme.of(context).primaryColor),
                 ),
-                child: Text(iconList[index],
-                    //set the color of the icon when it is selected/ not selected
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: isSelected[index] ? Colors.white : Colors.grey)),
-              ));
+                child: Center(
+                  child: Text(iconList[index],
+                      //set the color of the icon when it is selected/ not selected
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, color: isSelected[index] ? Colors.white : Colors.grey)),
+                )
+              )
+          );
         }),
       ),
     );
