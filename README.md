@@ -1,6 +1,6 @@
 # Calory
 
-Orbital 2021 with Renee Lee & Lim Yu Long Hello
+Orbital 2021 with Renee Lee & Lim Yu Long Hello RENEe
 
 ## Milestone 1
 
