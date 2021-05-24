@@ -1,6 +1,6 @@
 # Calory
 
-Orbital 2021 with Renee Lee & Lim Yu Long Hello RENEe
+Orbital 2021 with Renee Lee & Lim Yu Long
 
 ## Milestone 1
 
@@ -54,8 +54,6 @@ How are we different from similar platforms?
 - Exercise Trackers (e.g. RunKeeper, Nike Training Club)
 More suitable for athletes with the discipline to keep up with regular trainings, whereas our app focuses on motivating sports beginners to kickstart their fitness journey
 
-Hi I deleted the habit tracker >:) huehuehue
-
-
-
+- Habit Tracker
+Helps to track habits, which can include exercise. However, these apps do not recommend exercise routines for the user to reduce the friction for them to begin exercising
 
