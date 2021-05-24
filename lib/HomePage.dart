@@ -57,7 +57,7 @@ class Homepage extends StatelessWidget {
                   dateTime(),
                   style: TextStyle(
                     fontSize: 48,
-                    color: Theme.of(context).primaryColor,
+                    //color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -81,7 +81,7 @@ class Homepage extends StatelessWidget {
                       child: Text(
                         "Today's Workout",
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          //color: Theme.of(context).primaryColor,
                           fontSize: 40,
                         ),
                       ),
@@ -140,8 +140,9 @@ class Homepage extends StatelessWidget {
                           Text(
                             'Snooze',
                             style: TextStyle(
-                                fontSize: 30,
-                                color: Theme.of(context).primaryColor),
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor
+                            ),
                           ),
                           Switch(
                             value: false,
