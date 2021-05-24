@@ -27,7 +27,7 @@ class _DateSelectorState extends State<DateSelector> {
   }
 
   bool _decideWhichDayToEnable(DateTime day) {
-    if ((day.isAfter(DateTime.now().subtract(Duration(days: 2))) &&
+    if ((day.isAfter(DateTime.now().subtract(Duration(days: 1))) &&
         day.isBefore(DateTime.now().add(Duration(days: 100))))) {
       return true;
     }
