@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/elements/dateselector.dart';
+import 'package:flutter_app/elements/image_banner.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
 class GeneratePage extends StatelessWidget {
@@ -23,10 +24,13 @@ class GeneratePage extends StatelessWidget {
         padding: EdgeInsets.only(left: 16, top: 20, right: 16),
         child: ListView(
           children: [
-            //ImageBanner(),
-            Text(
-                'Set Your Goal',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)
+            ImageBanner("assets/images/reach_goal.jpg"),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Text(
+                  'Set Your Goal',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)
+              ),
             ),
 
             Divider(
@@ -35,7 +39,7 @@ class GeneratePage extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text(
                   'What is your Goal?',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
@@ -45,7 +49,7 @@ class GeneratePage extends StatelessWidget {
             MyToggleButtons('Weight Loss', 'Strength', 'Endurance'),
 
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text(
                   'Difficulty Level',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
