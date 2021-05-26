@@ -16,9 +16,7 @@ class SquareButton extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Theme
-              .of(context)
-              .primaryColor,
+          primary: Theme.of(context).primaryColor,
         ),
         child: Column(
           children: [
@@ -32,19 +30,13 @@ class SquareButton extends StatelessWidget {
                   _text1,
                   style: TextStyle(
                       fontSize: 24,
-                      color:
-                      Theme
-                          .of(context)
-                          .secondaryHeaderColor),
+                      color: Theme.of(context).secondaryHeaderColor),
                 ),
                 Text(
                   _text2,
                   style: TextStyle(
                       fontSize: 24,
-                      color:
-                      Theme
-                          .of(context)
-                          .secondaryHeaderColor),
+                      color: Theme.of(context).secondaryHeaderColor),
                 ),
               ],
             ),

@@ -86,11 +86,6 @@ class Homepage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Divider(
-                    //   height: 16,
-                    //   thickness: 2,
-                    //   color: Theme.of(context).primaryColor.withAlpha(600),
-                    // ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
