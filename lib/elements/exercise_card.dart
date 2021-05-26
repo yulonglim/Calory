@@ -29,34 +29,40 @@ class ExerciseCard extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           child: ListTile(
-            horizontalTitleGap: MediaQuery.of(context).size.width * 0.1,
-            contentPadding: EdgeInsets.all(16),
-            leading: Container(
-              child: Text(
-                item.title,
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Theme.of(context).secondaryHeaderColor),
+              contentPadding: EdgeInsets.all(16),
+              title: Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Text(
+                      item.title,
+                      style: TextStyle(
+                          fontSize: 24,
+                          color: Theme.of(context).secondaryHeaderColor),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  Text(
+                    item.value.toString() + ' s',
+                    style: TextStyle(
+                        fontSize: 32,
+                        color: Theme.of(context).secondaryHeaderColor),
+                  ),
+                ],
               ),
-            ),
-            title: Text(
-              item.value.toString() + ' s',
-              style: TextStyle(
-                  fontSize: 32, color: Theme.of(context).secondaryHeaderColor),
-            ),
-            trailing: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).secondaryHeaderColor,
-              ),
-              child: Text(
-                'Done',
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Theme.of(context).primaryColor),
-              ),
-              onPressed: onClicked,
-            )
-          ),
+              trailing: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).secondaryHeaderColor,
+                ),
+                child: Text(
+                  'Done',
+                  style: TextStyle(
+                      fontSize: 24, color: Theme.of(context).primaryColor),
+                ),
+                onPressed: onClicked,
+              )),
         ),
       );
     } else {
@@ -69,34 +75,33 @@ class ExerciseCard extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           child: ListTile(
-            horizontalTitleGap: MediaQuery.of(context).size.width * 0.1,
-            contentPadding: EdgeInsets.all(16),
-            leading: Container(
-              child: Text(
-                item.title,
+              horizontalTitleGap: MediaQuery.of(context).size.width * 0.1,
+              contentPadding: EdgeInsets.all(16),
+              leading: Container(
+                child: Text(
+                  item.title,
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Theme.of(context).secondaryHeaderColor),
+                ),
+              ),
+              title: Text(
+                'x ' + item.value.toString(),
                 style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 32,
                     color: Theme.of(context).secondaryHeaderColor),
               ),
-            ),
-            title: Text(
-              'x ' + item.value.toString(),
-              style: TextStyle(
-                  fontSize: 32, color: Theme.of(context).secondaryHeaderColor),
-            ),
-            trailing: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).secondaryHeaderColor,
-              ),
-              child: Text(
-                'Done',
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Theme.of(context).primaryColor),
-              ),
-              onPressed: onClicked,
-            )
-          ),
+              trailing: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).secondaryHeaderColor,
+                ),
+                child: Text(
+                  'Done',
+                  style: TextStyle(
+                      fontSize: 24, color: Theme.of(context).primaryColor),
+                ),
+                onPressed: onClicked,
+              )),
         ),
       );
     }

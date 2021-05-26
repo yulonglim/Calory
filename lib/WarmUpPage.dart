@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
-import 'AppData/example_data.dart';
 
 class WarmUpPage extends StatefulWidget {
   @override
@@ -9,7 +9,7 @@ class WarmUpPage extends StatefulWidget {
 
 class _WarmUpPageState extends State<WarmUpPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<ExerciseItem> items = List.from(exampleData);
+  final List<ExerciseItem> items = List.from(warmUpData);
 
   void removeItem(int index) {
     final removedItem = items[index];
