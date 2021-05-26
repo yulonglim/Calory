@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
-import 'elements/example_data.dart';
+import 'AppData/example_data.dart';
 
 class WarmUpPage extends StatefulWidget {
   @override
