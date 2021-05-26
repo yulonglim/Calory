@@ -3,7 +3,7 @@ import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/image_banner.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
-class GeneratePage extends StatelessWidget {
+class GoalSetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
