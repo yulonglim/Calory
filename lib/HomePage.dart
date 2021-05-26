@@ -4,7 +4,7 @@ import 'package:flutter_app/elements/square_button.dart';
 import 'package:intl/intl.dart';
 
 import './WorkoutPage.dart';
-import './GeneratePage.dart';
+import './GoalSetPage.dart';
 import './PlannerPage.dart';
 import './ProgressPage.dart';
 
@@ -158,7 +158,7 @@ class Homepage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SquareButton(Icons.accessibility_new_sharp, 'Start a', 'Workout', PlannerPage()),
-                SquareButton(Icons.settings, 'Set your', 'Goal', GeneratePage()),
+                SquareButton(Icons.settings, 'Set your', 'Goal', GoalSetPage()),
                 SquareButton(Icons.calendar_today_rounded, 'View', 'Progress', ProgressPage()),
               ],
             ), //the buttons
