@@ -18,7 +18,6 @@ class todays_workout extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
-        height: MediaQuery.of(context).size.height * 0.4,
         child: Column(
           children: [
             Padding(
@@ -52,11 +51,8 @@ class todays_workout extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 16, 4, 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.1,
-                  ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Theme.of(context).primaryColor,
@@ -74,18 +70,7 @@ class todays_workout extends StatelessWidget {
                           fontSize: 30,
                         ),
                       )),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.1,
-                  ),
-                  Text(
-                    'Snooze',
-                    style: TextStyle(
-                        fontSize: 20, color: Theme.of(context).primaryColor),
-                  ),
-                  Switch(
-                    value: false,
-                    onChanged: null,
-                  ),
+
                 ],
               ),
             )

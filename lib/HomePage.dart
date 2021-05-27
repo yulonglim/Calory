@@ -42,8 +42,8 @@ class Homepage extends StatelessWidget {
           ),
         ),
         body: Wrap(
-          spacing: 10,
-          runSpacing: 10,
+          spacing: MediaQuery.of(context).size.height * 0.01,
+          runSpacing: MediaQuery.of(context).size.height * 0.01,
           children: [
             Container(
               // Container for today's plan
@@ -69,8 +69,8 @@ class Homepage extends StatelessWidget {
               //buttons
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SquareButton(Icons.accessibility_new_sharp, 'Start a',
-                    'Workout', PlannerPage()),
+                //SquareButton(Icons.accessibility_new_sharp, 'Start a',
+                //    'Workout', PlannerPage()),
                 SquareButton(Icons.settings, 'Set your', 'Goal', GoalSetPage()),
                 SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
                     ProgressPage()),

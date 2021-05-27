@@ -20,57 +20,43 @@ class GoalSetPage extends StatelessWidget {
             ),
           ),
         ),
-        body: Container(
-        padding: EdgeInsets.only(left: 16, top: 20, right: 16),
-        child: ListView(
+        body: Column(
           children: [
             ImageBanner("assets/images/reach_goal.jpg"),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: Text(
-                  'Set Your Goal',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)
-              ),
+              child: Text('Set Your Goal',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
             ),
-
             Divider(
               height: 15,
               thickness: 2,
             ),
-
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text(
-                  'What is your Goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
-              ),
+              child: Text('What is your Goal?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
-
-            MyToggleButtons('Weight Loss', 'Strength', 'Endurance'),
-
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.92,
+                child: MyToggleButtons('Weight Loss', 'Strength', 'Endurance')),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text(
-                  'Difficulty Level',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
-              ),
+              child: Text('Difficulty Level',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
-
-            MyToggleButtons('Easy', 'Medium', 'Hard'),
-
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.92,
+                child: MyToggleButtons('Easy', 'Medium', 'Hard')),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text(
-                  'When will you reach your goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)
-              ),
+              child: Text('When will you reach your goal?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
-
-            DateSelector(),
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: DateSelector()),
           ],
-        ),
-      )
-    );
+        ));
   }
 }
-
