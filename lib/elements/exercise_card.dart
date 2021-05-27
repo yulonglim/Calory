@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class ExerciseItem {
   final String title;
+  final String description;
   final int value;
   final bool durationBased;
 
-  ExerciseItem(this.title, this.value, this.durationBased);
+  ExerciseItem(this.title, this.value, this.durationBased, this.description);
 }
 
 class ExerciseCard extends StatelessWidget {
@@ -14,7 +15,7 @@ class ExerciseCard extends StatelessWidget {
   final Animation<double> animation;
   final VoidCallback onClicked;
 
-  const ExerciseCard({Key key, this.item, this.animation, this.onClicked})
+  const ExerciseCard({Key? key, required this.item, required this.animation, required this.onClicked})
       : super(key: key);
 
   @override
@@ -30,27 +31,42 @@ class ExerciseCard extends StatelessWidget {
           ),
           child: ListTile(
               contentPadding: EdgeInsets.all(16),
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      item.title,
+              title: new InkWell(
+                onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text(item.title,),
+                    content: Text(item.description),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                    ],
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        item.title,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).secondaryHeaderColor),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    Text(
+                      item.value.toString() + ' s',
                       style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 32,
                           color: Theme.of(context).secondaryHeaderColor),
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Text(
-                    item.value.toString() + ' s',
-                    style: TextStyle(
-                        fontSize: 32,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                ],
+                  ],
+                ),
               ),
               trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -75,21 +91,43 @@ class ExerciseCard extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           child: ListTile(
-              horizontalTitleGap: MediaQuery.of(context).size.width * 0.1,
               contentPadding: EdgeInsets.all(16),
-              leading: Container(
-                child: Text(
-                  item.title,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).secondaryHeaderColor),
+              title: new InkWell(
+                onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text(item.title),
+                    content: Text(item.description),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              title: Text(
-                'x ' + item.value.toString(),
-                style: TextStyle(
-                    fontSize: 32,
-                    color: Theme.of(context).secondaryHeaderColor),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        item.title,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).secondaryHeaderColor),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    Text(
+                      'x ' + item.value.toString(),
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Theme.of(context).secondaryHeaderColor),
+                    ),
+                  ],
+                ),
               ),
               trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(
