@@ -6,7 +6,7 @@ class CardButton extends StatelessWidget {
   final String buttonName;
   final Widget nextPage;
 
-  const CardButton({Key key, this.iconData, this.buttonName, this.nextPage})
+  const CardButton({Key? key, required this.iconData, required this.buttonName, required this.nextPage})
       : super(key: key);
 
   @override

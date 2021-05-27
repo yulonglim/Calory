@@ -14,11 +14,12 @@ class _WarmUpPageState extends State<WarmUpPage> {
   void removeItem(int index) {
     final removedItem = items[index];
     items.removeAt(index);
-    listKey.currentState.removeItem(
+    listKey.currentState!.removeItem(
         index,
         (context, animation) => ExerciseCard(
               item: removedItem,
               animation: animation,
+              onClicked: () {},
             ));
   }
 

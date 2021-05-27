@@ -34,7 +34,7 @@ class _DateSelectorState extends State<DateSelector> {
     return false;
   }
   _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime picked = (await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2000),
@@ -43,7 +43,7 @@ class _DateSelectorState extends State<DateSelector> {
       cancelText: 'Not now',
       confirmText: 'Let\'s get started!',
       selectableDayPredicate: _decideWhichDayToEnable, //Decides which days can be selected
-    );
+    ))!;
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;

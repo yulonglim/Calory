@@ -14,7 +14,7 @@ class MyToggleButtons extends StatefulWidget {
 class _ToggleButtonsState extends State<MyToggleButtons> {
   //set the initial state of each button whether it is selected or not
   List<bool> isSelected = [true, false, false];
-  List<String> iconList;
+  List<String> iconList = <String>[];
 
   _ToggleButtonsState(String _option1, String _option2, String _option3) {
     iconList = [_option1, _option2, _option3];
