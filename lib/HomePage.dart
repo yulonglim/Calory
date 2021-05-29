@@ -4,7 +4,6 @@ import "package:flutter_app/elements/today's_workout_widget.dart";
 import 'package:intl/intl.dart';
 
 import './GoalSetPage.dart';
-import './PlannerPage.dart';
 import './ProgressPage.dart';
 
 class Homepage extends StatelessWidget {
