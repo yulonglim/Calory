@@ -36,7 +36,7 @@ class Homepage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            "Calory",
+            "ExerciseLah!",
             style: TextStyle(fontSize: 32),
           ),
         ),
