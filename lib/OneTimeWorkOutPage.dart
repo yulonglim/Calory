@@ -65,7 +65,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 min: 0,
                 max: 60,
                 divisions: 4,
-                label: _currentSliderValue.round().toString(),
+                label: _currentSliderValue.round().toString() + " Mins",
                 onChanged: (double value) {
                   setState(() {
                     _currentSliderValue = value;
