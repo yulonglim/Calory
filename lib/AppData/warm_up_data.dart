@@ -12,6 +12,6 @@ final List<ExerciseItem> warmUpData = [
   ExerciseItem('Pigeon Stretch (Right)', 20, true,'description eg'),
   ExerciseItem('Squat to walkout', 20, true,'description eg'),
   ExerciseItem('Superman hold', 20, true,'description eg'),
-  ExerciseItem('Long Name Test Long Name Test Long Name Test Long Name Test', 20, true,'description eg'),
-  ExerciseItem('Looooooooonnnnnnggggggg name test 2', 20, true,'description eg'),
+  // ExerciseItem('Long Name Test Long Name Test Long Name Test Long Name Test', 20, true,'description eg'),
+  // ExerciseItem('Looooooooonnnnnnggggggg name test 2', 20, true,'description eg'),
 ];

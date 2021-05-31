@@ -5,7 +5,7 @@ import 'package:flutter_app/elements/rectangle_display.dart';
 import '../WorkoutPage.dart';
 
 class todays_workout extends StatelessWidget {
-  bool planned = false;
+  bool planned = true;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/EndWorkOutPage.dart';
 
 import 'CoolDownPage.dart';
 import 'MainWorkOutPage.dart';
@@ -45,6 +46,24 @@ class WorkoutPage extends StatelessWidget {
                 buttonName: "Cool Down",
                 nextPage: CoolDownPage(),
               ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EndWorkOutPage()),
+                    );
+                  },
+                  child: Text(
+                    'End Workout',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
             ])));
   }
 }
