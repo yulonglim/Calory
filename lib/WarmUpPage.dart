@@ -13,6 +13,12 @@ class _WarmUpPageState extends State<WarmUpPage> {
 
   void removeItem(int index) {
     final removedItem = items[index];
+    print(index.toString());
+    int counter = 0;
+    while(counter < items.length){
+      print(items[counter].title);
+      counter++;
+    }
     items.removeAt(index);
     listKey.currentState!.removeItem(
         index,

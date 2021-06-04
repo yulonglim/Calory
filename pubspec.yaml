@@ -33,6 +33,7 @@ dependencies:
 
   intl: ^0.17.0
   table_calendar: ^3.0.0
+  circular_countdown_timer: ^0.2.0
 
 
 

@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/elements/No_plan_workout.dart';
-import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
+import 'package:flutter_app/WorkoutPage.dart';
 
-import '../WorkoutPage.dart';
-
-class todays_workout extends StatelessWidget {
-  bool planned = true;
-  bool done = false;
+class doneWorkout extends StatelessWidget {
+  const doneWorkout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (!planned) {
-      return noPlan();
-    }
-    if (done) {
-      return doneWorkout();
-    }
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -44,14 +34,13 @@ class todays_workout extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Icon(
-                    Icons.whatshot,
+                    Icons.thumb_up,
                     size: 80,
                     color: Theme.of(context).primaryColor,
                   ),
                   Column(
                     children: [
-                      RectangleDisplay('Difficulty: eg'),
-                      RectangleDisplay('Duration: eg'),
+                      RectangleDisplay('Completed')
                     ],
                   )
                 ],
@@ -79,6 +68,7 @@ class todays_workout extends StatelessWidget {
                           fontSize: 30,
                         ),
                       )),
+
                 ],
               ),
             )
