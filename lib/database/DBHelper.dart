@@ -1,28 +1,33 @@
+import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'goal.dart';
 //import 'package:sqflite_database_example/model/note.dart';
 
-class ExerciseDatabase {
-  static final ExerciseDatabase instance = ExerciseDatabase._init();
+class DBHelper {
+  static final _dbName = 'calory.db';
+  static final _dbVersion = 1;
+
+  static final DBHelper instance = DBHelper._init();
 
   static Database? _database;
 
-  ExerciseDatabase._init();
+  DBHelper._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('exercise.db');
+    _database = await _initDB();
     return _database!;
   }
 
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+  _initDB() async {
+    Directory directory  = await getApplicationDocumentsDirectory();
+    String path = join(directory.path, _dbName);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: _dbVersion, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -33,16 +38,16 @@ class ExerciseDatabase {
     final datetimeType = 'DATETIME NOT NULL';
 
     await db.execute('''
-CREATE TABLE $tableGoals ( 
-  ${GoalFields.goalId} $idType, 
-  ${GoalFields.goal} $textType,
-  ${GoalFields.difficultyLevel} $textType,
-  ${GoalFields.startDate} $datetimeType,
-  ${GoalFields.endDate} $datetimeType,
-  ${GoalFields.multiplier} $integerType,
-  ${GoalFields.progress} $doubleType
-  )
-''');
+      CREATE TABLE $tableGoals ( 
+        ${GoalFields.goalId} $idType, 
+        ${GoalFields.goal} $textType,
+        ${GoalFields.difficultyLevel} $textType,
+        ${GoalFields.startDate} $datetimeType,
+        ${GoalFields.endDate} $datetimeType,
+        ${GoalFields.multiplier} $integerType,
+        ${GoalFields.progress} $doubleType
+        )
+      ''');
   }
 
   Future<Goal> create(Goal goal) async {

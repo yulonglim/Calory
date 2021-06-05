@@ -34,7 +34,8 @@ dependencies:
   intl: ^0.17.0
   table_calendar: ^3.0.0
   circular_countdown_timer: ^0.2.0
-
+  path_provider: ^2.0.2
+  path: ^1.8.0
 
 
 dev_dependencies:

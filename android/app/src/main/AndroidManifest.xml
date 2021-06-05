@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.calory_app">
+    package="com.example.calory">
    <application
-        android:label="calory_app"
+        android:label="calory"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

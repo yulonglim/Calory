@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/image_banner.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
@@ -54,8 +55,29 @@ class GoalSetPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
             SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.92,
                 child: DateSelector()),
+            Padding(
+              padding: const EdgeInsets.all(45.0),
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.92,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () async {
+                        await DBHelper.instance.insert(
+
+                        );
+                      },
+                      child: Text(
+                        'Done',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      )),
+              ),
+            ),
           ],
         ));
   }

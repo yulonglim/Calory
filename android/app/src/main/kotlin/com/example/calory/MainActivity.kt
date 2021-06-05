@@ -1,4 +1,4 @@
-package com.example.calory_app
+package com.example.calory
 
 import io.flutter.embedding.android.FlutterActivity
 
