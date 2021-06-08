@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
-import 'WorkoutPage.dart';
+import 'FullWorkoutPage.dart';
 
 class OneTimeWorkOut extends StatefulWidget {
   const OneTimeWorkOut({Key? key}) : super(key: key);
@@ -78,8 +78,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => WorkoutPage()),
+                    MaterialPageRoute(builder: (context) => FullWorkoutPage()),
                   );
                 },
                 child: Text(

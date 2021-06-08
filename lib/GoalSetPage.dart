@@ -60,22 +60,20 @@ class GoalSetPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(45.0),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.92,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor,
+                width: MediaQuery.of(context).size.width * 0.92,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () async {
+                      await DBHelper.instance.insert();
+                    },
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        fontSize: 20,
                       ),
-                      onPressed: () async {
-                        await DBHelper.instance.insert(
-
-                        );
-                      },
-                      child: Text(
-                        'Done',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
+                    )),
               ),
             ),
           ],

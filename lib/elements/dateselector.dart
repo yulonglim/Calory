@@ -15,14 +15,14 @@ class _DateSelectorState extends State<DateSelector> {
       onPressed: () => _selectDate(context), // Refer step 3
       child: Text(
         'Select date',
-        style: TextStyle(color: Theme.of(context).secondaryHeaderColor,
-                          fontWeight: FontWeight.bold),
+        style: TextStyle(
+            color: Theme.of(context).secondaryHeaderColor,
+            fontWeight: FontWeight.bold),
       ),
 
       style: ElevatedButton.styleFrom(
         primary: Theme.of(context).primaryColor,
       ),
-
     );
   }
 
@@ -33,6 +33,7 @@ class _DateSelectorState extends State<DateSelector> {
     }
     return false;
   }
+
   _selectDate(BuildContext context) async {
     final DateTime picked = (await showDatePicker(
       context: context,
@@ -42,13 +43,12 @@ class _DateSelectorState extends State<DateSelector> {
       helpText: 'Select Date to Reach Your Goal',
       cancelText: 'Not now',
       confirmText: 'Let\'s get started!',
-      selectableDayPredicate: _decideWhichDayToEnable, //Decides which days can be selected
+      selectableDayPredicate:
+          _decideWhichDayToEnable, //Decides which days can be selected
     ))!;
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
       });
   }
-
-
 }

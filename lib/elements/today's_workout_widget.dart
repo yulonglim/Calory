@@ -3,7 +3,7 @@ import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 
-import '../WorkoutPage.dart';
+import '../FullWorkoutPage.dart';
 
 class todays_workout extends StatelessWidget {
   bool planned = true;
@@ -70,7 +70,7 @@ class todays_workout extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutPage()),
+                              builder: (context) => FullWorkoutPage()),
                         );
                       },
                       child: Text(

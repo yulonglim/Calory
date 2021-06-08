@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
-import 'package:flutter_app/WorkoutPage.dart';
+import 'package:flutter_app/FullWorkoutPage.dart';
 
 class doneWorkout extends StatelessWidget {
   const doneWorkout({Key? key}) : super(key: key);
@@ -39,9 +39,7 @@ class doneWorkout extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                   Column(
-                    children: [
-                      RectangleDisplay('Completed')
-                    ],
+                    children: [RectangleDisplay('Completed')],
                   )
                 ],
               ),
@@ -59,16 +57,15 @@ class doneWorkout extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutPage()),
+                              builder: (context) => FullWorkoutPage()),
                         );
                       },
                       child: Text(
-                        'Start',
+                        'Check out what you did!',
                         style: TextStyle(
                           fontSize: 30,
                         ),
                       )),
-
                 ],
               ),
             )

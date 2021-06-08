@@ -8,7 +8,8 @@ class MyToggleButtons extends StatefulWidget {
   MyToggleButtons(this._option1, this._option2, this._option3);
 
   @override
-  _ToggleButtonsState createState() => _ToggleButtonsState(this._option1, this._option2, this._option3);
+  _ToggleButtonsState createState() =>
+      _ToggleButtonsState(this._option1, this._option2, this._option3);
 }
 
 class _ToggleButtonsState extends State<MyToggleButtons> {
@@ -19,7 +20,6 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
   _ToggleButtonsState(String _option1, String _option2, String _option3) {
     iconList = [_option1, _option2, _option3];
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
                 //set the toggle logic
                 setState(() {
                   for (int indexBtn = 0;
-                  indexBtn < isSelected.length;
-                  indexBtn++) {
+                      indexBtn < isSelected.length;
+                      indexBtn++) {
                     if (indexBtn == index) {
                       isSelected[indexBtn] = true;
                     } else {
@@ -54,23 +54,27 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
                 });
               },
               child: Ink(
-                decoration: BoxDecoration(
-                  //set the background color of the button when it is selected/ not selected
-                  color: isSelected[index] ? Theme.of(context).primaryColor : Colors.white,
-                  // here is where we set the rounded corner
-                  borderRadius: BorderRadius.circular(8),
-                  //don't forget to set the border,
-                  //otherwise there will be no rounded corner
-                  border: Border.all(color: Theme.of(context).primaryColor),
-                ),
-                child: Center(
-                  child: Text(iconList[index],
-                      //set the color of the icon when it is selected/ not selected
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: isSelected[index] ? Colors.white : Colors.grey)),
-                )
-              )
-          );
+                  decoration: BoxDecoration(
+                    //set the background color of the button when it is selected/ not selected
+                    color: isSelected[index]
+                        ? Theme.of(context).primaryColor
+                        : Colors.white,
+                    // here is where we set the rounded corner
+                    borderRadius: BorderRadius.circular(8),
+                    //don't forget to set the border,
+                    //otherwise there will be no rounded corner
+                    border: Border.all(color: Theme.of(context).primaryColor),
+                  ),
+                  child: Center(
+                    child: Text(iconList[index],
+                        //set the color of the icon when it is selected/ not selected
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: isSelected[index]
+                                ? Colors.white
+                                : Colors.grey)),
+                  )));
         }),
       ),
     );

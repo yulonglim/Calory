@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 
 import './HomePage.dart';
 
-
 void main() => runApp(MyApp());
 
-
-
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,14 +16,11 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
-        primaryColor: Colors.grey[800],
-        secondaryHeaderColor: Colors.blueGrey[400],
-        brightness: Brightness.dark
-      ),
-      themeMode: ThemeMode.light ,
-      home:
-          Homepage(),
+          primaryColor: Colors.grey[800],
+          secondaryHeaderColor: Colors.blueGrey[400],
+          brightness: Brightness.dark),
+      themeMode: ThemeMode.light,
+      home: Homepage(),
     );
   }
 }
-

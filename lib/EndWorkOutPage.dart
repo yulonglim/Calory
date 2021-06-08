@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 
-
 class EndWorkOutPage extends StatefulWidget {
   const EndWorkOutPage({Key? key}) : super(key: key);
 
   @override
-   EndWorkOutPageState createState() =>  EndWorkOutPageState();
+  EndWorkOutPageState createState() => EndWorkOutPageState();
 }
 
-class  EndWorkOutPageState extends State<EndWorkOutPage> {
+class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 0;
 
-  String? feedback(i)  {
+  String? feedback(i) {
     switch (i.round()) {
-      case 0: {
-        return 'Too Easy';
-      }
-      case 1: {
-        return 'Easy';
-      }
-      case 2: {
-        return 'Manageable';
-      }
-      case 3: {
-        return 'Difficult';
-      }
-      case 4: {
-        return 'Too Difficult';
-      }
+      case 0:
+        {
+          return 'Too Easy';
+        }
+      case 1:
+        {
+          return 'Easy';
+        }
+      case 2:
+        {
+          return 'Manageable';
+        }
+      case 3:
+        {
+          return 'Difficult';
+        }
+      case 4:
+        {
+          return 'Too Difficult';
+        }
     }
   }
 
@@ -53,7 +57,7 @@ class  EndWorkOutPageState extends State<EndWorkOutPage> {
             children: [
               Text(
                 "Please Rate Today's Workout",
-                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
               Slider(
                   value: _currentSliderValue,
@@ -71,7 +75,8 @@ class  EndWorkOutPageState extends State<EndWorkOutPage> {
                     primary: Theme.of(context).primaryColor,
                   ),
                   onPressed: () {
-                    Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+                    Navigator.popUntil(context,
+                        ModalRoute.withName(Navigator.defaultRouteName));
                   },
                   child: Text(
                     'Done',
