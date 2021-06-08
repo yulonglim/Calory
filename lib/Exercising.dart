@@ -34,6 +34,7 @@ class _exercisingState extends State<exercising> {
 
   @override
   Widget build(BuildContext context) {
+    int count = 0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -88,6 +89,9 @@ class _exercisingState extends State<exercising> {
               isTimerTextShown: true,
               autoStart: true,
               onComplete: () {
+                if(items.length==1){
+                  Navigator.of(context).popUntil((route) => count++ == 1);
+                }
                 removeItem(0);
                 _controller.restart(duration: this.items[0].value);
               },
