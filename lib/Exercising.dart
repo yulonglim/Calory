@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/elements/exercise_card.dart';
 
-class MainWorkOutPage extends StatefulWidget {
+class exercising extends StatefulWidget {
+  final List<ExerciseItem> items;
+  final int? rest;
+  const exercising({Key? key, required this.items, this.rest})
+      : super(key: key);
+
   @override
-  _MainWorkOutPageState createState() => _MainWorkOutPageState();
+  _exercisingState createState() => _exercisingState();
 }
 
-class _MainWorkOutPageState extends State<MainWorkOutPage> {
+class _exercisingState extends State<exercising> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +26,6 @@ class _MainWorkOutPageState extends State<MainWorkOutPage> {
             Icons.arrow_back,
             color: Theme.of(context).secondaryHeaderColor,
           ),
-        ),
-        title: Text(
-          "Main Workout",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
       ),
     );

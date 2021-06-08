@@ -5,8 +5,14 @@ class CardButton extends StatelessWidget {
   final IconData iconData;
   final String buttonName;
   final Widget nextPage;
+  final String duration;
 
-  const CardButton({Key? key, required this.iconData, required this.buttonName, required this.nextPage})
+  const CardButton(
+      {Key? key,
+      required this.iconData,
+      required this.buttonName,
+      required this.nextPage,
+      required this.duration})
       : super(key: key);
 
   @override
@@ -23,7 +29,7 @@ class CardButton extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
           child: Container(
             alignment: Alignment.center,
-            child: Column(
+            child: Row(
               children: [
                 Icon(
                   iconData,
@@ -31,11 +37,24 @@ class CardButton extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
                 SizedBox(
-                  height: 24,
+                  width: 16,
                 ),
-                Text(
-                  buttonName,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      buttonName,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Duration: ' + this.duration,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
               ],
             ),
