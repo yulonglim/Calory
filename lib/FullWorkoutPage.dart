@@ -14,7 +14,7 @@ class FullWorkoutPage extends StatelessWidget {
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
-    while (temp > 0) {
+    while (temp >= 60) {
       temp -= 60;
       mins++;
     }

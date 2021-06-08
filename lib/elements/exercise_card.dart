@@ -15,7 +15,6 @@ class ExerciseCard extends StatelessWidget {
   final ExerciseItem item;
   final Animation<double> animation;
   final VoidCallback onClicked;
-  final CountDownController _controller2 = CountDownController();
 
   ExerciseCard(
       {Key? key,

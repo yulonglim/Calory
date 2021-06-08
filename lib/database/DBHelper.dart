@@ -120,4 +120,6 @@ class DBHelper {
 
     db.close();
   }
+
+  insert() {}
 }

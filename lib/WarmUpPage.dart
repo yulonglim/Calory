@@ -12,6 +12,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
   final listKey = GlobalKey<AnimatedListState>();
   final List<ExerciseItem> items = List.from(warmUpData);
 
+
   void removeItem(int index) {
     final removedItem = items[index];
     items.removeAt(index);
@@ -27,7 +28,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
-    while (temp > 0) {
+    while (temp >= 60) {
       temp -= 60;
       mins++;
     }
@@ -38,12 +39,17 @@ class _WarmUpPageState extends State<WarmUpPage> {
     int duration = 0;
     for (int counter = 0; counter < items.length; counter++) {
       duration += items[counter].value;
+      print(duration);
     }
     return durationMMSS(duration);
   }
 
   @override
   Widget build(BuildContext context) {
+    List<ExerciseItem> copyItems = <ExerciseItem>[];
+    for(int i = 0 ; i < items.length; i++){
+      copyItems.add(items[i]);
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -178,7 +184,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => exercising(items: this.items)),
+                      builder: (context) => exercising(items: copyItems)),
                 );
               },
               child: Container(
