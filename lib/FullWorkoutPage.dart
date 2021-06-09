@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/EndWorkOutPage.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
@@ -10,7 +11,9 @@ import 'WarmUpPage.dart';
 import 'elements/card_button.dart';
 
 class FullWorkoutPage extends StatelessWidget {
-  final List<ExerciseItem> items = List.from(warmUpData);
+  final List<ExerciseItem> WarmUpItems = List.from(warmUpData);
+  final List<ExerciseItem> CoolDownItems = List.from(coolDownData);
+  int restduration = 5;
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
@@ -23,8 +26,20 @@ class FullWorkoutPage extends StatelessWidget {
 
   String warmUpduration() {
     int duration = 0;
-    for (int counter = 0; counter < items.length; counter++) {
-      duration += items[counter].value;
+    for (int counter = 0; counter < WarmUpItems.length; counter++) {
+      duration += WarmUpItems[counter].durationBased
+          ? WarmUpItems[counter].value + restduration
+          : 60 + restduration;
+    }
+    return durationMMSS(duration);
+  }
+
+  String coolDownduration() {
+    int duration = 0;
+    for (int counter = 0; counter < CoolDownItems.length; counter++) {
+      duration += CoolDownItems[counter].durationBased
+          ? CoolDownItems[counter].value + restduration
+          : 60 + restduration;
     }
     return durationMMSS(duration);
   }
@@ -68,7 +83,7 @@ class FullWorkoutPage extends StatelessWidget {
                 iconData: Icons.ac_unit_outlined,
                 buttonName: "Cool Down",
                 nextPage: CoolDownPage(),
-                duration: warmUpduration(),
+                duration: coolDownduration(),
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

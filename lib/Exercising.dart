@@ -17,10 +17,11 @@ class _exercisingState extends State<exercising> {
   final listKey = GlobalKey<AnimatedListState>();
   final List<ExerciseItem> items;
   final int? rest;
+  List<ExerciseItem> temp = <ExerciseItem>[];
 
   void removeItem(int index) {
-    final removedItem = items[index];
-    items.removeAt(index);
+    final removedItem = temp[index];
+    temp.removeAt(index);
     listKey.currentState!.removeItem(
         index,
         (context, animation) => ExerciseCard(
@@ -30,7 +31,18 @@ class _exercisingState extends State<exercising> {
             ));
   }
 
-  _exercisingState(this.items, this.rest);
+  _exercisingState(List<ExerciseItem> items, this.rest) : items = items {
+    if (this.rest != null) {
+      int count2 = 0;
+      while (count2 < items.length) {
+        this.temp.add(this.items[count2]);
+        this.temp.add(ExerciseItem('Rest', rest!, true, 'Prepare for the next exercise or do some light stretching'));
+        count2 = count2 + 1;
+      }
+    } else {
+      this.temp = this.items;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +68,9 @@ class _exercisingState extends State<exercising> {
             child: AnimatedList(
               physics: NeverScrollableScrollPhysics(),
               key: listKey,
-              initialItemCount: items.length,
+              initialItemCount: temp.length,
               itemBuilder: (context, index, animation) => ExerciseCard(
-                item: items[index],
+                item: temp[index],
                 animation: animation,
                 onClicked: () => removeItem(index),
               ),
@@ -66,7 +78,7 @@ class _exercisingState extends State<exercising> {
           ),
           Center(
             child: CircularCountDownTimer(
-              duration: this.items[0].value,
+              duration: temp[0].durationBased ? temp[0].value : 60,
               initialDuration: 0,
               controller: _controller,
               width: MediaQuery.of(context).size.width / 2,
@@ -89,11 +101,14 @@ class _exercisingState extends State<exercising> {
               isTimerTextShown: true,
               autoStart: true,
               onComplete: () {
-                if(items.length==1){
+                if (temp.length == 1) {
                   Navigator.of(context).popUntil((route) => count++ == 1);
+                } else {
+                  removeItem(0);
+                  _controller.restart(
+                    duration: temp[0].durationBased ? temp[0].value : 60,
+                  );
                 }
-                removeItem(0);
-                _controller.restart(duration: this.items[0].value);
               },
             ),
           )

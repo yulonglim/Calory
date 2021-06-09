@@ -40,8 +40,12 @@ class ExerciseCard extends StatelessWidget {
               onTap: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text(item.title),
-                  content: Text(item.description),
+                  title: Text(item.title,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
+                  content: Text(item.description,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -58,6 +62,7 @@ class ExerciseCard extends StatelessWidget {
                     child: Text(
                       item.title,
                       style: TextStyle(
+                          fontWeight: FontWeight.w500,
                           fontSize: 24,
                           color: Theme.of(context).secondaryHeaderColor),
                     ),
@@ -93,8 +98,12 @@ class ExerciseCard extends StatelessWidget {
               onTap: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text(item.title),
-                  content: Text(item.description),
+                  title: Text(item.title,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
+                  content: Text(item.description,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -111,6 +120,7 @@ class ExerciseCard extends StatelessWidget {
                     child: Text(
                       item.title,
                       style: TextStyle(
+                          fontWeight: FontWeight.w500,
                           fontSize: 24,
                           color: Theme.of(context).secondaryHeaderColor),
                     ),

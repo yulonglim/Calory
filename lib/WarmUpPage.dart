@@ -11,7 +11,7 @@ class WarmUpPage extends StatefulWidget {
 class _WarmUpPageState extends State<WarmUpPage> {
   final listKey = GlobalKey<AnimatedListState>();
   final List<ExerciseItem> items = List.from(warmUpData);
-
+  int restDuration = 5;
 
   void removeItem(int index) {
     final removedItem = items[index];
@@ -38,8 +38,9 @@ class _WarmUpPageState extends State<WarmUpPage> {
   String totalduration() {
     int duration = 0;
     for (int counter = 0; counter < items.length; counter++) {
-      duration += items[counter].value;
-      print(duration);
+      duration += items[counter].durationBased
+          ? items[counter].value + restDuration
+          : 60 + restDuration;
     }
     return durationMMSS(duration);
   }
@@ -47,7 +48,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
   @override
   Widget build(BuildContext context) {
     List<ExerciseItem> copyItems = <ExerciseItem>[];
-    for(int i = 0 ; i < items.length; i++){
+    for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
     }
     return Scaffold(
@@ -86,11 +87,12 @@ class _WarmUpPageState extends State<WarmUpPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'No. of exercises',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.w500,
                               color: Theme.of(context).secondaryHeaderColor,
                             ),
@@ -112,9 +114,10 @@ class _WarmUpPageState extends State<WarmUpPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Sets',
+                            'Rest',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -122,7 +125,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                             ),
                           ),
                           Text(
-                            '1',
+                            restDuration.toString() + 's',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -138,6 +141,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Duration',
@@ -184,7 +188,8 @@ class _WarmUpPageState extends State<WarmUpPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => exercising(items: copyItems)),
+                      builder: (context) =>
+                          exercising(items: copyItems, rest: 5)),
                 );
               },
               child: Container(
