@@ -189,7 +189,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          exercising(items: copyItems, rest: 5)),
+                          exercising(items: copyItems, rest: restDuration)),
                 );
               },
               child: Container(

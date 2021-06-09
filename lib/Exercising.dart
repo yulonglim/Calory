@@ -15,6 +15,7 @@ class exercising extends StatefulWidget {
 class _exercisingState extends State<exercising> {
   CountDownController _controller = new CountDownController();
   final listKey = GlobalKey<AnimatedListState>();
+  final listKey2 = GlobalKey<AnimatedListState>();
   final List<ExerciseItem> items;
   final int? rest;
   List<ExerciseItem> temp = <ExerciseItem>[];
@@ -29,10 +30,17 @@ class _exercisingState extends State<exercising> {
               animation: animation,
               onClicked: () {},
             ));
+    listKey2.currentState!.removeItem(
+        index,
+            (context, animation) => ExerciseCard(
+          item: removedItem,
+          animation: animation,
+          onClicked: () {},
+        ));
   }
 
   _exercisingState(List<ExerciseItem> items, this.rest) : items = items {
-    if (this.rest != null) {
+    if (this.rest != null || this.rest == 0) {
       int count2 = 0;
       while (count2 < items.length) {
         this.temp.add(this.items[count2]);
@@ -81,18 +89,18 @@ class _exercisingState extends State<exercising> {
               duration: temp[0].durationBased ? temp[0].value : 60,
               initialDuration: 0,
               controller: _controller,
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.height * 0.5,
               ringColor: Theme.of(context).secondaryHeaderColor,
               ringGradient: null,
               fillColor: Theme.of(context).primaryColor,
               fillGradient: null,
               backgroundColor: Theme.of(context).primaryColor,
               backgroundGradient: null,
-              strokeWidth: 20.0,
+              strokeWidth: 24.0,
               strokeCap: StrokeCap.round,
               textStyle: TextStyle(
-                  fontSize: 33.0,
+                  fontSize: 40.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
               textFormat: CountdownTextFormat.S,
@@ -111,18 +119,33 @@ class _exercisingState extends State<exercising> {
                 }
               },
             ),
-          )
+          ),
+          Text('Next Exercise:',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.14,
+            child: AnimatedList(
+              physics: NeverScrollableScrollPhysics(),
+              key: listKey2,
+              initialItemCount: temp.length-1,
+              itemBuilder: (context, index, animation) => ExerciseCard(
+                item: temp[index+1],
+                animation: animation,
+                onClicked: () => removeItem(index),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            width: 16,
+            width: 32,
           ),
           _button(title: "Pause", onPressed: () => _controller.pause()),
           SizedBox(
-            width: 16,
+            width: 8,
           ),
           _button(title: "Resume", onPressed: () => _controller.resume()),
         ],
@@ -132,11 +155,14 @@ class _exercisingState extends State<exercising> {
 
   _button({required String title, VoidCallback? onPressed}) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.40,
+      height: MediaQuery.of(context).size.height * 0.05,
       child: ElevatedButton(
         child: Text(
           title,
-          style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
+          style: TextStyle(
+            fontSize: 24,
+              color: Theme.of(context).secondaryHeaderColor),
         ),
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,

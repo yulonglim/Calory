@@ -125,7 +125,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
                             ),
                           ),
                           Text(
-                            restDuration.toString(),
+                            restDuration.toString() + 's',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
@@ -189,7 +189,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          exercising(items: copyItems, rest: 5)),
+                          exercising(items: copyItems, rest: restDuration)),
                 );
               },
               child: Container(
