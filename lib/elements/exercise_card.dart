@@ -129,7 +129,7 @@ class ExerciseCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Text(
-                    'x ' + item.value.toString(),
+                    'x' + item.value.toString(),
                     style: TextStyle(
                         fontSize: 32,
                         color: Theme.of(context).secondaryHeaderColor),
