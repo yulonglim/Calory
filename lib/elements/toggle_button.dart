@@ -4,20 +4,23 @@ class MyToggleButtons extends StatefulWidget {
   final String _option1;
   final String _option2;
   final String _option3;
+  final Function result;
 
-  MyToggleButtons(this._option1, this._option2, this._option3);
+
+  MyToggleButtons(this._option1, this._option2, this._option3, this.result);
 
   @override
   _ToggleButtonsState createState() =>
-      _ToggleButtonsState(this._option1, this._option2, this._option3);
+      _ToggleButtonsState(this._option1, this._option2, this._option3, this.result);
 }
 
 class _ToggleButtonsState extends State<MyToggleButtons> {
   //set the initial state of each button whether it is selected or not
   List<bool> isSelected = [true, false, false];
   List<String> iconList = <String>[];
+  final Function result;
 
-  _ToggleButtonsState(String _option1, String _option2, String _option3) {
+  _ToggleButtonsState(String _option1, String _option2, String _option3, this.result) {
     iconList = [_option1, _option2, _option3];
   }
 
@@ -47,6 +50,7 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
                       indexBtn++) {
                     if (indexBtn == index) {
                       isSelected[indexBtn] = true;
+                      result(indexBtn);
                     } else {
                       isSelected[indexBtn] = false;
                     }

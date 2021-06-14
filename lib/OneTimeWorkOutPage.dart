@@ -46,7 +46,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Upper Body', 'Lower Body', 'Core')),
+                child: MyToggleButtons('Upper Body', 'Lower Body', 'Core',(x)=> 0)),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
@@ -54,7 +54,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Easy', 'Medium', 'Hard')),
+                child: MyToggleButtons('Easy', 'Medium', 'Hard',(x)=> 0)),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('How long would you like to exercise?',

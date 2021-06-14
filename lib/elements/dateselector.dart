@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 
 // Used for the 3 square buttons at the bottom of the HomePage
 class DateSelector extends StatefulWidget {
+  final Function result;
+
+  DateSelector(this.result);
+  
   @override
-  _DateSelectorState createState() => _DateSelectorState();
+  _DateSelectorState createState() => _DateSelectorState(result);
 }
 
 class _DateSelectorState extends State<DateSelector> {
   DateTime selectedDate = DateTime.now();
+  final Function result;
+
+  _DateSelectorState(this.result);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +56,7 @@ class _DateSelectorState extends State<DateSelector> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        result(selectedDate.toIso8601String());
       });
   }
 }

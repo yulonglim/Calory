@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/image_banner.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
 class GoalSetPage extends StatelessWidget {
+  late int goal;
+  late int difficultyLevel;
+  final String startDate = DateTime.now().toIso8601String();
+  late String endDate ;
+  final int multiplier = 1;
+  final int progress = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +48,8 @@ class GoalSetPage extends StatelessWidget {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Weight Loss', 'Strength', 'Endurance')),
+                child: MyToggleButtons(
+                    'Weight Loss', 'Strength', 'Endurance', (x) => this.goal = x)),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
@@ -48,7 +57,8 @@ class GoalSetPage extends StatelessWidget {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Easy', 'Medium', 'Hard')),
+                child:
+                    MyToggleButtons('Easy', 'Medium', 'Hard', (x) => this.difficultyLevel = x)),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('When will you reach your goal?',
@@ -56,7 +66,7 @@ class GoalSetPage extends StatelessWidget {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: DateSelector()),
+                child: DateSelector((x) => this.endDate = x)),
             Padding(
               padding: const EdgeInsets.all(45.0),
               child: SizedBox(
@@ -66,7 +76,17 @@ class GoalSetPage extends StatelessWidget {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
-                      await DBHelper.instance.insert();
+                      await DBHelper().insert(Goal(
+                          goal: goal,
+                          difficultyLevel: difficultyLevel,
+                          startDate: startDate,
+                          endDate: endDate,
+                          multiplier: multiplier,
+                          progress: progress));
+                      print(goal);
+                      print(difficultyLevel);
+                      print(endDate);
+                      Navigator.of(context).pop();
                     },
                     child: Text(
                       'Done',
