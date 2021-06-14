@@ -1,16 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/AppData/cool_down_data.dart';
+import 'package:flutter_app/AppData/warm_up_data.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
+import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 
 import '../FullWorkoutPage.dart';
 
-class todays_workout extends StatelessWidget {
-  bool planned = true;
-  bool done = false;
+class todays_workout extends StatefulWidget {
+  todays_workout();
+
+  @override
+  _todays_workoutState createState() => _todays_workoutState();
+}
+
+class _todays_workoutState extends State<todays_workout> {
+  late bool planned = false;
+  bool done = false; // get from exercise completion
+  final List<ExerciseItem> WarmUpItems = List.from(warmUpData);
+  final List<ExerciseItem> CoolDownItems = List.from(coolDownData);
+  late String difficulty ;
+
+  int restduration = 5;
+
+  String durationMMSS(int duration) {
+    int mins = 0;
+    int temp = duration;
+    while (temp >= 60) {
+      temp -= 60;
+      mins++;
+    }
+    return mins.toString() + 'm ' + temp.toString() + 's';
+  }
+
+  String totalduration() {
+    int duration = 0;
+    for (int counter = 0; counter < WarmUpItems.length; counter++) {
+      duration += WarmUpItems[counter].durationBased
+          ? WarmUpItems[counter].value + restduration
+          : 60 + restduration;
+    }
+    for (int counter = 0; counter < CoolDownItems.length; counter++) {
+      duration += CoolDownItems[counter].durationBased
+          ? CoolDownItems[counter].value + restduration
+          : 60 + restduration;
+    }
+    return durationMMSS(duration);
+  }
 
   @override
   Widget build(BuildContext context) {
+    DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty ? setState(() {planned = true;}) : null);
+    DBHelper().getGoals().then((value) => value.first.difficultyLevel == 0 ? this.difficulty = 'Easy' : value.first.difficultyLevel == 1 ? this.difficulty = 'Medium' : this.difficulty ='Hard');
     if (!planned) {
       return noPlan();
     }
@@ -50,8 +93,8 @@ class todays_workout extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      RectangleDisplay('Difficulty: eg'),
-                      RectangleDisplay('Duration: eg'),
+                      RectangleDisplay('Difficulty: ' + this.difficulty),
+                      RectangleDisplay('Duration: ' + totalduration()),
                     ],
                   )
                 ],

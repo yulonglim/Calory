@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/image_banner.dart';
+
 import 'package:flutter_app/elements/toggle_button.dart';
 
 class GoalSetPage extends StatelessWidget {
-  late int goal;
-  late int difficultyLevel;
+  late int goal = 0;
+  late int difficultyLevel = 0;
   final String startDate = DateTime.now().toIso8601String();
-  late String endDate ;
+  late String endDate = DateTime.now().toIso8601String();
   final int multiplier = 1;
   final int progress = 0;
 
@@ -21,7 +23,7 @@ class GoalSetPage extends StatelessWidget {
           elevation: 1,
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
             icon: Icon(
               Icons.arrow_back,
@@ -86,7 +88,7 @@ class GoalSetPage extends StatelessWidget {
                       print(goal);
                       print(difficultyLevel);
                       print(endDate);
-                      Navigator.of(context).pop();
+                      Navigator.pop(context,difficultyLevel);
                     },
                     child: Text(
                       'Done',

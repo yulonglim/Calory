@@ -42,8 +42,8 @@ class SquareButton extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => _nextpage),
           );

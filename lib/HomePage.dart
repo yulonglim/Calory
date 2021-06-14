@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
 import 'package:intl/intl.dart';
@@ -39,6 +40,7 @@ class Homepage extends StatelessWidget {
             "ExerciseLah!",
             style: TextStyle(fontSize: 32),
           ),
+          actions: [ElevatedButton(onPressed:() => DBHelper().deleteAll(), child: Text('delete'),)],
         ),
         body: Wrap(
           spacing: MediaQuery.of(context).size.height * 0.01,
