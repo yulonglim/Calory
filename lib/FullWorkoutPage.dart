@@ -27,9 +27,7 @@ class FullWorkoutPage extends StatelessWidget {
   String warmUpduration() {
     int duration = 0;
     for (int counter = 0; counter < WarmUpItems.length; counter++) {
-      duration += WarmUpItems[counter].durationBased
-          ? WarmUpItems[counter].value + restduration
-          : 60 + restduration;
+      duration += WarmUpItems[counter].exerciseTime;
     }
     return durationMMSS(duration);
   }
@@ -37,9 +35,7 @@ class FullWorkoutPage extends StatelessWidget {
   String coolDownduration() {
     int duration = 0;
     for (int counter = 0; counter < CoolDownItems.length; counter++) {
-      duration += CoolDownItems[counter].durationBased
-          ? CoolDownItems[counter].value + restduration
-          : 60 + restduration;
+      duration += CoolDownItems[counter].exerciseTime;
     }
     return durationMMSS(duration);
   }

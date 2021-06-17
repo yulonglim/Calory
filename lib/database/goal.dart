@@ -17,7 +17,6 @@ import 'dart:convert';
 // }
 
 class Goal {
-
   final int? goalId;
   final int goal;
   final int difficultyLevel;
@@ -74,9 +73,15 @@ class Goal {
     int multiplier = map['multiplier'];
     int progress = map['progress'];
 
-    return Goal(goalId: goalId,goal: goal, difficultyLevel: difficultyLevel, startDate: startDate, endDate: endDate, multiplier: multiplier, progress: progress);
+    return Goal(
+        goalId: goalId,
+        goal: goal,
+        difficultyLevel: difficultyLevel,
+        startDate: startDate,
+        endDate: endDate,
+        multiplier: multiplier,
+        progress: progress);
   }
-
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
@@ -102,6 +107,11 @@ class Goal {
 
   static Goal fromJsonEncoding(String jsonEncoding) {
     return fromMap(jsonDecode(jsonEncoding));
+  }
+
+  @override
+  String toString() {
+    return "goalId: $goalId, goal: $goal, difficulty: $difficultyLevel, startdate: $startDate, endDate: $endDate, multiplier $multiplier, progress $progress";
   }
   // Map<String, Object?> toJson() => {
   //   GoalFields.goalId: goalId,

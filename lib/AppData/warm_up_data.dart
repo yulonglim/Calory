@@ -3,8 +3,8 @@ import 'package:flutter_app/elements/exercise_card.dart';
 //warm ups are most likely going to be same throughout
 
 final List<ExerciseItem> warmUpData = [
-  ExerciseItem('Leg Swings', 20, true, 'description eg'),
-  ExerciseItem('Shoulder Rotations', 20, false, 'description eg'),
+  ExerciseItem('Leg Swings','description eg',20,20),
+  ExerciseItem('Shoulder Rotations','description eg',null,20),
   // ExerciseItem('Core Hold', 20, true, 'description eg'),
   // ExerciseItem('Lizard Stretch (Left)', 20, true, 'description eg'),
   // ExerciseItem('Pigeon Stretch (Left)', 20, true, 'description eg'),

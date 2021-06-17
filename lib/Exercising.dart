@@ -32,11 +32,11 @@ class _exercisingState extends State<exercising> {
             ));
     listKey2.currentState!.removeItem(
         index,
-            (context, animation) => ExerciseCard(
-          item: removedItem,
-          animation: animation,
-          onClicked: () {},
-        ));
+        (context, animation) => ExerciseCard(
+              item: removedItem,
+              animation: animation,
+              onClicked: () {},
+            ));
   }
 
   _exercisingState(List<ExerciseItem> items, this.rest) : items = items {
@@ -44,7 +44,11 @@ class _exercisingState extends State<exercising> {
       int count2 = 0;
       while (count2 < items.length) {
         this.temp.add(this.items[count2]);
-        this.temp.add(ExerciseItem('Rest', rest!, true, 'Prepare for the next exercise or do some light stretching'));
+        this.temp.add(ExerciseItem(
+            'Rest',
+            'Prepare for the next exercise or do some light stretching',
+            null,
+            rest!));
         count2 = count2 + 1;
       }
     } else {
@@ -86,7 +90,7 @@ class _exercisingState extends State<exercising> {
           ),
           Center(
             child: CircularCountDownTimer(
-              duration: temp[0].durationBased ? temp[0].value : 60,
+              duration: temp[0].exerciseTime,
               initialDuration: 0,
               controller: _controller,
               width: MediaQuery.of(context).size.width * 0.45,
@@ -114,22 +118,24 @@ class _exercisingState extends State<exercising> {
                 } else {
                   removeItem(0);
                   _controller.restart(
-                    duration: temp[0].durationBased ? temp[0].value : 60,
+                    duration: temp[0].exerciseTime,
                   );
                 }
               },
             ),
           ),
-          Text('Next Exercise:',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),),
+          Text(
+            'Next Exercise:',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.14,
             child: AnimatedList(
               physics: NeverScrollableScrollPhysics(),
               key: listKey2,
-              initialItemCount: temp.length-1,
+              initialItemCount: temp.length - 1,
               itemBuilder: (context, index, animation) => ExerciseCard(
-                item: temp[index+1],
+                item: temp[index + 1],
                 animation: animation,
                 onClicked: () => removeItem(index),
               ),
@@ -161,8 +167,7 @@ class _exercisingState extends State<exercising> {
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 24,
-              color: Theme.of(context).secondaryHeaderColor),
+              fontSize: 24, color: Theme.of(context).secondaryHeaderColor),
         ),
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,

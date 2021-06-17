@@ -1,18 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/GoalSetPage.dart';
+import 'package:flutter_app/GoalUpdatePage.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 
 // Used for the 2 square buttons at the bottom of the HomePage
 
-class SquareButton extends StatelessWidget {
+class GoalButton extends StatefulWidget {
   final IconData _icon;
-  final String _text1;
-  final String _text2;
-  final Widget _nextpage;
+  final String _text;
 
-  SquareButton(this._icon, this._text1, this._text2, this._nextpage);
+  GoalButton(this._icon, this._text);
+
+  @override
+  _GoalButtonState createState() => _GoalButtonState();
+}
+
+class _GoalButtonState extends State<GoalButton> {
+  late bool planned = false;
 
   @override
   Widget build(BuildContext context) {
+    DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
+        ? setState(() {
+            planned = true;
+          })
+        : null);
     return Center(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -21,19 +34,19 @@ class SquareButton extends StatelessWidget {
         child: Column(
           children: [
             Icon(
-              _icon,
+              widget._icon,
               size: 48,
             ),
             Column(
               children: [
                 Text(
-                  _text1,
+                  planned ? 'Update Your' : 'Set Your',
                   style: TextStyle(
                       fontSize: 24,
                       color: Theme.of(context).secondaryHeaderColor),
                 ),
                 Text(
-                  _text2,
+                  widget._text,
                   style: TextStyle(
                       fontSize: 24,
                       color: Theme.of(context).secondaryHeaderColor),
@@ -45,7 +58,12 @@ class SquareButton extends StatelessWidget {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => _nextpage),
+            MaterialPageRoute(builder: (context) {
+              if (planned) {
+                return GoalUpdatePage();
+              }
+              return GoalSetPage();
+            }),
           );
         },
       ),

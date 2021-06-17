@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/elements/goalbutton.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
 import 'package:intl/intl.dart';
 
-import './GoalSetPage.dart';
 import './ProgressPage.dart';
 
 class Homepage extends StatelessWidget {
@@ -40,7 +40,19 @@ class Homepage extends StatelessWidget {
             "ExerciseLah!",
             style: TextStyle(fontSize: 32),
           ),
-          actions: [ElevatedButton(onPressed:() => DBHelper().deleteAll(), child: Text('delete'),)],
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                DBHelper().deleteAll();
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Homepage()),
+                );
+              },
+              child: Text('Clear'),
+            )
+          ],
         ),
         body: Wrap(
           spacing: MediaQuery.of(context).size.height * 0.01,
@@ -70,9 +82,7 @@ class Homepage extends StatelessWidget {
               //buttons
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                //SquareButton(Icons.accessibility_new_sharp, 'Start a',
-                //    'Workout', PlannerPage()),
-                SquareButton(Icons.settings, 'Set your', 'Goal', GoalSetPage()),
+                GoalButton(Icons.settings, 'Goal'),
                 SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
                     ProgressPage()),
               ],

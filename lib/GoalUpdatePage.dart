@@ -7,17 +7,19 @@ import 'package:flutter_app/elements/image_banner.dart';
 
 import 'package:flutter_app/elements/toggle_button.dart';
 
-class GoalSetPage extends StatelessWidget {
+class GoalUpdatePage extends StatelessWidget {
   late int goal = 0;
   late int difficultyLevel = 0;
   final String startDate = DateTime.now().toIso8601String();
   late String endDate = DateTime.now().toIso8601String();
   final int multiplier = 1;
   final int progress = 0;
+  int? currentId = 0;
 
   @override
   Widget build(BuildContext context) {
     int count = 0;
+    DBHelper().getGoals().then((value) => currentId = value.first.goalId);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -37,7 +39,7 @@ class GoalSetPage extends StatelessWidget {
             ImageBanner("assets/images/reach_goal.jpg"),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: Text('Set Your Goal',
+              child: Text('Update Your Goal',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
             ),
             Divider(
@@ -79,7 +81,8 @@ class GoalSetPage extends StatelessWidget {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
-                      await DBHelper().insert(Goal(
+                      await DBHelper().updateGoal(Goal(
+                          goalId: this.currentId,
                           goal: goal,
                           difficultyLevel: difficultyLevel,
                           startDate: startDate,

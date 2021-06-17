@@ -10,8 +10,6 @@ import 'package:flutter_app/elements/rectangle_display.dart';
 import '../FullWorkoutPage.dart';
 
 class todays_workout extends StatefulWidget {
-  todays_workout();
-
   @override
   _todays_workoutState createState() => _todays_workoutState();
 }
@@ -21,9 +19,11 @@ class _todays_workoutState extends State<todays_workout> {
   bool done = false; // get from exercise completion
   final List<ExerciseItem> WarmUpItems = List.from(warmUpData);
   final List<ExerciseItem> CoolDownItems = List.from(coolDownData);
-  late String difficulty ;
+  late String difficulty = 'Error ';
 
   int restduration = 5;
+
+  _todays_workoutState();
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -38,22 +38,26 @@ class _todays_workoutState extends State<todays_workout> {
   String totalduration() {
     int duration = 0;
     for (int counter = 0; counter < WarmUpItems.length; counter++) {
-      duration += WarmUpItems[counter].durationBased
-          ? WarmUpItems[counter].value + restduration
-          : 60 + restduration;
+      duration += WarmUpItems[counter].exerciseTime + restduration;
     }
     for (int counter = 0; counter < CoolDownItems.length; counter++) {
-      duration += CoolDownItems[counter].durationBased
-          ? CoolDownItems[counter].value + restduration
-          : 60 + restduration;
+      duration += CoolDownItems[counter].exerciseTime + restduration;
     }
     return durationMMSS(duration);
   }
 
   @override
   Widget build(BuildContext context) {
-    DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty ? setState(() {planned = true;}) : null);
-    DBHelper().getGoals().then((value) => value.first.difficultyLevel == 0 ? this.difficulty = 'Easy' : value.first.difficultyLevel == 1 ? this.difficulty = 'Medium' : this.difficulty ='Hard');
+    DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
+        ? setState(() {
+            planned = true;
+          })
+        : null);
+    DBHelper().getGoals().then((value) => value.first.difficultyLevel == 0
+        ? this.difficulty = 'Easy'
+        : value.first.difficultyLevel == 1
+            ? this.difficulty = 'Medium'
+            : this.difficulty = 'Hard');
     if (!planned) {
       return noPlan();
     }

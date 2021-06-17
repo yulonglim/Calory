@@ -1,14 +1,13 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseItem {
   final String title;
   final String description;
-  final int value;
-  final bool durationBased;
+  final int? exerciseValue;
+  final int exerciseTime;
 
-  ExerciseItem(this.title, this.value, this.durationBased, this.description);
+  ExerciseItem(this.title, this.description, this.exerciseValue, this.exerciseTime);
 }
 
 class ExerciseCard extends StatelessWidget {
@@ -25,7 +24,7 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (item.durationBased) {
+    if (item.exerciseValue == null) {
       return SizeTransition(
         sizeFactor: animation,
         child: Container(
@@ -71,7 +70,7 @@ class ExerciseCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Text(
-                    item.value.toString() + 's',
+                    item.exerciseTime.toString() + 's',
                     style: TextStyle(
                         fontSize: 32,
                         color: Theme.of(context).secondaryHeaderColor),
@@ -129,7 +128,7 @@ class ExerciseCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Text(
-                    'x' + item.value.toString(),
+                    'x' + item.exerciseValue.toString(),
                     style: TextStyle(
                         fontSize: 32,
                         color: Theme.of(context).secondaryHeaderColor),

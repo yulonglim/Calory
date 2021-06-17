@@ -38,9 +38,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
   String totalduration() {
     int duration = 0;
     for (int counter = 0; counter < items.length; counter++) {
-      duration += items[counter].durationBased
-          ? items[counter].value + restDuration
-          : 60 + restDuration;
+      duration += items[counter].exerciseTime;
     }
     return durationMMSS(duration);
   }
