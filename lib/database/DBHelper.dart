@@ -5,10 +5,16 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'goal.dart';
+import 'workout.dart';
+import 'exercise.dart';
+import 'feedbacks.dart';
 //import 'package:sqflite_database_example/model/note.dart';
 
 class DBHelper {
   static const String tableGoals = 'goals';
+  static const String tableWorkouts = 'workouts';
+  static const String tableExercises = 'exercises';
+  static const String tableFeedback = 'feedback';
 
   DBHelper._();
 
@@ -30,15 +36,65 @@ class DBHelper {
     WidgetsFlutterBinding.ensureInitialized();
 
     return openDatabase(join(await getDatabasesPath(), 'calory.db'), version: 1,
-        onCreate: (db, version) {
-          return db.execute(
-              "CREATE TABLE $tableGoals(goalId INTEGER PRIMARY KEY AUTOINCREMENT, goal INTEGER, difficultyLevel INTEGER, startDate TEXT, endDate TEXT, multiplier INTEGER, progress INTEGER)");
+        onCreate: (db, version) async {
+          await db.execute(
+              "CREATE TABLE $tableGoals("
+                  "goalId INTEGER PRIMARY KEY AUTOINCREMENT, "
+                  "goal INTEGER, "
+                  "difficultyLevel INTEGER, "
+                  "startDate TEXT, "
+                  "endDate TEXT, "
+                  "multiplier INTEGER, "
+                  "progress INTEGER)"
+          );
+          await db.execute(
+              "CREATE TABLE $tableWorkouts ("
+                  "goalId INTEGER, "
+                  "workoutId INTEGER PRIMARY KEY AUTOINCREMENT,"
+                  "muscleGroup INTEGER,"
+                  "difficultyLevel INTEGER,"
+                  "workoutDate STRING,"
+                  "workoutDuration INTEGER,"
+                  "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))"
+          );
+          print("hello");
+          await db.execute(
+              "CREATE TABLE $tableExercises ("
+                  "workoutId INTEGER ,"
+                  "exerciseId INTEGER PRIMARY KEY AUTOINCREMENT,"
+                  "exerciseValue INTEGER,"
+                  "exerciseTime INTEGER,"
+                  "FOREIGN KEY (workoutId) REFERENCES $tableWorkouts (workoutId))"
+          );
+
+          await db.execute(
+              "CREATE TABLE $tableFeedback ("
+                  "workoutId INTEGER,"
+                  "feedback INTEGER,"
+                  "FOREIGN KEY (workoutId) REFERENCES $tableWorkouts (workoutId))"
+          );
+
         });
   }
 
-  Future<void> insert(Goal goal) async {
+  Future<void> insertGoal(Goal goal) async {
     Database db = await database;
     await db.insert(tableGoals, goal.toMap());
+  }
+
+  Future<void> insertWorkout(Workout workout) async {
+    Database db = await database;
+    await db.insert(tableWorkouts, workout.toMap());
+  }
+
+  Future<void> insertExercise(Exercise exercise) async {
+    Database db = await database;
+    await db.insert(tableExercises, exercise.toMap());
+  }
+
+  Future<void> insertFeedback(Feedbacks feedback) async {
+    Database db = await database;
+    await db.insert(tableFeedback, feedback.toMap());
   }
 
   Future<List<Goal>> getGoals() async {
@@ -74,6 +130,21 @@ class DBHelper {
       await db.delete(
         tableGoals,
         where: "goalId = ?",
+        whereArgs: [i],
+      );
+      await db.delete(
+        tableWorkouts,
+        where: "workoutId = ?",
+        whereArgs: [i],
+      );
+      await db.delete(
+        tableExercises,
+        where: "exerciseId = ?",
+        whereArgs: [i],
+      );
+      await db.delete(
+        tableFeedback,
+        where: "workoutId = ?",
         whereArgs: [i],
       );
     }

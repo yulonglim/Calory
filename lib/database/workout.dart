@@ -4,7 +4,7 @@ class Workout {
 
   final int? goalId;
   final int workoutId;
-  final String muscleGroup;
+  final int muscleGroup;
   final int difficultyLevel;
   final String workoutDate;
   final int workoutDuration;
@@ -21,7 +21,7 @@ class Workout {
   static Workout fromMap(Map<String, dynamic> map) {
     int goalId = map['goalId'];
     int workoutId = map['workoutId'];
-    String muscleGroup = map['muscleGroup'];
+    int muscleGroup = map['muscleGroup'];
     int difficultyLevel = map['difficultyLevel'];
     String workoutDate = map['workoutDate'];
     int workoutDuration = map['workoutDuration'];

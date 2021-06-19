@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/exercise.dart';
 import 'package:flutter_app/database/goal.dart';
+import 'package:flutter_app/database/workout.dart';
 import 'package:flutter_app/elements/dateselector.dart';
 import 'package:flutter_app/elements/image_banner.dart';
 
@@ -79,13 +81,14 @@ class GoalSetPage extends StatelessWidget {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
-                      await DBHelper().insert(Goal(
+                      await DBHelper().insertGoal(Goal(
                           goal: goal,
                           difficultyLevel: difficultyLevel,
                           startDate: startDate,
                           endDate: endDate,
                           multiplier: multiplier,
-                          progress: progress));
+                          progress: progress)
+                      );
                       //This is to refresh the homepage with the new goal data
                       Navigator.popUntil(context, (route) {
                         return count++ == 2;

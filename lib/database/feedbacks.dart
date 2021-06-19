@@ -1,20 +1,20 @@
 import 'dart:convert';
 
-class Feedback {
+class Feedbacks {
 
   final int workoutId;
   final int feedback;
 
-  const Feedback({
+  const Feedbacks({
     required this.workoutId,
     required this.feedback
   });
 
-  static Feedback fromMap(Map<String, dynamic> map) {
+  static Feedbacks fromMap(Map<String, dynamic> map) {
     int workoutId = map['workoutId'];
     int feedback = map['feedback'];
 
-    return Feedback(
+    return Feedbacks(
         workoutId: workoutId,
         feedback: feedback);
   }
@@ -32,7 +32,7 @@ class Feedback {
     return jsonEncode(this.toMap());
   }
 
-  static Feedback fromJsonEncoding(String jsonEncoding) {
+  static Feedbacks fromJsonEncoding(String jsonEncoding) {
     return fromMap(jsonDecode(jsonEncoding));
   }
 
