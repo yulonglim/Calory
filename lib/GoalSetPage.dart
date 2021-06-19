@@ -19,7 +19,6 @@ class GoalSetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int count = 0;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -90,6 +89,7 @@ class GoalSetPage extends StatelessWidget {
                           progress: progress)
                       );
                       //This is to refresh the homepage with the new goal data
+                      int count = 0;
                       Navigator.popUntil(context, (route) {
                         return count++ == 2;
                       });

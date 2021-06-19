@@ -50,14 +50,14 @@ class _todays_workoutState extends State<todays_workout> {
   Widget build(BuildContext context) {
     DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
         ? setState(() {
+            value.first.difficultyLevel == 0
+                ? this.difficulty = 'Easy'
+                : value.first.difficultyLevel == 1
+                    ? this.difficulty = 'Medium'
+                    : this.difficulty = 'Hard';
             planned = true;
           })
         : null);
-    DBHelper().getGoals().then((value) => value.first.difficultyLevel == 0
-        ? this.difficulty = 'Easy'
-        : value.first.difficultyLevel == 1
-            ? this.difficulty = 'Medium'
-            : this.difficulty = 'Hard');
     if (!planned) {
       return noPlan();
     }

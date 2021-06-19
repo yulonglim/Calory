@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/database/DBHelper.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'AppData/Event.dart';
@@ -17,6 +19,10 @@ class _ProgressPageState extends State<ProgressPage> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  late DateTime startDate = DateTime.now();
+  late DateTime endDate = DateTime.now();
+  late String difficulty = 'Error';
+
 
   @override
   void initState() {
@@ -75,8 +81,41 @@ class _ProgressPageState extends State<ProgressPage> {
     }
   }
 
+  String dateTime() {
+    String day;
+    String month = DateFormat.MMMM().format(DateTime.now());
+    String year = DateTime.now().year.toString();
+
+    if (DateTime.now().day == 11 ||
+        DateTime.now().day == 12 ||
+        DateTime.now().day == 13) {
+      day = DateTime.now().day.toString() + "th";
+    } else if (DateTime.now().day % 10 == 1) {
+      day = DateTime.now().day.toString() + "st";
+    } else if (DateTime.now().day % 10 == 2) {
+      day = DateTime.now().day.toString() + "nd";
+    } else if (DateTime.now().day % 10 == 3) {
+      day = DateTime.now().day.toString() + "rd";
+    } else {
+      day = DateTime.now().day.toString() + "th";
+    }
+
+    return day + " " + month + " " + year;
+  }
+
   @override
   Widget build(BuildContext context) {
+    DBHelper().getGoals().then((value) => value.isNotEmpty
+        ? setState(() {
+      value.first.difficultyLevel == 0
+          ? this.difficulty = 'Easy'
+          : value.first.difficultyLevel == 1
+          ? this.difficulty = 'Medium'
+          : this.difficulty = 'Hard';
+      this.startDate = DateTime.parse(value.first.startDate);
+      this.endDate = DateTime.parse(value.first.endDate);
+    })
+        : null);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -180,7 +219,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    "null",
+                    DateFormat.MMMM().format(startDate) +" "+ startDate.day.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -201,7 +240,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    "null",
+                    DateFormat.MMMM().format(endDate) +" "+ endDate.day.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -222,7 +261,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    "null",
+                    difficulty,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -243,7 +282,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    "null",
+                    endDate.difference(DateTime.now()).inDays.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
