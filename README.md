@@ -57,3 +57,7 @@ More suitable for athletes with the discipline to keep up with regular trainings
 - Habit Tracker
 Helps to track habits, which can include exercise. However, these apps do not recommend exercise routines for the user to reduce the friction for them to begin exercising
 
+Tech Stack:
+- Flutter
+- Dart
+- SQLite
