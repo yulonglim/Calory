@@ -14,7 +14,7 @@ class GoalSetPage extends StatelessWidget {
   late int difficultyLevel = 0;
   final String startDate = DateTime.now().toIso8601String();
   late String endDate = DateTime.now().toIso8601String();
-  final int multiplier = 1;
+  final int multiplier = 20;
   final int progress = 0;
 
   @override
@@ -85,7 +85,7 @@ class GoalSetPage extends StatelessWidget {
                           difficultyLevel: difficultyLevel,
                           startDate: startDate,
                           endDate: endDate,
-                          multiplier: multiplier,
+                          multiplier: multiplier + difficultyLevel * 20,
                           progress: progress)
                       );
                       //This is to refresh the homepage with the new goal data

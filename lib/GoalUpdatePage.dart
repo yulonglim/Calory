@@ -10,16 +10,14 @@ import 'package:flutter_app/elements/toggle_button.dart';
 class GoalUpdatePage extends StatelessWidget {
   late int goal = 0;
   late int difficultyLevel = 0;
-  final String startDate = DateTime.now().toIso8601String();
   late String endDate = DateTime.now().toIso8601String();
-  final int multiplier = 1;
   final int progress = 0;
-  int? currentId = 0;
+  late Goal currentGoal;
 
   @override
   Widget build(BuildContext context) {
     int count = 0;
-    DBHelper().getGoals().then((value) => currentId = value.first.goalId);
+    DBHelper().getGoals().then((value) => currentGoal = value.first);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -82,12 +80,12 @@ class GoalUpdatePage extends StatelessWidget {
                     ),
                     onPressed: () async {
                       await DBHelper().updateGoal(Goal(
-                          goalId: this.currentId,
+                          goalId: currentGoal.goalId,
                           goal: goal,
                           difficultyLevel: difficultyLevel,
-                          startDate: startDate,
+                          startDate: currentGoal.startDate,
                           endDate: endDate,
-                          multiplier: multiplier,
+                          multiplier: 20 + difficultyLevel * 20,
                           progress: progress));
                       //This is to refresh the homepage with the new goal data
                       Navigator.popUntil(context, (route) {

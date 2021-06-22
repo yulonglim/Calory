@@ -42,8 +42,10 @@ class Homepage extends StatelessWidget {
           ),
           actions: [
             ElevatedButton(
-              onPressed: () {
-                DBHelper().deleteAll();
+              onPressed: () async {
+                int? currentID = 0;
+                await DBHelper().getGoals().then((value) => currentID = value.isNotEmpty ? value.first.goalId : 0);
+                DBHelper().deleteGoal(currentID!);
                 Navigator.pop(context);
                 Navigator.push(
                   context,

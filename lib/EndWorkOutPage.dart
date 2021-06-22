@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/HomePage.dart';
+import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/goal.dart';
 
 class EndWorkOutPage extends StatefulWidget {
   const EndWorkOutPage({Key? key}) : super(key: key);
@@ -8,7 +11,7 @@ class EndWorkOutPage extends StatefulWidget {
 }
 
 class EndWorkOutPageState extends State<EndWorkOutPage> {
-  double _currentSliderValue = 0;
+  double _currentSliderValue = 2;
 
   String? feedback(i) {
     switch (i.round()) {
@@ -74,9 +77,34 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   style: ElevatedButton.styleFrom(
                     primary: Theme.of(context).primaryColor,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    dynamic currentGoal;
+                    await DBHelper()
+                        .getGoals()
+                        .then((value) => currentGoal = value.first);
+                    await DBHelper().updateGoal(Goal(
+                        goalId: currentGoal.goalId,
+                        goal: currentGoal.goal,
+                        difficultyLevel: currentGoal.multiplier +
+                                    5 -
+                                    _currentSliderValue.round() * 2 >
+                                60
+                            ? 2
+                            : currentGoal.multiplier +
+                                        5 -
+                                        _currentSliderValue.round() * 2 >
+                                    40
+                                ? 1
+                                : 0,
+                        startDate: currentGoal.startDate,
+                        endDate: currentGoal.endDate,
+                        multiplier: currentGoal.multiplier +
+                            5 -
+                            _currentSliderValue.round() * 2,
+                        progress: currentGoal.progress));
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
                   },
                   child: Text(
                     'Done',
