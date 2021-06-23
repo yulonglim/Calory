@@ -16,7 +16,10 @@ class StartPage extends StatelessWidget{
                 primary: Theme.of(context).primaryColor,
               ),
               onPressed: () async {
-                await DBHelper().insertUpperBodyData(upperBodyData);
+                await DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData);
+                await DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData);
+                await DBHelper().insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData);
+                await DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData);
                 //Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,

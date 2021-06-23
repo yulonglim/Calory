@@ -12,7 +12,11 @@ import 'workout.dart';
 class DBHelper {
   static const String tableGoals = 'goals';
   static const String tableWorkouts = 'workouts';
+
   static const String tableUpperBody = 'upperBodyData';
+  static const String tableLowerBody = 'lowerBodyData';
+  static const String tableCoreExercise = 'coreExerciseData';
+  static const String tableCardio = 'cardioData';
 
   DBHelper._();
 
@@ -58,36 +62,35 @@ class DBHelper {
           "exerciseTime INTEGER, "
           "exerciseName STRING,"
           "exerciseDescription STRING)");
-/*
 
-          await db.execute(
-              "CREATE TABLE lowerBodyData("
-                  "exerciseId STRING PRIMARY KEY, "
-                  "exerciseValue INTEGER, "
-                  "exerciseTime INTEGER, "
-                  "exerciseName STRING,"
-                  "exerciseDescription STRING"
-          );
 
-          await db.execute(
-              "CREATE TABLE coreData("
-                  "exerciseId STRING PRIMARY KEY, "
-                  "exerciseValue INTEGER, "
-                  "exerciseTime INTEGER, "
-                  "exerciseName STRING,"
-                  "exerciseDescription STRING"
-          );
+      await db.execute(
+          "CREATE TABLE $tableLowerBody("
+              "exerciseId STRING PRIMARY KEY, "
+              "exerciseValue INTEGER, "
+              "exerciseTime INTEGER, "
+              "exerciseName STRING,"
+              "exerciseDescription STRING)"
+      );
 
-          await db.execute(
-              "CREATE TABLE cardioData("
-                  "exerciseId STRING PRIMARY KEY, "
-                  "exerciseValue INTEGER, "
-                  "exerciseTime INTEGER, "
-                  "exerciseName STRING,"
-                  "exerciseDescription STRING"
-          );
+      await db.execute(
+          "CREATE TABLE $tableCoreExercise("
+              "exerciseId STRING PRIMARY KEY, "
+              "exerciseValue INTEGER, "
+              "exerciseTime INTEGER, "
+              "exerciseName STRING,"
+              "exerciseDescription STRING)"
+      );
 
- */
+      await db.execute(
+          "CREATE TABLE $tableCardio("
+              "exerciseId STRING PRIMARY KEY, "
+              "exerciseValue INTEGER, "
+              "exerciseTime INTEGER, "
+              "exerciseName STRING,"
+              "exerciseDescription STRING)"
+      );
+
     });
   }
 
@@ -101,13 +104,13 @@ class DBHelper {
     await db.insert(tableWorkouts, workout.toMap());
   }
 
-  Future<void> insertUpperBodyData(List<exerciseData> exerciseList) async {
+  Future<void> insertExerciseData(String table, List<exerciseData> exerciseList) async {
     Database db = await database;
     var count = Sqflite.firstIntValue(
-        await db.rawQuery('SELECT COUNT(*) FROM $tableUpperBody'));
+        await db.rawQuery('SELECT COUNT(*) FROM ' + table));
     if (count == 0) {
       for (int i = 0; i < exerciseList.length; i++) {
-        await db.insert(tableUpperBody, exerciseList[i].toMap());
+        await db.insert(table, exerciseList[i].toMap());
       }
     }
   }
