@@ -47,6 +47,7 @@ class DBHelper {
           "endDate TEXT, "
           "multiplier INTEGER, "
           "progress INTEGER)");
+
       await db.execute("CREATE TABLE $tableWorkouts ("
           "goalId INTEGER, "
           "workoutId INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -54,6 +55,7 @@ class DBHelper {
           "difficultyLevel INTEGER,"
           "workoutDate STRING,"
           "workoutDuration INTEGER,"
+          "status INTEGER,"
           "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))");
 
       await db.execute("CREATE TABLE $tableUpperBody("

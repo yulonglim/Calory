@@ -8,6 +8,7 @@ class Workout {
   final int difficultyLevel;
   final String workoutDate;
   final int workoutDuration;
+  final int status; //Acts like a boolean with value of 0 (incomplete) or 1 (complete)
 
   const Workout({
     this.goalId,
@@ -16,6 +17,7 @@ class Workout {
     required this.difficultyLevel,
     required this.workoutDate,
     required this.workoutDuration,
+    this.status = 0
   });
 
   static Workout fromMap(Map<String, dynamic> map) {
@@ -25,13 +27,15 @@ class Workout {
     int difficultyLevel = map['difficultyLevel'];
     String workoutDate = map['workoutDate'];
     int workoutDuration = map['workoutDuration'];
+    int status = map['status'];
 
     return Workout(goalId: goalId,
                   workoutId: workoutId,
                   muscleGroup: muscleGroup,
                   difficultyLevel: difficultyLevel,
                   workoutDate: workoutDate,
-                  workoutDuration: workoutDuration);
+                  workoutDuration: workoutDuration,
+                  status: status);
   }
 
 
@@ -43,6 +47,7 @@ class Workout {
       'difficultyLevel': difficultyLevel,
       'workoutDate': workoutDate,
       'workoutDuration': workoutDuration,
+      'status': status
     };
 
     if (this.goalId != null) {
