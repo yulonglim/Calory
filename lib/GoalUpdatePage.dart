@@ -70,39 +70,39 @@ class GoalUpdatePage extends StatelessWidget {
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: DateSelector((x) => this.endDate = x)),
-            Padding(
-              padding: const EdgeInsets.all(45.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.92,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.92,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () async {
+                    await DBHelper().updateGoal(Goal(
+                        goalId: currentGoal.goalId,
+                        goal: goal,
+                        difficultyLevel: difficultyLevel,
+                        startDate: currentGoal.startDate,
+                        endDate: endDate,
+                        multiplier: 20 + difficultyLevel * 20,
+                        progress: progress));
+                    //This is to refresh the homepage with the new goal data
+                    Navigator.popUntil(context, (route) {
+                      return count++ == 2;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Homepage()),
+                    );
+                  },
+                  child: Text(
+                    'Done',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
-                    onPressed: () async {
-                      await DBHelper().updateGoal(Goal(
-                          goalId: currentGoal.goalId,
-                          goal: goal,
-                          difficultyLevel: difficultyLevel,
-                          startDate: currentGoal.startDate,
-                          endDate: endDate,
-                          multiplier: 20 + difficultyLevel * 20,
-                          progress: progress));
-                      //This is to refresh the homepage with the new goal data
-                      Navigator.popUntil(context, (route) {
-                        return count++ == 2;
-                      });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
-                      );
-                    },
-                    child: Text(
-                      'Done',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    )),
-              ),
+                  )),
             ),
           ],
         ));

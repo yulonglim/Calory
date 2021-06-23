@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/workout.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -21,12 +24,35 @@ class _ProgressPageState extends State<ProgressPage> {
   DateTime? _rangeEnd;
   late DateTime startDate = DateTime.now();
   late DateTime endDate = DateTime.now();
-  late String difficulty = 'Error';
-
+  late String difficulty = 'Not Set';
+  late List<Workout> workouts = [];
+  late Map<DateTime, List<Event>> _kEventSource = new Map();
+  late LinkedHashMap<DateTime, List<Event>> kEvents = new LinkedHashMap();
 
   @override
   void initState() {
     super.initState();
+    DBHelper().getWorkOut().then((value) => workouts = value);
+    DBHelper().getGoals().then((value) => value.isNotEmpty
+        ? setState(() {
+            value.first.difficultyLevel == 0
+                ? this.difficulty = 'Easy'
+                : value.first.difficultyLevel == 1
+                    ? this.difficulty = 'Medium'
+                    : this.difficulty = 'Hard';
+            this.startDate = DateTime.parse(value.first.startDate);
+            this.endDate = DateTime.parse(value.first.endDate);
+            this._kEventSource = Map.fromIterable(workouts,
+                key: (item) => DateTime.parse(item.workoutDate),
+                value: (item) => [
+                      Event('Did workout'),
+                    ]);
+            this.kEvents = LinkedHashMap<DateTime, List<Event>>(
+              equals: isSameDay,
+              hashCode: getHashCode,
+            )..addAll(_kEventSource);
+          })
+        : null);
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -105,17 +131,6 @@ class _ProgressPageState extends State<ProgressPage> {
 
   @override
   Widget build(BuildContext context) {
-    DBHelper().getGoals().then((value) => value.isNotEmpty
-        ? setState(() {
-      value.first.difficultyLevel == 0
-          ? this.difficulty = 'Easy'
-          : value.first.difficultyLevel == 1
-          ? this.difficulty = 'Medium'
-          : this.difficulty = 'Hard';
-      this.startDate = DateTime.parse(value.first.startDate);
-      this.endDate = DateTime.parse(value.first.endDate);
-    })
-        : null);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -184,10 +199,11 @@ class _ProgressPageState extends State<ProgressPage> {
                   rangeHighlightColor: Theme.of(context).primaryColor,
                   markerDecoration: BoxDecoration(
                     color: Colors.green,
-                    shape: BoxShape.circle,),
-                      // image: DecorationImage(
-                      //     fit: BoxFit.fill,
-                      //     image: AssetImage('assets/images/check-mark.png'))),
+                    shape: BoxShape.circle,
+                  ),
+                  // image: DecorationImage(
+                  //     fit: BoxFit.fill,
+                  //     image: AssetImage('assets/images/check-mark.png'))),
                   outsideDaysVisible: false,
                 ),
                 onDaySelected: _onDaySelected,
@@ -219,7 +235,9 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    DateFormat.MMMM().format(startDate) +" "+ startDate.day.toString(),
+                    DateFormat.MMMM().format(startDate) +
+                        " " +
+                        startDate.day.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -240,7 +258,9 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    DateFormat.MMMM().format(endDate) +" "+ endDate.day.toString(),
+                    DateFormat.MMMM().format(endDate) +
+                        " " +
+                        endDate.day.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

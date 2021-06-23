@@ -3,7 +3,7 @@ import 'dart:convert';
 class Workout {
 
   final int? goalId;
-  final int workoutId;
+  final int? workoutId;
   final int muscleGroup;
   final int difficultyLevel;
   final String workoutDate;
@@ -11,7 +11,7 @@ class Workout {
 
   const Workout({
     this.goalId,
-    required this.workoutId,
+    this.workoutId,
     required this.muscleGroup,
     required this.difficultyLevel,
     required this.workoutDate,
@@ -47,6 +47,9 @@ class Workout {
 
     if (this.goalId != null) {
       map['goalId'] = this.goalId;
+    }
+    if (this.workoutId != null) {
+      map['workoutId'] = this.workoutId;
     }
 
     return map;

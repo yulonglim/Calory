@@ -18,7 +18,7 @@ class StartPage extends StatelessWidget{
               onPressed: () async {
                 await DBHelper().insertUpperBodyData(upperBodyData);
                 //Navigator.pop(context);
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Homepage()),

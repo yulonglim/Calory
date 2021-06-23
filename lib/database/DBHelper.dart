@@ -35,35 +35,29 @@ class DBHelper {
 
     return openDatabase(join(await getDatabasesPath(), 'calory.db'), version: 3,
         onCreate: (db, version) async {
-          await db.execute(
-              "CREATE TABLE $tableGoals("
-                  "goalId INTEGER PRIMARY KEY AUTOINCREMENT, "
-                  "goal INTEGER, "
-                  "difficultyLevel INTEGER, "
-                  "startDate TEXT, "
-                  "endDate TEXT, "
-                  "multiplier INTEGER, "
-                  "progress INTEGER)"
-          );
-          await db.execute(
-              "CREATE TABLE $tableWorkouts ("
-                  "goalId INTEGER, "
-                  "workoutId INTEGER PRIMARY KEY AUTOINCREMENT,"
-                  "muscleGroup INTEGER,"
-                  "difficultyLevel INTEGER,"
-                  "workoutDate STRING,"
-                  "workoutDuration INTEGER,"
-                  "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))"
-          );
+      await db.execute("CREATE TABLE $tableGoals("
+          "goalId INTEGER PRIMARY KEY AUTOINCREMENT, "
+          "goal INTEGER, "
+          "difficultyLevel INTEGER, "
+          "startDate TEXT, "
+          "endDate TEXT, "
+          "multiplier INTEGER, "
+          "progress INTEGER)");
+      await db.execute("CREATE TABLE $tableWorkouts ("
+          "goalId INTEGER, "
+          "workoutId INTEGER PRIMARY KEY AUTOINCREMENT,"
+          "muscleGroup INTEGER,"
+          "difficultyLevel INTEGER,"
+          "workoutDate STRING,"
+          "workoutDuration INTEGER,"
+          "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))");
 
-          await db.execute(
-              "CREATE TABLE $tableUpperBody("
-                  "exerciseId STRING PRIMARY KEY, "
-                  "exerciseValue INTEGER, "
-                  "exerciseTime INTEGER, "
-                  "exerciseName STRING,"
-                  "exerciseDescription STRING)"
-          );
+      await db.execute("CREATE TABLE $tableUpperBody("
+          "exerciseId STRING PRIMARY KEY, "
+          "exerciseValue INTEGER, "
+          "exerciseTime INTEGER, "
+          "exerciseName STRING,"
+          "exerciseDescription STRING)");
 /*
 
           await db.execute(
@@ -94,8 +88,7 @@ class DBHelper {
           );
 
  */
-
-        });
+    });
   }
 
   Future<void> insertGoal(Goal goal) async {
@@ -108,10 +101,10 @@ class DBHelper {
     await db.insert(tableWorkouts, workout.toMap());
   }
 
-
   Future<void> insertUpperBodyData(List<exerciseData> exerciseList) async {
     Database db = await database;
-    var count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tableUpperBody'));
+    var count = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $tableUpperBody'));
     if (count == 0) {
       for (int i = 0; i < exerciseList.length; i++) {
         await db.insert(tableUpperBody, exerciseList[i].toMap());
@@ -124,9 +117,19 @@ class DBHelper {
     final List<Map<String, Object?>> maps = await db.query(tableGoals);
 
     List<Goal> goals =
-    List.generate(maps.length, (index) => Goal.fromMap(maps[index]));
+        List.generate(maps.length, (index) => Goal.fromMap(maps[index]));
 
     return goals;
+  }
+
+  Future<List<Workout>> getWorkOut() async {
+    final Database db = await database;
+    final List<Map<String, Object?>> maps = await db.query(tableWorkouts);
+
+    List<Workout> workout =
+        List.generate(maps.length, (index) => Workout.fromMap(maps[index]));
+
+    return workout;
   }
 
   Future<void> updateGoal(Goal goal) async {
@@ -138,6 +141,7 @@ class DBHelper {
       whereArgs: [goal.goalId],
     );
   }
+
   Future<void> deleteGoal(int goalId) async {
     Database db = await database;
     await db.delete(
@@ -146,6 +150,18 @@ class DBHelper {
       whereArgs: [goalId],
     );
   }
+
+  Future<void> deleteAllWorkOuts() async {
+    Database db = await database;
+    for (int i = 0; i < 100; i++) {
+      await db.delete(
+        tableWorkouts,
+        where: "goalId = ?",
+        whereArgs: [i],
+      );
+    }
+  }
+
   Future<void> deleteAll() async {
     Database db = await database;
     for (int i = 0; i < 100; i++) {
@@ -161,5 +177,4 @@ class DBHelper {
       );
     }
   }
-
 }

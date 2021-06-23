@@ -20,13 +20,25 @@ class noPlan extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "You have not set a goal!",
-                style: TextStyle(
-                  //color: Theme.of(context).primaryColor,
-                  fontSize: 40,
-                ),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    "You have not",
+                    style: TextStyle(
+                      //color: Theme.of(context).primaryColor,
+                      fontSize: 48,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "set a goal!",
+                    style: TextStyle(
+                      //color: Theme.of(context).primaryColor,
+                      fontSize: 48,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -41,7 +53,7 @@ class noPlan extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.55,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor,
@@ -53,12 +65,23 @@ class noPlan extends StatelessWidget {
                                   builder: (context) => OneTimeWorkOut()),
                             );
                           },
-                          child: Text(
-                            'Start a one-time workout',
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
-                            textAlign: TextAlign.center,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Start a',
+                                style: TextStyle(
+                                  fontSize: 32,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                'one-time workout',
+                                style: TextStyle(
+                                  fontSize: 32,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           )),
                     ),
                   ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
+import 'package:flutter_app/database/workout.dart';
 
 class EndWorkOutPage extends StatefulWidget {
   const EndWorkOutPage({Key? key}) : super(key: key);
@@ -102,9 +103,16 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                             5 -
                             _currentSliderValue.round() * 2,
                         progress: currentGoal.progress));
+                    await DBHelper().insertWorkout(Workout(
+                        goalId: currentGoal.goalId,
+                        muscleGroup: 0,
+                        difficultyLevel: currentGoal.difficultyLevel,
+                        workoutDate: DateTime.now().toIso8601String(),
+                        workoutDuration: 0));
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Homepage()));
                   },
                   child: Text(
                     'Done',

@@ -46,6 +46,7 @@ class Homepage extends StatelessWidget {
                 int? currentID = 0;
                 await DBHelper().getGoals().then((value) => currentID = value.isNotEmpty ? value.first.goalId : 0);
                 DBHelper().deleteGoal(currentID!);
+                DBHelper().deleteAllWorkOuts();
                 Navigator.pop(context);
                 Navigator.push(
                   context,
