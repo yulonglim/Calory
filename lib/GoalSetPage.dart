@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
-import 'package:flutter_app/database/exercise.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
 import 'package:flutter_app/elements/dateselector.dart';
@@ -71,9 +71,7 @@ class GoalSetPage extends StatelessWidget {
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: DateSelector((x) => this.endDate = x)),
-            Padding(
-              padding: const EdgeInsets.all(45.0),
-              child: SizedBox(
+            SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -104,8 +102,7 @@ class GoalSetPage extends StatelessWidget {
                         fontSize: 20,
                       ),
                     )),
-              ),
-            ),
+              )
           ],
         ));
   }

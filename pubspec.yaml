@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^2.0.2
   path: ^1.8.0
   provider: ^5.0.0
+  excel: any
 
 
 dev_dependencies:

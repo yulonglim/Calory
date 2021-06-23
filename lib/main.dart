@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import './HomePage.dart';
+import 'package:flutter_app/StartPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
           secondaryHeaderColor: Colors.blueGrey[400],
           brightness: Brightness.dark),
       themeMode: ThemeMode.light,
-      home: Homepage(),
+      home: StartPage(),
     );
   }
 }
