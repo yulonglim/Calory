@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
-import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 
 import '../FullWorkoutPage.dart';
@@ -17,13 +17,12 @@ class todays_workout extends StatefulWidget {
 class _todays_workoutState extends State<todays_workout> {
   late bool planned = false;
   bool done = false; // get from exercise completion
-  final List<ExerciseItem> WarmUpItems = List.from(warmUpData);
-  final List<ExerciseItem> CoolDownItems = List.from(coolDownData);
+  final List<exerciseData> WarmUpItems = List.from(warmUpData);
+  final List<exerciseData> CoolDownItems = List.from(coolDownData);
+  late List<exerciseData> workOutItems = [];
   late String difficulty = 'Error ';
 
   int restduration = 5;
-
-  _todays_workoutState();
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -35,6 +34,27 @@ class _todays_workoutState extends State<todays_workout> {
     return mins.toString() + 'm ' + temp.toString() + 's';
   }
 
+  @override
+  void initState() {
+    super.initState();
+    DBHelper().getWorkOut().then((value) => DateTime.parse(value.last.workoutDate).day == DateTime.now().day ? setState(() {
+      this.done = true;
+    }): null );
+    DBHelper().getGoals().then((goal) => goal.first.goalId != null
+        ? DBHelper()
+            .getExercises(goal.first.goal)
+            .then((workOutItems) => setState(() {
+                  goal.first.difficultyLevel == 0
+                      ? this.difficulty = 'Easy'
+                      : goal.first.difficultyLevel == 1
+                          ? this.difficulty = 'Medium'
+                          : this.difficulty = 'Hard';
+                  this.workOutItems = workOutItems;
+                  planned = true;
+                }))
+        : null);
+  }
+
   String totalduration() {
     int duration = 0;
     for (int counter = 0; counter < WarmUpItems.length; counter++) {
@@ -43,22 +63,11 @@ class _todays_workoutState extends State<todays_workout> {
     for (int counter = 0; counter < CoolDownItems.length; counter++) {
       duration += CoolDownItems[counter].exerciseTime + restduration;
     }
-    return durationMMSS(duration);
-  }
+    for (int counter = 0; counter < workOutItems.length; counter++) {
+      duration += workOutItems[counter].exerciseTime + restduration;
+    }
 
-  @override
-  void initState() {
-    super.initState();
-    DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
-        ? setState(() {
-      value.first.difficultyLevel == 0
-          ? this.difficulty = 'Easy'
-          : value.first.difficultyLevel == 1
-          ? this.difficulty = 'Medium'
-          : this.difficulty = 'Hard';
-      planned = true;
-    })
-        : null);
+    return durationMMSS(duration);
   }
 
   @override
@@ -67,7 +76,7 @@ class _todays_workoutState extends State<todays_workout> {
       return noPlan();
     }
     if (done) {
-      return doneWorkout();
+      return doneWorkout(workOutItems: this.workOutItems);
     }
     return Padding(
       padding: const EdgeInsets.all(4.0),
@@ -122,7 +131,7 @@ class _todays_workoutState extends State<todays_workout> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FullWorkoutPage()),
+                              builder: (context) => FullWorkoutPage(workoutItems: this.workOutItems)),
                         );
                       },
                       child: Text(

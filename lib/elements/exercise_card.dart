@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 
-class ExerciseItem {
-  final String title;
-  final String description;
-  final int? exerciseValue;
-  final int exerciseTime;
-
-  ExerciseItem(this.title, this.description, this.exerciseValue, this.exerciseTime);
-}
 
 class ExerciseCard extends StatelessWidget {
-  final ExerciseItem item;
+  final exerciseData item;
   final Animation<double> animation;
   final VoidCallback onClicked;
 
@@ -39,10 +32,10 @@ class ExerciseCard extends StatelessWidget {
               onTap: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text(item.title,
+                  title: Text(item.exerciseName,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
-                  content: Text(item.description,
+                  content: Text(item.exerciseDescription,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   actions: <Widget>[
@@ -59,7 +52,7 @@ class ExerciseCard extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
-                      item.title,
+                      item.exerciseName,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,
@@ -97,10 +90,10 @@ class ExerciseCard extends StatelessWidget {
               onTap: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: Text(item.title,
+                  title: Text(item.exerciseName,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
-                  content: Text(item.description,
+                  content: Text(item.exerciseDescription,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   actions: <Widget>[
@@ -117,7 +110,7 @@ class ExerciseCard extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
-                      item.title,
+                      item.exerciseName,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,

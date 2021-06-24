@@ -78,7 +78,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FullWorkoutPage()),
+                    MaterialPageRoute(builder: (context) => FullWorkoutPage(workoutItems: [],)),
                   );
                 },
                 child: Text(

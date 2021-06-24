@@ -32,6 +32,8 @@ class _ProgressPageState extends State<ProgressPage> {
   @override
   void initState() {
     super.initState();
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
     DBHelper().getWorkOut().then((value) => workouts = value);
     DBHelper().getGoals().then((value) => value.isNotEmpty
         ? setState(() {
@@ -52,9 +54,17 @@ class _ProgressPageState extends State<ProgressPage> {
               hashCode: getHashCode,
             )..addAll(_kEventSource);
           })
-        : null);
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+        : setState(() {
+            this._kEventSource = Map.fromIterable(workouts,
+                key: (item) => DateTime.parse(item.workoutDate),
+                value: (item) => [
+                      Event('Did workout'),
+                    ]);
+            this.kEvents = LinkedHashMap<DateTime, List<Event>>(
+              equals: isSameDay,
+              hashCode: getHashCode,
+            )..addAll(_kEventSource);
+          }));
   }
 
   @override

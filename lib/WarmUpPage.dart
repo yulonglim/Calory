@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/Exercising.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
 class WarmUpPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class WarmUpPage extends StatefulWidget {
 
 class _WarmUpPageState extends State<WarmUpPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<ExerciseItem> items = List.from(warmUpData);
+  final List<exerciseData> items = List.from(warmUpData);
   int restDuration = 5;
 
   void removeItem(int index) {
@@ -45,7 +46,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<ExerciseItem> copyItems = <ExerciseItem>[];
+    List<exerciseData> copyItems = <exerciseData>[];
     for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
     }

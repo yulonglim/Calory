@@ -1,12 +1,14 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
 class exercising extends StatefulWidget {
-  final List<ExerciseItem> items;
-  final int? rest;
+  final List<exerciseData> items;
+  final int rest;
 
-  exercising({Key? key, required this.items, this.rest}) : super(key: key);
+  exercising({Key? key, required this.items, required this.rest})
+      : super(key: key);
 
   @override
   _exercisingState createState() => _exercisingState(this.items, this.rest);
@@ -16,9 +18,9 @@ class _exercisingState extends State<exercising> {
   CountDownController _controller = new CountDownController();
   final listKey = GlobalKey<AnimatedListState>();
   final listKey2 = GlobalKey<AnimatedListState>();
-  final List<ExerciseItem> items;
-  final int? rest;
-  List<ExerciseItem> temp = <ExerciseItem>[];
+  final List<exerciseData> items;
+  final int rest;
+  List<exerciseData> temp = <exerciseData>[];
 
   void removeItem(int index) {
     final removedItem = temp[index];
@@ -39,17 +41,18 @@ class _exercisingState extends State<exercising> {
             ));
   }
 
-  _exercisingState(List<ExerciseItem> items, this.rest) : items = items {
-    if (this.rest != null || this.rest == 0) {
-      int count2 = 0;
+  _exercisingState(this.items, this.rest) {
+    int count2 = 0;
+    if (this.rest == 0) {
       while (count2 < items.length) {
         this.temp.add(this.items[count2]);
-        this.temp.add(ExerciseItem(
-            'Rest',
-            'Prepare for the next exercise or do some light stretching',
-            null,
-            rest!));
-        count2 = count2 + 1;
+        this.temp.add(exerciseData(
+            exerciseId: 'R',
+            exerciseTime: rest,
+            exerciseName: 'Rest',
+            exerciseDescription:
+                'Prepare for the next exercise or do some light stretching'));
+        count2++;
       }
     } else {
       this.temp = this.items;

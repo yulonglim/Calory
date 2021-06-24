@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
@@ -7,7 +8,12 @@ import 'package:intl/intl.dart';
 
 import './ProgressPage.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  _HomepageState createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
   String dateTime() {
     String day;
     String month = DateFormat.MMMM().format(DateTime.now());
@@ -28,6 +34,14 @@ class Homepage extends StatelessWidget {
     }
 
     return day + " " + month + " " + year;
+  }
+  @override
+  void initState() {
+    super.initState();
+    DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData);
+    DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData);
+    DBHelper().insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData);
+    DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData);
   }
 
   @override

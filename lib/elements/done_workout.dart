@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 import 'package:flutter_app/FullWorkoutPage.dart';
 
 class doneWorkout extends StatelessWidget {
-  const doneWorkout({Key? key}) : super(key: key);
+  final List<exerciseData> workOutItems;
+
+  const doneWorkout({Key? key, required this.workOutItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,9 @@ class doneWorkout extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FullWorkoutPage()),
+                              builder: (context) => FullWorkoutPage(
+                                    workoutItems: [],
+                                  )),
                         );
                       },
                       child: Text(

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:path/path.dart';
 //import 'package:excel/excel.dart';
 /*
 var file = "Path_to_pre_existing_Excel_File/excel_file.xlsx";
@@ -66,7 +64,7 @@ class exerciseData {
 
   static exerciseData fromMap(Map<String, dynamic> map) {
     String exerciseId = map['exerciseId'];
-    int exerciseValue = map['exerciseValue'];
+    int? exerciseValue = map['exerciseValue'];
     int exerciseTime = map['exerciseTime'];
     String exerciseName = map['exerciseName'];
     String exerciseDescription = map['exerciseDescription'];

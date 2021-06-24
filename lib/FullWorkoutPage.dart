@@ -3,17 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/EndWorkOutPage.dart';
-import 'package:flutter_app/elements/exercise_card.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 
 import 'CoolDownPage.dart';
 import 'WorkOutPage.dart';
 import 'WarmUpPage.dart';
 import 'elements/card_button.dart';
 
+
 class FullWorkoutPage extends StatelessWidget {
-  final List<ExerciseItem> WarmUpItems = List.from(warmUpData);
-  final List<ExerciseItem> CoolDownItems = List.from(coolDownData);
+  final List<exerciseData> WarmUpItems = List.from(warmUpData);
+  final List<exerciseData> CoolDownItems = List.from(coolDownData);
   int restduration = 5;
+  final List<exerciseData> workoutItems;
+
+  FullWorkoutPage({Key? key, required this.workoutItems}) : super(key: key);
+
+
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
@@ -39,6 +45,16 @@ class FullWorkoutPage extends StatelessWidget {
     }
     return durationMMSS(duration);
   }
+
+  String workOutduration() {
+    int duration = 0;
+    for (int counter = 0; counter < workoutItems.length; counter++) {
+      duration += workoutItems[counter].exerciseTime;
+    }
+    return durationMMSS(duration);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +88,8 @@ class FullWorkoutPage extends StatelessWidget {
               CardButton(
                 iconData: Icons.sports_handball_outlined,
                 buttonName: "Main Workout",
-                nextPage: WorkOutPage(),
-                duration: warmUpduration(),
+                nextPage: WorkOutPage(items: workoutItems,),
+                duration: workOutduration(),
               ),
               CardButton(
                 iconData: Icons.ac_unit_outlined,

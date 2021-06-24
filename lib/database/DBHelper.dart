@@ -1,4 +1,6 @@
-//import 'dart:io';
+import 'dart:core';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:path/path.dart';
@@ -65,34 +67,26 @@ class DBHelper {
           "exerciseName STRING,"
           "exerciseDescription STRING)");
 
+      await db.execute("CREATE TABLE $tableLowerBody("
+          "exerciseId STRING PRIMARY KEY, "
+          "exerciseValue INTEGER, "
+          "exerciseTime INTEGER, "
+          "exerciseName STRING,"
+          "exerciseDescription STRING)");
 
-      await db.execute(
-          "CREATE TABLE $tableLowerBody("
-              "exerciseId STRING PRIMARY KEY, "
-              "exerciseValue INTEGER, "
-              "exerciseTime INTEGER, "
-              "exerciseName STRING,"
-              "exerciseDescription STRING)"
-      );
+      await db.execute("CREATE TABLE $tableCoreExercise("
+          "exerciseId STRING PRIMARY KEY, "
+          "exerciseValue INTEGER, "
+          "exerciseTime INTEGER, "
+          "exerciseName STRING,"
+          "exerciseDescription STRING)");
 
-      await db.execute(
-          "CREATE TABLE $tableCoreExercise("
-              "exerciseId STRING PRIMARY KEY, "
-              "exerciseValue INTEGER, "
-              "exerciseTime INTEGER, "
-              "exerciseName STRING,"
-              "exerciseDescription STRING)"
-      );
-
-      await db.execute(
-          "CREATE TABLE $tableCardio("
-              "exerciseId STRING PRIMARY KEY, "
-              "exerciseValue INTEGER, "
-              "exerciseTime INTEGER, "
-              "exerciseName STRING,"
-              "exerciseDescription STRING)"
-      );
-
+      await db.execute("CREATE TABLE $tableCardio("
+          "exerciseId STRING PRIMARY KEY, "
+          "exerciseValue INTEGER, "
+          "exerciseTime INTEGER, "
+          "exerciseName STRING,"
+          "exerciseDescription STRING)");
     });
   }
 
@@ -106,7 +100,8 @@ class DBHelper {
     await db.insert(tableWorkouts, workout.toMap());
   }
 
-  Future<void> insertExerciseData(String table, List<exerciseData> exerciseList) async {
+  Future<void> insertExerciseData(
+      String table, List<exerciseData> exerciseList) async {
     Database db = await database;
     var count = Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM ' + table));
@@ -164,6 +159,60 @@ class DBHelper {
         where: "goalId = ?",
         whereArgs: [i],
       );
+    }
+  }
+
+  Future<List<exerciseData>> getExercises(int goal) async {
+    final Database db = await database;
+    final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
+    final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
+    final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
+    final List<Map<String, Object?>> cardio = await db.query(tableCardio);
+
+    List<exerciseData> exercise = <exerciseData>[];
+    switch (goal) {
+      case 0:
+        {
+          for (int i = 0; i < 3; i++) {
+            exercise.add(
+                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            exercise.add(exerciseData
+                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+            exercise.add(exerciseData
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+          }
+
+          return exercise;
+        }
+      case 1:
+        {
+          for (int i = 0; i < 4; i++) {
+            if(i % 2 == 1) {
+              exercise.add(
+                  exerciseData.fromMap(
+                      core[Random().nextInt(core.length - 1)]));
+            }
+            exercise.add(exerciseData
+                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+            exercise.add(exerciseData
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+          }
+          return exercise;
+        }
+      case 2:
+        {
+          for (int i = 0; i < 3; i++) {
+            exercise.add(
+                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            exercise.add(exerciseData
+                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+            exercise.add(exerciseData
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+          }
+          return exercise;
+        }
+      default:
+        return exercise;
     }
   }
 
