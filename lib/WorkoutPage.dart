@@ -69,7 +69,7 @@ class _WorkOutPageState extends State<WorkOutPage> {
           ),
         ),
         title: Text(
-          "Warm Up",
+          "Work Out",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
       ),

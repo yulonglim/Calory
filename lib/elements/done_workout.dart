@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 import 'package:flutter_app/FullWorkoutPage.dart';
+import 'package:flutter_app/main.dart';
 
 class doneWorkout extends StatelessWidget {
-  final List<exerciseData> workOutItems;
-
-  const doneWorkout({Key? key, required this.workOutItems}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,7 +57,7 @@ class doneWorkout extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FullWorkoutPage(
-                                    workoutItems: [],
+                                    workoutItems: List.from(workoutData),
                                   )),
                         );
                       },

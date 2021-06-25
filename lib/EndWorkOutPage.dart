@@ -80,35 +80,47 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   ),
                   onPressed: () async {
                     dynamic currentGoal;
+                    dynamic workout;
                     await DBHelper()
                         .getGoals()
                         .then((value) => currentGoal = value.first);
-                    await DBHelper().updateGoal(Goal(
-                        goalId: currentGoal.goalId,
-                        goal: currentGoal.goal,
-                        difficultyLevel: currentGoal.multiplier +
-                                    5 -
-                                    _currentSliderValue.round() * 2 >
-                                60
-                            ? 2
-                            : currentGoal.multiplier +
-                                        5 -
-                                        _currentSliderValue.round() * 2 >
-                                    40
-                                ? 1
-                                : 0,
-                        startDate: currentGoal.startDate,
-                        endDate: currentGoal.endDate,
-                        multiplier: currentGoal.multiplier +
-                            5 -
-                            _currentSliderValue.round() * 2,
-                        progress: currentGoal.progress));
-                    await DBHelper().insertWorkout(Workout(
-                        goalId: currentGoal.goalId,
-                        muscleGroup: 0,
-                        difficultyLevel: currentGoal.difficultyLevel,
-                        workoutDate: DateTime.now().toIso8601String(),
-                        workoutDuration: 0));
+                    await DBHelper().getWorkOut().then((value) =>
+                        value.isNotEmpty ? workout = value.first : null);
+                    if (workout == null ||
+                        DateTime.parse(workout.workoutDate).day !=
+                            DateTime.now().day) {
+                      await DBHelper().updateGoal(Goal(
+                          goalId: currentGoal.goalId,
+                          goal: currentGoal.goal,
+                          difficultyLevel: currentGoal.multiplier +
+                                      5 -
+                                      _currentSliderValue.round() * 2 >
+                                  60
+                              ? 2
+                              : currentGoal.multiplier +
+                                          5 -
+                                          _currentSliderValue.round() * 2 >
+                                      40
+                                  ? 1
+                                  : 0,
+                          startDate: currentGoal.startDate,
+                          endDate: currentGoal.endDate,
+                          multiplier: currentGoal.multiplier +
+                                      5 -
+                                      _currentSliderValue.round() * 2 >=
+                                  100
+                              ? 100
+                              : currentGoal.multiplier +
+                                  5 -
+                                  _currentSliderValue.round() * 2,
+                          progress: currentGoal.progress));
+                      await DBHelper().insertWorkout(Workout(
+                          goalId: currentGoal.goalId,
+                          muscleGroup: 0,
+                          difficultyLevel: currentGoal.difficultyLevel,
+                          workoutDate: DateTime.now().toIso8601String(),
+                          workoutDuration: 0));
+                    }
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
                     Navigator.push(context,

@@ -6,6 +6,7 @@ import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
+import 'package:flutter_app/main.dart';
 
 import '../FullWorkoutPage.dart';
 
@@ -16,10 +17,11 @@ class todays_workout extends StatefulWidget {
 
 class _todays_workoutState extends State<todays_workout> {
   late bool planned = false;
-  bool done = false; // get from exercise completion
+  bool done = false;
   final List<exerciseData> WarmUpItems = List.from(warmUpData);
   final List<exerciseData> CoolDownItems = List.from(coolDownData);
   late List<exerciseData> workOutItems = [];
+  late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
 
   int restduration = 5;
@@ -37,22 +39,41 @@ class _todays_workoutState extends State<todays_workout> {
   @override
   void initState() {
     super.initState();
-    DBHelper().getWorkOut().then((value) => DateTime.parse(value.last.workoutDate).day == DateTime.now().day ? setState(() {
-      this.done = true;
-    }): null );
-    DBHelper().getGoals().then((goal) => goal.first.goalId != null
-        ? DBHelper()
-            .getExercises(goal.first.goal)
-            .then((workOutItems) => setState(() {
-                  goal.first.difficultyLevel == 0
-                      ? this.difficulty = 'Easy'
-                      : goal.first.difficultyLevel == 1
-                          ? this.difficulty = 'Medium'
-                          : this.difficulty = 'Hard';
-                  this.workOutItems = workOutItems;
-                  planned = true;
-                }))
-        : null);
+    DBHelper().getWorkOut().then((value) =>
+        DateTime.parse(value.last.workoutDate).day == DateTime.now().day
+            ? setState(() {
+                this.done = true;
+              })
+            : null);
+    if (!done) {
+      DBHelper().getGoals().then((goal) => goal.first.goalId != null
+          ? DBHelper()
+              .getExercises(goal.first.goal)
+              .then((workOutItems) => setState(() {
+                    planned = true;
+                    goal.first.difficultyLevel == 0
+                        ? this.difficulty = 'Easy'
+                        : goal.first.difficultyLevel == 1
+                            ? this.difficulty = 'Medium'
+                            : this.difficulty = 'Hard';
+                    workOutItems.forEach((element) {
+                      this.tempWorkOutItems.add(exerciseData(
+                          exerciseId: element.exerciseId,
+                          exerciseValue: element.exerciseValue != null
+                              ? (element.exerciseValue! *
+                                      goal.first.multiplier /
+                                      100)
+                                  .round()
+                              : null,
+                          exerciseTime: element.exerciseTime,
+                          exerciseName: element.exerciseName,
+                          exerciseDescription: element.exerciseDescription));
+                    });
+                    this.workOutItems = tempWorkOutItems;
+                    setWorkOutData(this.workOutItems);
+                  }))
+          : null);
+    }
   }
 
   String totalduration() {
@@ -76,7 +97,7 @@ class _todays_workoutState extends State<todays_workout> {
       return noPlan();
     }
     if (done) {
-      return doneWorkout(workOutItems: this.workOutItems);
+      return doneWorkout();
     }
     return Padding(
       padding: const EdgeInsets.all(4.0),
@@ -131,7 +152,8 @@ class _todays_workoutState extends State<todays_workout> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FullWorkoutPage(workoutItems: this.workOutItems)),
+                              builder: (context) => FullWorkoutPage(
+                                  workoutItems: this.workOutItems)),
                         );
                       },
                       child: Text(

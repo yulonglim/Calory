@@ -98,6 +98,11 @@ class exerciseData {
     return fromMap(jsonDecode(jsonEncoding));
   }
 
+  @override
+  String toString() {
+    return exerciseName;
+  }
+
 }
 
 

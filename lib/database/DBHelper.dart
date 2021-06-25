@@ -100,6 +100,16 @@ class DBHelper {
     await db.insert(tableWorkouts, workout.toMap());
   }
 
+  Future<void> updateWorkout(Workout workout) async {
+    Database db = await database;
+    await db.update(
+      tableGoals,
+      workout.toMap(),
+      where: 'workoutId = ?',
+      whereArgs: [workout.workoutId],
+    );
+  }
+
   Future<void> insertExerciseData(
       String table, List<exerciseData> exerciseList) async {
     Database db = await database;
