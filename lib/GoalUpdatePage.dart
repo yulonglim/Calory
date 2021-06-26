@@ -7,12 +7,25 @@ import 'package:flutter_app/elements/image_banner.dart';
 
 import 'package:flutter_app/elements/toggle_button.dart';
 
-class GoalUpdatePage extends StatelessWidget {
+class GoalUpdatePage extends StatefulWidget {
+  @override
+  _GoalUpdatePageState createState() => _GoalUpdatePageState();
+}
+
+class _GoalUpdatePageState extends State<GoalUpdatePage> {
   late int goal = 0;
+
   late int difficultyLevel = 0;
+
   late String endDate = DateTime.now().toIso8601String();
+
   final int progress = 0;
+
   late Goal currentGoal;
+
+  var _currentSliderValue = 1;
+
+  int daysAWeek = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +49,7 @@ class GoalUpdatePage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            ImageBanner("assets/images/reach_goal.jpg"),
+            //ImageBanner("assets/images/reach_goal.jpg"),
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text('Update Your Goal',
@@ -72,9 +85,23 @@ class GoalUpdatePage extends StatelessWidget {
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: DateSelector((x) => this.endDate = x)),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text('How many days a week would you like to exercise?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
+            Slider(
+                value: _currentSliderValue.toDouble(),
+                min: 1,
+                max: 6,
+                divisions: 6,
+                label: _currentSliderValue.round().toString() + " Days",
+                onChanged: (double value) {
+                  setState(() {
+                    this.daysAWeek = value.round();
+                    _currentSliderValue = value.round();
+                  });
+                }),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.92,
               child: ElevatedButton(
@@ -89,7 +116,12 @@ class GoalUpdatePage extends StatelessWidget {
                         startDate: currentGoal.startDate,
                         endDate: endDate,
                         multiplier: 20 + difficultyLevel * 20,
-                        progress: progress));
+                        progress: ((DateTime.parse(endDate)
+                                    .difference(DateTime.parse(currentGoal.startDate))
+                                    .inDays) /
+                                7 *
+                                _currentSliderValue)
+                            .round()));
                     //This is to refresh the homepage with the new goal data
                     Navigator.popUntil(context, (route) {
                       return count++ == 2;

@@ -25,6 +25,7 @@ class _ProgressPageState extends State<ProgressPage> {
   late DateTime startDate = DateTime.now();
   late DateTime endDate = DateTime.now();
   late String difficulty = 'Not Set';
+  late int progress = 0;
   late List<Workout> workouts = [];
   late Map<DateTime, List<Event>> _kEventSource = new Map();
   late LinkedHashMap<DateTime, List<Event>> kEvents = new LinkedHashMap();
@@ -44,6 +45,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     : this.difficulty = 'Hard';
             this.startDate = DateTime.parse(value.first.startDate);
             this.endDate = DateTime.parse(value.first.endDate);
+            this.progress = value.first.progress;
             this._kEventSource = Map.fromIterable(workouts,
                 key: (item) => DateTime.parse(item.workoutDate),
                 value: (item) => [
@@ -313,6 +315,27 @@ class _ProgressPageState extends State<ProgressPage> {
                   ),
                   Text(
                     endDate.difference(DateTime.now()).inDays.toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[600],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "No. of days of workout left:",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    progress.toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

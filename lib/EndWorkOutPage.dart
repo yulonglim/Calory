@@ -113,7 +113,7 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                 : currentGoal.multiplier +
                                     5 -
                                     _currentSliderValue.round() * 2,
-                            progress: currentGoal.progress));
+                            progress: currentGoal.progress - 1));
                       }
                       await DBHelper().insertWorkout(Workout(
                           //goalId: currentGoal != null ? currentGoal.goalId : 0,
