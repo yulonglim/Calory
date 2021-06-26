@@ -4,6 +4,9 @@ import 'package:flutter_app/FullWorkoutPage.dart';
 import 'package:flutter_app/main.dart';
 
 class doneWorkout extends StatelessWidget {
+  final String duration;
+  doneWorkout(this.duration);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,7 +41,10 @@ class doneWorkout extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                   Column(
-                    children: [RectangleDisplay('Completed')],
+                    children: [
+                      RectangleDisplay('Completed'),
+                      RectangleDisplay('Duration: '+ duration),
+                    ],
                   )
                 ],
               ),

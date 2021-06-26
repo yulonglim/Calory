@@ -14,7 +14,7 @@ class OneTimeWorkOut extends StatefulWidget {
 }
 
 class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
-  double _currentSliderValue = 0;
+  //double _currentSliderValue = 0;
   late int muscleGroup = 0;
   late int difficulty = 0;
   late int duration = 0;
@@ -66,23 +66,23 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: MyToggleButtons(
                     'Easy', 'Medium', 'Hard', (x) => this.difficulty = x)),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text('How long would you like to exercise?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            ),
-            Slider(
-                value: _currentSliderValue,
-                min: 0,
-                max: 60,
-                divisions: 4,
-                label: _currentSliderValue.round().toString() + " Mins",
-                onChanged: (double value) {
-                  setState(() {
-                    this.duration = value.round();
-                    _currentSliderValue = value;
-                  });
-                }),
+            // Padding(
+            //   padding: const EdgeInsets.all(15.0),
+            //   child: Text('How long would you like to exercise?',
+            //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            // ),
+            // Slider(
+            //     value: _currentSliderValue,
+            //     min: 0,
+            //     max: 60,
+            //     divisions: 4,
+            //     label: _currentSliderValue.round().toString() + " Mins",
+            //     onChanged: (double value) {
+            //       setState(() {
+            //         this.duration = value.round();
+            //         _currentSliderValue = value;
+            //       });
+            //     }),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).primaryColor,

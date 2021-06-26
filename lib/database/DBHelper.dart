@@ -190,6 +190,14 @@ class DBHelper {
                 .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
             exercise.add(exerciseData
                 .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+            exercise.add(
+              exerciseData(
+                  exerciseId: 'R1',
+                  exerciseTime: 30,
+                  exerciseName: 'Rest',
+                  exerciseDescription:
+                      'Use this time to prepare for the next exercise or to shake off any tension.'),
+            );
           }
 
           return exercise;
@@ -205,6 +213,14 @@ class DBHelper {
                 .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
             exercise.add(exerciseData
                 .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+            exercise.add(
+              exerciseData(
+                  exerciseId: 'R1',
+                  exerciseTime: 30,
+                  exerciseName: 'Rest',
+                  exerciseDescription:
+                      'Use this time to prepare for the next exercise or to shake off any tension.'),
+            );
           }
           return exercise;
         }
@@ -217,6 +233,14 @@ class DBHelper {
                 .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
             exercise.add(exerciseData
                 .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+            exercise.add(
+              exerciseData(
+                  exerciseId: 'R1',
+                  exerciseTime: 30,
+                  exerciseName: 'Rest',
+                  exerciseDescription:
+                      'Use this time to prepare for the next exercise or to shake off any tension.'),
+            );
           }
           return exercise;
         }

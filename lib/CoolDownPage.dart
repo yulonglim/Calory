@@ -49,6 +49,14 @@ class _CoolDownPageState extends State<CoolDownPage> {
     List<exerciseData> copyItems = <exerciseData>[];
     for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
+      copyItems.add(
+        exerciseData(
+            exerciseId: 'R1',
+            exerciseTime: restDuration,
+            exerciseName: 'Rest',
+            exerciseDescription:
+            'Use this time to prepare for the next exercise or to shake off any tension.'),
+      );
     }
     return Scaffold(
       appBar: AppBar(

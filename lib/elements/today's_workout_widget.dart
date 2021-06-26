@@ -24,8 +24,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
 
-  int restDuration = 5;
-
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
@@ -81,13 +79,13 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   String totalDuration() {
     int duration = 0;
     for (int counter = 0; counter < warmUpItems.length; counter++) {
-      duration += warmUpItems[counter].exerciseTime + restDuration;
+      duration += warmUpItems[counter].exerciseTime;
     }
     for (int counter = 0; counter < coolDownItems.length; counter++) {
-      duration += coolDownItems[counter].exerciseTime + restDuration;
+      duration += coolDownItems[counter].exerciseTime;
     }
     for (int counter = 0; counter < workOutItems.length; counter++) {
-      duration += workOutItems[counter].exerciseTime + restDuration;
+      duration += workOutItems[counter].exerciseTime;
     }
 
     return durationMMSS(duration);
@@ -96,7 +94,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   @override
   Widget build(BuildContext context) {
     if (done) {
-      return doneWorkout();
+      return doneWorkout(totalDuration());
     }
     if (!planned) {
       return noPlan();
