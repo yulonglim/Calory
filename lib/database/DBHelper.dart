@@ -166,7 +166,7 @@ class DBHelper {
     for (int i = 0; i < 100; i++) {
       await db.delete(
         tableWorkouts,
-        where: "goalId = ?",
+        where: "workoutId = ?",
         whereArgs: [i],
       );
     }
@@ -225,6 +225,46 @@ class DBHelper {
         return exercise;
     }
   }
+
+  Future<List<exerciseData>> getExercisesMuscles(int muscleGroup) async {
+    final Database db = await database;
+    final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
+    final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
+    final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
+    final List<Map<String, Object?>> cardio = await db.query(tableCardio);
+
+    List<exerciseData> exercise = <exerciseData>[];
+    switch (muscleGroup) {
+      case 0:
+        {
+          for (int i = 0; i < 4; i++) {
+            exercise.add(exerciseData
+                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+          }
+
+          return exercise;
+        }
+      case 1:
+        {
+          for (int i = 0; i < 4; i++) {
+            exercise.add(exerciseData
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+          }
+          return exercise;
+        }
+      case 2:
+        {
+          for (int i = 0; i < 4; i++) {
+            exercise.add(
+                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+          }
+          return exercise;
+        }
+      default:
+        return exercise;
+    }
+  }
+
 
   Future<void> deleteAll() async {
     Database db = await database;

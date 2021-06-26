@@ -93,11 +93,11 @@ class _todays_workoutState extends State<todays_workout> {
 
   @override
   Widget build(BuildContext context) {
-    if (!planned) {
-      return noPlan();
-    }
     if (done) {
       return doneWorkout();
+    }
+    if (!planned) {
+      return noPlan();
     }
     return Padding(
       padding: const EdgeInsets.all(4.0),

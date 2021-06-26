@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
+import 'package:flutter_app/main.dart';
 
 import 'FullWorkoutPage.dart';
+import 'database/DBHelper.dart';
 
 class OneTimeWorkOut extends StatefulWidget {
   const OneTimeWorkOut({Key? key}) : super(key: key);
@@ -12,6 +15,12 @@ class OneTimeWorkOut extends StatefulWidget {
 
 class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
   double _currentSliderValue = 0;
+  late int muscleGroup = 0;
+  late int difficulty = 0;
+  late int duration = 0;
+  List<exerciseData> tempWorkOutItems = [];
+  List<exerciseData> workOutItems = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +55,8 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Upper Body', 'Lower Body', 'Core',(x)=> 0)),
+                child: MyToggleButtons('Upper Body', 'Lower Body', 'Core',
+                    (x) => this.muscleGroup = x)),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
@@ -54,7 +64,8 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
-                child: MyToggleButtons('Easy', 'Medium', 'Hard',(x)=> 0)),
+                child: MyToggleButtons(
+                    'Easy', 'Medium', 'Hard', (x) => this.difficulty = x)),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('How long would you like to exercise?',
@@ -68,6 +79,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 label: _currentSliderValue.round().toString() + " Mins",
                 onChanged: (double value) {
                   setState(() {
+                    this.duration = value.round();
                     _currentSliderValue = value;
                   });
                 }),
@@ -75,10 +87,34 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).primaryColor,
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await DBHelper()
+                      .getExercisesMuscles(this.muscleGroup)
+                      .then((workOutItems) => setState(() {
+                            this.tempWorkOutItems = [];
+                            workOutItems.forEach((element) {
+                              this.tempWorkOutItems.add(exerciseData(
+                                  exerciseId: element.exerciseId,
+                                  exerciseValue: element.exerciseValue != null
+                                      ? (element.exerciseValue! *
+                                              (this.difficulty + 1) /
+                                              3)
+                                          .round()
+                                      : null,
+                                  exerciseTime: element.exerciseTime,
+                                  exerciseName: element.exerciseName,
+                                  exerciseDescription:
+                                      element.exerciseDescription));
+                            });
+                            setWorkOutData(this.workOutItems);
+                            this.workOutItems = tempWorkOutItems;
+                          }));
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FullWorkoutPage(workoutItems: [],)),
+                    MaterialPageRoute(
+                        builder: (context) => FullWorkoutPage(
+                              workoutItems: this.workOutItems,
+                            )),
                   );
                 },
                 child: Text(
