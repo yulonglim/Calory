@@ -24,11 +24,11 @@ class _WorkOutPageState extends State<WorkOutPage> {
     items.removeAt(index);
     listKey.currentState!.removeItem(
         index,
-            (context, animation) => ExerciseCard(
-          item: removedItem,
-          animation: animation,
-          onClicked: () {},
-        ));
+        (context, animation) => ExerciseCard(
+              item: removedItem,
+              animation: animation,
+              onClicked: () {},
+            ));
   }
 
   String durationMMSS(int duration) {
