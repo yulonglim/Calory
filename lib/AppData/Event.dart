@@ -1,8 +1,3 @@
-import 'dart:collection';
-
-import 'package:flutter_app/database/DBHelper.dart';
-import 'package:table_calendar/table_calendar.dart';
-
 class Event {
   final String title;
 
@@ -11,8 +6,6 @@ class Event {
   @override
   String toString() => title;
 }
-
-
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;

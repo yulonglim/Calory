@@ -5,7 +5,7 @@ class DateSelector extends StatefulWidget {
   final Function result;
 
   DateSelector(this.result);
-  
+
   @override
   _DateSelectorState createState() => _DateSelectorState(result);
 }

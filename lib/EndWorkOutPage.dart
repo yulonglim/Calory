@@ -118,13 +118,15 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                       await DBHelper().insertWorkout(Workout(
                           //goalId: currentGoal != null ? currentGoal.goalId : 0,
                           muscleGroup: 0,
-                          difficultyLevel: currentGoal != null ? currentGoal.difficultyLevel : 0,
+                          difficultyLevel: currentGoal != null
+                              ? currentGoal.difficultyLevel
+                              : 0,
                           workoutDate: DateTime.now().toIso8601String(),
                           workoutDuration: 0));
                     }
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
-                    if(currentGoal == null) {
+                    if (currentGoal == null) {
                       Navigator.pop(context);
                     }
                     Navigator.push(context,

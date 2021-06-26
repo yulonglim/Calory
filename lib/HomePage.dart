@@ -35,13 +35,15 @@ class _HomepageState extends State<Homepage> {
 
     return day + " " + month + " " + year;
   }
+
   @override
   void initState() {
     super.initState();
     openExcel();
     DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
     DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2);
-    DBHelper().insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
+    DBHelper()
+        .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
     DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);
   }
 
@@ -59,7 +61,8 @@ class _HomepageState extends State<Homepage> {
             ElevatedButton(
               onPressed: () async {
                 int? currentID = 0;
-                await DBHelper().getGoals().then((value) => currentID = value.isNotEmpty ? value.first.goalId : 0);
+                await DBHelper().getGoals().then((value) =>
+                    currentID = value.isNotEmpty ? value.first.goalId : 0);
                 await DBHelper().deleteGoal(currentID!);
                 await DBHelper().deleteAllWorkOuts();
                 Navigator.pop(context);
@@ -92,7 +95,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            todays_workout(),
+            TodaysWorkOut(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),

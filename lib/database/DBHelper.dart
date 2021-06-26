@@ -197,10 +197,9 @@ class DBHelper {
       case 1:
         {
           for (int i = 0; i < 4; i++) {
-            if(i % 2 == 1) {
-              exercise.add(
-                  exerciseData.fromMap(
-                      core[Random().nextInt(core.length - 1)]));
+            if (i % 2 == 1) {
+              exercise.add(exerciseData
+                  .fromMap(core[Random().nextInt(core.length - 1)]));
             }
             exercise.add(exerciseData
                 .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
@@ -264,7 +263,6 @@ class DBHelper {
         return exercise;
     }
   }
-
 
   Future<void> deleteAll() async {
     Database db = await database;

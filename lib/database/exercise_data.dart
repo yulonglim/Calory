@@ -12,53 +12,51 @@ void openExcel() async {
   var excel = Excel.decodeBytes(bytes);
 
   for (var table in excel.tables.keys) {
-    for(int rowIndex= 1 ;rowIndex <= excel.tables[table]!.maxRows; rowIndex++) {
-        Sheet sheetObject = excel['$table'];
+    for (int rowIndex = 1;
+        rowIndex <= excel.tables[table]!.maxRows;
+        rowIndex++) {
+      Sheet sheetObject = excel['$table'];
 
-        String exerciseId = sheetObject
-            .cell(
-            CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: rowIndex))
-            .value
-            .toString();
+      String exerciseId = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: rowIndex))
+          .value
+          .toString();
 
-        int? exerciseValue = sheetObject
-            .cell(
-            CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: rowIndex))
-            .value;
-        int exerciseTime = sheetObject
-            .cell(
-            CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: rowIndex))
-            .value;
-        String exerciseName = sheetObject
-            .cell(
-            CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: rowIndex))
-            .value
-            .toString();
-        String exerciseDescription = sheetObject
-            .cell(
-            CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: rowIndex))
-            .value
-            .toString();
+      int? exerciseValue = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: rowIndex))
+          .value;
+      int exerciseTime = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: rowIndex))
+          .value;
+      String exerciseName = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: rowIndex))
+          .value
+          .toString();
+      String exerciseDescription = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: rowIndex))
+          .value
+          .toString();
 
-        if (exerciseId == "null") {
-          break;
-        } else {
-          exerciseData excelDetails = new exerciseData(
-              exerciseId: exerciseId,
-              exerciseValue: exerciseValue,
-              exerciseTime: exerciseTime,
-              exerciseName: exerciseName,
-              exerciseDescription: exerciseDescription);
-          exerciseId.contains('U') ? upperBodyData2.add(excelDetails) :
-          exerciseId.contains('L') ? lowerBodyData2.add(excelDetails) :
-          exerciseId.contains('C') ? coreExerciseData2.add(excelDetails) :
-          cardioData2.add(excelDetails);
-        }
-
+      if (exerciseId == "null") {
+        break;
+      } else {
+        exerciseData excelDetails = new exerciseData(
+            exerciseId: exerciseId,
+            exerciseValue: exerciseValue,
+            exerciseTime: exerciseTime,
+            exerciseName: exerciseName,
+            exerciseDescription: exerciseDescription);
+        exerciseId.contains('U')
+            ? upperBodyData2.add(excelDetails)
+            : exerciseId.contains('L')
+                ? lowerBodyData2.add(excelDetails)
+                : exerciseId.contains('C')
+                    ? coreExerciseData2.add(excelDetails)
+                    : cardioData2.add(excelDetails);
+      }
     }
   }
 }
-  
 
 class exerciseData {
   String exerciseId;
@@ -67,13 +65,12 @@ class exerciseData {
   String exerciseName;
   String exerciseDescription;
 
-  exerciseData({
-    required this.exerciseId,
-    this.exerciseValue,
-    required this.exerciseTime,
-    required this.exerciseName,
-    required this.exerciseDescription
-  });
+  exerciseData(
+      {required this.exerciseId,
+      this.exerciseValue,
+      required this.exerciseTime,
+      required this.exerciseName,
+      required this.exerciseDescription});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
@@ -101,5 +98,4 @@ class exerciseData {
         exerciseName: exerciseName,
         exerciseDescription: exerciseDescription);
   }
-
 }

@@ -10,21 +10,21 @@ import 'package:flutter_app/main.dart';
 
 import '../FullWorkoutPage.dart';
 
-class todays_workout extends StatefulWidget {
+class TodaysWorkOut extends StatefulWidget {
   @override
-  _todays_workoutState createState() => _todays_workoutState();
+  _TodaysWorkOutState createState() => _TodaysWorkOutState();
 }
 
-class _todays_workoutState extends State<todays_workout> {
+class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late bool planned = false;
   bool done = false;
-  final List<exerciseData> WarmUpItems = List.from(warmUpData);
-  final List<exerciseData> CoolDownItems = List.from(coolDownData);
+  final List<exerciseData> warmUpItems = List.from(warmUpData);
+  final List<exerciseData> coolDownItems = List.from(coolDownData);
   late List<exerciseData> workOutItems = [];
   late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
 
-  int restduration = 5;
+  int restDuration = 5;
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -78,16 +78,16 @@ class _todays_workoutState extends State<todays_workout> {
     }
   }
 
-  String totalduration() {
+  String totalDuration() {
     int duration = 0;
-    for (int counter = 0; counter < WarmUpItems.length; counter++) {
-      duration += WarmUpItems[counter].exerciseTime + restduration;
+    for (int counter = 0; counter < warmUpItems.length; counter++) {
+      duration += warmUpItems[counter].exerciseTime + restDuration;
     }
-    for (int counter = 0; counter < CoolDownItems.length; counter++) {
-      duration += CoolDownItems[counter].exerciseTime + restduration;
+    for (int counter = 0; counter < coolDownItems.length; counter++) {
+      duration += coolDownItems[counter].exerciseTime + restDuration;
     }
     for (int counter = 0; counter < workOutItems.length; counter++) {
-      duration += workOutItems[counter].exerciseTime + restduration;
+      duration += workOutItems[counter].exerciseTime + restDuration;
     }
 
     return durationMMSS(duration);
@@ -135,7 +135,7 @@ class _todays_workoutState extends State<todays_workout> {
                   Column(
                     children: [
                       RectangleDisplay('Difficulty: ' + this.difficulty),
-                      RectangleDisplay('Duration: ' + totalduration()),
+                      RectangleDisplay('Duration: ' + totalDuration()),
                     ],
                   )
                 ],

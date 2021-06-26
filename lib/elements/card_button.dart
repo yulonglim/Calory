@@ -52,7 +52,8 @@ class CardButton extends StatelessWidget {
                     ),
                     Text(
                       'Duration: ' + this.duration,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 
-
 class ExerciseCard extends StatelessWidget {
   final exerciseData item;
   final Animation<double> animation;
