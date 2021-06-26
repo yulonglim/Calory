@@ -106,10 +106,10 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                                   exerciseDescription:
                                       element.exerciseDescription));
                             });
-                            setWorkOutData(this.workOutItems);
+                            setWorkOutData(tempWorkOutItems);
                             this.workOutItems = tempWorkOutItems;
                           }));
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => FullWorkoutPage(

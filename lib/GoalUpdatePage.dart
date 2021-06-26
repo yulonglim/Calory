@@ -17,7 +17,7 @@ class GoalUpdatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int count = 0;
-    DBHelper().getGoals().then((value) => currentGoal = value.first);
+    DBHelper().getGoals().then((value) => value.isNotEmpty ? currentGoal = value.first : null);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,

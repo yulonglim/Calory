@@ -39,14 +39,16 @@ class _todays_workoutState extends State<todays_workout> {
   @override
   void initState() {
     super.initState();
-    DBHelper().getWorkOut().then((value) =>
-        DateTime.parse(value.last.workoutDate).day == DateTime.now().day
+    DBHelper().getWorkOut().then((value) => value.isNotEmpty
+        ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
             ? setState(() {
                 this.done = true;
               })
-            : null);
+            : null
+        : null);
+
     if (!done) {
-      DBHelper().getGoals().then((goal) => goal.first.goalId != null
+      DBHelper().getGoals().then((goal) => goal.isNotEmpty
           ? DBHelper()
               .getExercises(goal.first.goal)
               .then((workOutItems) => setState(() {

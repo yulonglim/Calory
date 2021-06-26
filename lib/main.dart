@@ -6,11 +6,11 @@ import 'package:flutter_app/database/exercise_data.dart';
 void main() => runApp(MyApp());
 
 late List<exerciseData> workoutData = [];
-late DateTime tempDate;
+late DateTime? tempDate;
 
 void setWorkOutData(List<exerciseData> list) async {
-  await DBHelper().getWorkOut().then((value) => tempDate = DateTime.parse(value.first.workoutDate));
-  if(workoutData.isEmpty || DateTime.now().day != tempDate.day){
+  await DBHelper().getWorkOut().then((value) => value.isNotEmpty ? tempDate = DateTime.parse(value.first.workoutDate) : null);
+  if(workoutData.isEmpty || DateTime.now().day != tempDate!.day){
     workoutData = list;
   }
 }

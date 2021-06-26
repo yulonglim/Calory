@@ -124,6 +124,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                     }
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
+                    if(currentGoal == null) {
+                      Navigator.pop(context);
+                    }
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Homepage()));
                   },
