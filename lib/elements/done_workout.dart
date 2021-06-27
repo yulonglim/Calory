@@ -43,7 +43,7 @@ class doneWorkout extends StatelessWidget {
                   Column(
                     children: [
                       RectangleDisplay('Completed'),
-                      RectangleDisplay('Duration: '+ duration),
+                      RectangleDisplay('Duration: ' + duration),
                     ],
                   )
                 ],
@@ -64,6 +64,7 @@ class doneWorkout extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => FullWorkoutPage(
                                     workoutItems: List.from(workoutData),
+                                    oneTime: false,
                                   )),
                         );
                       },

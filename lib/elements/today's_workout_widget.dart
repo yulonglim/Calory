@@ -78,12 +78,12 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
 
   String totalDuration() {
     int duration = 0;
-    for (int counter = 0; counter < warmUpItems.length; counter++) {
-      duration += warmUpItems[counter].exerciseTime;
-    }
-    for (int counter = 0; counter < coolDownItems.length; counter++) {
-      duration += coolDownItems[counter].exerciseTime;
-    }
+    // for (int counter = 0; counter < warmUpItems.length; counter++) {
+    //   duration += warmUpItems[counter].exerciseTime;
+    // }
+    // for (int counter = 0; counter < coolDownItems.length; counter++) {
+    //   duration += coolDownItems[counter].exerciseTime;
+    // }
     for (int counter = 0; counter < workOutItems.length; counter++) {
       duration += workOutItems[counter].exerciseTime;
     }
@@ -94,6 +94,21 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   @override
   Widget build(BuildContext context) {
     if (done) {
+      if (!planned) {
+        int duration = 0;
+        for (int counter = 0; counter < workoutData.length; counter++) {
+          duration += workoutData[counter].exerciseTime;
+        }
+        // for (int counter = 0; counter < warmUpItems.length; counter++) {
+        //   duration += warmUpItems[counter].exerciseTime;
+        // }
+        // for (int counter = 0; counter < coolDownItems.length; counter++) {
+        //   duration += coolDownItems[counter].exerciseTime;
+        // }
+
+        return doneWorkout(durationMMSS(duration));
+      }
+
       return doneWorkout(totalDuration());
     }
     if (!planned) {
@@ -153,7 +168,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FullWorkoutPage(
-                                  workoutItems: this.workOutItems)),
+                                  workoutItems: this.workOutItems, oneTime: false)),
                         );
                       },
                       child: Text(

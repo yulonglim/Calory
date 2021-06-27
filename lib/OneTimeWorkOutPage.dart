@@ -90,7 +90,8 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 onPressed: () async {
                   this.tempWorkOutItems = [];
                   await DBHelper()
-                      .getExercisesMuscles(this.muscleGroup,((this._currentSliderValue)/5).round() - 1)
+                      .getExercisesMuscles(this.muscleGroup,
+                          ((this._currentSliderValue) / 5).round() - 1)
                       .then((workOutItems) => setState(() {
                             workOutItems.forEach((element) {
                               this.tempWorkOutItems.add(exerciseData(
@@ -114,6 +115,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                     MaterialPageRoute(
                         builder: (context) => FullWorkoutPage(
                               workoutItems: this.workOutItems,
+                              oneTime: true,
                             )),
                   );
                 },

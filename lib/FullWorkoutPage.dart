@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/EndWorkOutPage.dart';
+import 'package:flutter_app/HomePage.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
+import 'package:flutter_app/database/goal.dart';
+import 'package:flutter_app/database/workout.dart';
 
 import 'CoolDownPage.dart';
 import 'WorkOutPage.dart';
@@ -15,8 +19,11 @@ class FullWorkoutPage extends StatelessWidget {
   final List<exerciseData> CoolDownItems = List.from(coolDownData);
   int restduration = 5;
   final List<exerciseData> workoutItems;
+  final bool oneTime;
 
-  FullWorkoutPage({Key? key, required this.workoutItems}) : super(key: key);
+  double _currentSliderValue = 15;
+
+  FullWorkoutPage({Key? key, required this.workoutItems, required this.oneTime}) : super(key: key);
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -54,6 +61,112 @@ class FullWorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(oneTime) {
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 1,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
+            ),
+            title: Text(
+              "Today's Workout",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+            ),
+          ),
+          body: Container(
+              padding: EdgeInsets.only(left: 16, top: 20, right: 16),
+              child: ListView(children: [
+                CardButton(
+                  iconData: Icons.whatshot,
+                  buttonName: "Warm Up",
+                  nextPage: WarmUpPage(),
+                  duration: warmUpduration(),
+                ),
+                CardButton(
+                  iconData: Icons.sports_handball_outlined,
+                  buttonName: "Main Workout",
+                  nextPage: WorkOutPage(
+                    items: workoutItems,
+                  ),
+                  duration: workOutduration(),
+                ),
+                CardButton(
+                  iconData: Icons.ac_unit_outlined,
+                  buttonName: "Cool Down",
+                  nextPage: CoolDownPage(),
+                  duration: coolDownduration(),
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () async {
+                      dynamic currentGoal;
+                      dynamic workout;
+                      await DBHelper().getGoals().then((value) =>
+                      value.isNotEmpty ? currentGoal = value.first : null);
+                      await DBHelper().getWorkOut().then((value) =>
+                      value.isNotEmpty ? workout = value.first : null);
+                      if (workout == null ||
+                          DateTime.parse(workout.workoutDate).day !=
+                              DateTime.now().day) {
+                        if (currentGoal != null) {
+                          await DBHelper().updateGoal(Goal(
+                              goalId: currentGoal.goalId,
+                              goal: currentGoal.goal,
+                              difficultyLevel: currentGoal.multiplier +
+                                  5 -
+                                  _currentSliderValue.round() * 2 >
+                                  60
+                                  ? 2
+                                  : currentGoal.multiplier +
+                                  5 -
+                                  _currentSliderValue.round() * 2 >
+                                  40
+                                  ? 1
+                                  : 0,
+                              startDate: currentGoal.startDate,
+                              endDate: currentGoal.endDate,
+                              multiplier: currentGoal.multiplier +
+                                  5 -
+                                  _currentSliderValue.round() * 2 >=
+                                  100
+                                  ? 100
+                                  : currentGoal.multiplier +
+                                  5 -
+                                  _currentSliderValue.round() * 2,
+                              progress: currentGoal.progress - 1));
+                        }
+                        await DBHelper().insertWorkout(Workout(
+                          //goalId: currentGoal != null ? currentGoal.goalId : 0,
+                            muscleGroup: 0,
+                            difficultyLevel: currentGoal != null
+                                ? currentGoal.difficultyLevel
+                                : 0,
+                            workoutDate: DateTime.now().toIso8601String(),
+                            workoutDuration: 0));
+                      }
+                      Navigator.popUntil(context,
+                          ModalRoute.withName(Navigator.defaultRouteName));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Homepage()));
+                    },
+                    child: Text(
+                      'End Workout',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                      textAlign: TextAlign.center,
+                    )),
+              ])));
+    }
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -114,4 +227,5 @@ class FullWorkoutPage extends StatelessWidget {
                   )),
             ])));
   }
+
 }
