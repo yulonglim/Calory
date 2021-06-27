@@ -153,10 +153,14 @@ class FullWorkoutPage extends StatelessWidget {
                             workoutDate: DateTime.now().toIso8601String(),
                             workoutDuration: 0));
                       }
-                      Navigator.popUntil(context,
-                          ModalRoute.withName(Navigator.defaultRouteName));
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Homepage()));
+                      int count = 0;
+                      Navigator.popUntil(context, (route) {
+                        return count++ == 3;
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homepage()),
+                      );
                     },
                     child: Text(
                       'End Workout',

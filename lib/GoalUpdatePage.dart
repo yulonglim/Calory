@@ -117,8 +117,7 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                         endDate: endDate,
                         multiplier: 20 + difficultyLevel * 20,
                         progress: ((DateTime.parse(endDate)
-                                        .difference(DateTime.parse(
-                                            currentGoal.startDate))
+                                        .difference(DateTime.now())
                                         .inDays +
                                     1) /
                                 7 *

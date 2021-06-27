@@ -197,7 +197,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 calendarFormat: _calendarFormat,
                 rangeSelectionMode: _rangeSelectionMode,
                 eventLoader: _getEventsForDay,
-                startingDayOfWeek: StartingDayOfWeek.monday,
+                startingDayOfWeek: StartingDayOfWeek.sunday,
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
