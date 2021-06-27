@@ -113,7 +113,7 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                 : currentGoal.multiplier +
                                     5 -
                                     _currentSliderValue.round() * 2,
-                            progress: currentGoal.progress - 1));
+                            progress: currentGoal.progress - 1 < 0 ? 0 : currentGoal.progress - 1));
                       }
                       await DBHelper().insertWorkout(Workout(
                           //goalId: currentGoal != null ? currentGoal.goalId : 0,
@@ -124,10 +124,14 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutDate: DateTime.now().toIso8601String(),
                           workoutDuration: 0));
                     }
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Homepage()));
+                    int count = 0;
+                    Navigator.popUntil(context, (route) {
+                      return count++ == 4;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Homepage()),
+                    );
                   },
                   child: Text(
                     'Done',

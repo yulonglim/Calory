@@ -40,40 +40,38 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
     DBHelper().getWorkOut().then((value) => value.isNotEmpty
         ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
             ? setState(() {
+                print('here');
                 this.done = true;
               })
             : null
-        : null);
-
-    if (!done) {
-      DBHelper().getGoals().then((goal) => goal.isNotEmpty
-          ? DBHelper()
-              .getExercises(goal.first.goal)
-              .then((workOutItems) => setState(() {
-                    planned = true;
-                    goal.first.difficultyLevel == 0
-                        ? this.difficulty = 'Easy'
-                        : goal.first.difficultyLevel == 1
-                            ? this.difficulty = 'Medium'
-                            : this.difficulty = 'Hard';
-                    workOutItems.forEach((element) {
-                      this.tempWorkOutItems.add(exerciseData(
-                          exerciseId: element.exerciseId,
-                          exerciseValue: element.exerciseValue != null
-                              ? (element.exerciseValue! *
-                                      goal.first.multiplier /
-                                      100)
-                                  .round()
-                              : null,
-                          exerciseTime: element.exerciseTime,
-                          exerciseName: element.exerciseName,
-                          exerciseDescription: element.exerciseDescription));
-                    });
-                    this.workOutItems = tempWorkOutItems;
-                    setWorkOutData(this.workOutItems);
-                  }))
-          : null);
-    }
+        : DBHelper().getGoals().then((goal) => goal.isNotEmpty
+            ? DBHelper()
+                .getExercises(goal.first.goal)
+                .then((workOutItems) => setState(() {
+                      print('here3');
+                      planned = true;
+                      goal.first.difficultyLevel == 0
+                          ? this.difficulty = 'Easy'
+                          : goal.first.difficultyLevel == 1
+                              ? this.difficulty = 'Medium'
+                              : this.difficulty = 'Hard';
+                      workOutItems.forEach((element) {
+                        this.tempWorkOutItems.add(exerciseData(
+                            exerciseId: element.exerciseId,
+                            exerciseValue: element.exerciseValue != null
+                                ? (element.exerciseValue! *
+                                        goal.first.multiplier /
+                                        100)
+                                    .round()
+                                : null,
+                            exerciseTime: element.exerciseTime,
+                            exerciseName: element.exerciseName,
+                            exerciseDescription: element.exerciseDescription));
+                      });
+                      this.workOutItems = tempWorkOutItems;
+                      setWorkOutData(this.workOutItems);
+                    }))
+            : null));
   }
 
   String totalDuration() {
@@ -99,12 +97,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
         for (int counter = 0; counter < workoutData.length; counter++) {
           duration += workoutData[counter].exerciseTime;
         }
-        // for (int counter = 0; counter < warmUpItems.length; counter++) {
-        //   duration += warmUpItems[counter].exerciseTime;
-        // }
-        // for (int counter = 0; counter < coolDownItems.length; counter++) {
-        //   duration += coolDownItems[counter].exerciseTime;
-        // }
 
         return doneWorkout(durationMMSS(duration));
       }
@@ -168,7 +160,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FullWorkoutPage(
-                                  workoutItems: this.workOutItems, oneTime: false)),
+                                  workoutItems: this.workOutItems,
+                                  oneTime: false)),
                         );
                       },
                       child: Text(

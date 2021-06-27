@@ -55,7 +55,7 @@ class _exercisingState extends State<exercising> {
         count2++;
       }
     } else {
-      this.temp = this.items;
+      this.temp.addAll(this.items);
     }
   }
 

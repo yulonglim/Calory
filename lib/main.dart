@@ -12,7 +12,9 @@ void setWorkOutData(List<exerciseData> list) async {
   await DBHelper().getWorkOut().then((value) => value.isNotEmpty
       ? tempDate = DateTime.parse(value.first.workoutDate)
       : null);
-  if (workoutData.isEmpty || DateTime.now().day != tempDate!.day) {
+  if (workoutData.isEmpty ||
+      tempDate == null ||
+      DateTime.now().day != tempDate!.day) {
     workoutData = list;
   }
 }

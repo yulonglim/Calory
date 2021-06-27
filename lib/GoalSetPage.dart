@@ -92,7 +92,7 @@ class _GoalSetPageState extends State<GoalSetPage> {
                 value: _currentSliderValue.toDouble(),
                 min: 1,
                 max: 6,
-                divisions: 6,
+                divisions: 5,
                 label: _currentSliderValue.round().toString() + " Days",
                 onChanged: (double value) {
                   setState(() {
