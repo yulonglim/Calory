@@ -184,12 +184,12 @@ class DBHelper {
       case 0:
         {
           for (int i = 0; i < 3; i++) {
-            exercise.add(
-                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            exercise
+                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
             exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
             exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -206,13 +206,13 @@ class DBHelper {
         {
           for (int i = 0; i < 4; i++) {
             if (i % 2 == 1) {
-              exercise.add(exerciseData
-                  .fromMap(core[Random().nextInt(core.length - 1)]));
+              exercise.add(
+                  exerciseData.fromMap(core[Random().nextInt(core.length)]));
             }
             exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
             exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -227,12 +227,12 @@ class DBHelper {
       case 2:
         {
           for (int i = 0; i < 3; i++) {
-            exercise.add(
-                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            exercise
+                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
             exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
             exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -263,7 +263,7 @@ class DBHelper {
         {
           for (int i = 0; i < 4 * sets; i++) {
             exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(
@@ -282,7 +282,7 @@ class DBHelper {
         {
           for (int i = 0; i < 4 * sets; i++) {
             exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(
@@ -299,8 +299,8 @@ class DBHelper {
       case 2:
         {
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(
-                exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            exercise
+                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(

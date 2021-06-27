@@ -40,8 +40,9 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     openExcel();
-    DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
     DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2);
+    DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
+
     DBHelper()
         .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
     DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);

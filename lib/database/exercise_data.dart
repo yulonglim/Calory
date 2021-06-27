@@ -21,7 +21,9 @@ void openExcel() async {
           .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: rowIndex))
           .value
           .toString();
-
+      if (exerciseId == "null") {
+        break;
+      }
       int? exerciseValue = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: rowIndex))
           .value;
@@ -37,23 +39,19 @@ void openExcel() async {
           .value
           .toString();
 
-      if (exerciseId == "null") {
-        break;
-      } else {
-        exerciseData excelDetails = new exerciseData(
-            exerciseId: exerciseId,
-            exerciseValue: exerciseValue,
-            exerciseTime: exerciseTime,
-            exerciseName: exerciseName,
-            exerciseDescription: exerciseDescription);
-        exerciseId.contains('U')
-            ? upperBodyData2.add(excelDetails)
-            : exerciseId.contains('L')
-                ? lowerBodyData2.add(excelDetails)
-                : exerciseId.contains('C')
-                    ? coreExerciseData2.add(excelDetails)
-                    : cardioData2.add(excelDetails);
-      }
+      exerciseData excelDetails = new exerciseData(
+          exerciseId: exerciseId,
+          exerciseValue: exerciseValue,
+          exerciseTime: exerciseTime,
+          exerciseName: exerciseName,
+          exerciseDescription: exerciseDescription);
+      exerciseId.contains('U')
+          ? upperBodyData2.add(excelDetails)
+          : exerciseId.contains('L')
+              ? lowerBodyData2.add(excelDetails)
+              : exerciseId.contains('C')
+                  ? coreExerciseData2.add(excelDetails)
+                  : cardioData2.add(excelDetails);
     }
   }
 }
