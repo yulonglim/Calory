@@ -314,7 +314,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ),
                   Text(
-                    endDate.difference(DateTime.now()).inDays.toString(),
+                    (endDate.difference(DateTime.now()).inDays + 1).toString(),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

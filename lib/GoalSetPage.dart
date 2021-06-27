@@ -114,8 +114,9 @@ class _GoalSetPageState extends State<GoalSetPage> {
                         endDate: endDate,
                         multiplier: multiplier + difficultyLevel * 20,
                         progress: ((DateTime.parse(endDate)
-                                    .difference(DateTime.parse(startDate))
-                                    .inDays) /
+                                        .difference(DateTime.parse(startDate))
+                                        .inDays +
+                                    1) /
                                 7 *
                                 _currentSliderValue)
                             .round()));

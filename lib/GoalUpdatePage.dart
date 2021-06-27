@@ -3,7 +3,7 @@ import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/elements/dateselector.dart';
-import 'package:flutter_app/elements/image_banner.dart';
+//import 'package:flutter_app/elements/image_banner.dart';
 
 import 'package:flutter_app/elements/toggle_button.dart';
 
@@ -117,8 +117,10 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                         endDate: endDate,
                         multiplier: 20 + difficultyLevel * 20,
                         progress: ((DateTime.parse(endDate)
-                                    .difference(DateTime.parse(currentGoal.startDate))
-                                    .inDays) /
+                                        .difference(DateTime.parse(
+                                            currentGoal.startDate))
+                                        .inDays +
+                                    1) /
                                 7 *
                                 _currentSliderValue)
                             .round()));

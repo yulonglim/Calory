@@ -249,7 +249,8 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> getExercisesMuscles(int muscleGroup) async {
+  Future<List<exerciseData>> getExercisesMuscles(
+      int muscleGroup, int sets) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
@@ -260,26 +261,56 @@ class DBHelper {
     switch (muscleGroup) {
       case 0:
         {
-          for (int i = 0; i < 4; i++) {
+          for (int i = 0; i < 4 * sets; i++) {
             exercise.add(exerciseData
                 .fromMap(upperBody[Random().nextInt(upperBody.length - 1)]));
+            if (i % 2 == 1) {
+              exercise.add(
+                exerciseData(
+                    exerciseId: 'R1',
+                    exerciseTime: 30,
+                    exerciseName: 'Rest',
+                    exerciseDescription:
+                        'Use this time to prepare for the next exercise or to shake off any tension.'),
+              );
+            }
           }
 
           return exercise;
         }
       case 1:
         {
-          for (int i = 0; i < 4; i++) {
+          for (int i = 0; i < 4 * sets; i++) {
             exercise.add(exerciseData
                 .fromMap(lowerBody[Random().nextInt(lowerBody.length - 1)]));
+            if (i % 2 == 1) {
+              exercise.add(
+                exerciseData(
+                    exerciseId: 'R1',
+                    exerciseTime: 30,
+                    exerciseName: 'Rest',
+                    exerciseDescription:
+                        'Use this time to prepare for the next exercise or to shake off any tension.'),
+              );
+            }
           }
           return exercise;
         }
       case 2:
         {
-          for (int i = 0; i < 4; i++) {
+          for (int i = 0; i < 4 * sets; i++) {
             exercise.add(
                 exerciseData.fromMap(core[Random().nextInt(core.length - 1)]));
+            if (i % 2 == 1) {
+              exercise.add(
+                exerciseData(
+                    exerciseId: 'R1',
+                    exerciseTime: 30,
+                    exerciseName: 'Rest',
+                    exerciseDescription:
+                        'Use this time to prepare for the next exercise or to shake off any tension.'),
+              );
+            }
           }
           return exercise;
         }
