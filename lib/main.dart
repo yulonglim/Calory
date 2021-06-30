@@ -8,6 +8,10 @@ void main() => runApp(MyApp());
 late List<exerciseData> workoutData = [];
 late DateTime? tempDate;
 
+void clearWorkOutData() {
+  workoutData = [];
+}
+
 void setWorkOutData(List<exerciseData> list) async {
   await DBHelper().getWorkOut().then((value) => value.isNotEmpty
       ? tempDate = DateTime.parse(value.first.workoutDate)

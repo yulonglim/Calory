@@ -4,6 +4,7 @@ import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
+import 'package:flutter_app/main.dart';
 import 'package:intl/intl.dart';
 
 import './ProgressPage.dart';
@@ -66,6 +67,7 @@ class _HomepageState extends State<Homepage> {
                     currentID = value.isNotEmpty ? value.first.goalId : 0);
                 await DBHelper().deleteGoal(currentID!);
                 await DBHelper().deleteAllWorkOuts();
+                clearWorkOutData();
                 Navigator.pop(context);
                 Navigator.push(
                   context,

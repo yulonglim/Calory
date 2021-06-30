@@ -183,13 +183,25 @@ class DBHelper {
     switch (goal) {
       case 0:
         {
+          int firstRand = Random().nextInt(core.length);
           for (int i = 0; i < 3; i++) {
-            exercise
-                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
-            exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
-            exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
+            if (firstRand >= core.length) {
+              firstRand -= core.length;
+            }
+            exercise.add(exerciseData.fromMap(core[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+
+            if (firstRand >= upperBody.length) {
+              firstRand -= upperBody.length;
+            }
+            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+
+            if (firstRand >= lowerBody.length) {
+              firstRand -= lowerBody.length;
+            }
+            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -204,15 +216,25 @@ class DBHelper {
         }
       case 1:
         {
+          int firstRand = Random().nextInt(core.length);
           for (int i = 0; i < 4; i++) {
             if (i % 2 == 1) {
-              exercise.add(
-                  exerciseData.fromMap(core[Random().nextInt(core.length)]));
+              if (firstRand >= core.length) {
+                firstRand -= core.length;
+              }
+              exercise.add(exerciseData.fromMap(core[firstRand]));
             }
-            exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
-            exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+            if (firstRand >= upperBody.length) {
+              firstRand -= upperBody.length;
+            }
+            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+            if (firstRand >= lowerBody.length) {
+              firstRand -= lowerBody.length;
+            }
+            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -226,13 +248,25 @@ class DBHelper {
         }
       case 2:
         {
+          int firstRand = Random().nextInt(core.length);
           for (int i = 0; i < 3; i++) {
-            exercise
-                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
-            exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
-            exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
+            if (firstRand >= core.length) {
+              firstRand -= core.length;
+            }
+            exercise.add(exerciseData.fromMap(core[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+
+            if (firstRand >= upperBody.length) {
+              firstRand -= upperBody.length;
+            }
+            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
+
+            if (firstRand >= lowerBody.length) {
+              firstRand -= lowerBody.length;
+            }
+            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
               exerciseData(
                   exerciseId: 'R1',
@@ -258,12 +292,13 @@ class DBHelper {
     final List<Map<String, Object?>> cardio = await db.query(tableCardio);
 
     List<exerciseData> exercise = <exerciseData>[];
+
     switch (muscleGroup) {
       case 0:
         {
+          int firstRand = Random().nextInt(upperBody.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(exerciseData
-                .fromMap(upperBody[Random().nextInt(upperBody.length)]));
+            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(
@@ -273,6 +308,10 @@ class DBHelper {
                     exerciseDescription:
                         'Use this time to prepare for the next exercise or to shake off any tension.'),
               );
+            }
+            firstRand = firstRand + 1 + Random().nextInt(2);
+            if (firstRand >= upperBody.length) {
+              firstRand -= upperBody.length;
             }
           }
 
@@ -280,9 +319,9 @@ class DBHelper {
         }
       case 1:
         {
+          int firstRand = Random().nextInt(lowerBody.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(exerciseData
-                .fromMap(lowerBody[Random().nextInt(lowerBody.length)]));
+            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(
@@ -293,14 +332,18 @@ class DBHelper {
                         'Use this time to prepare for the next exercise or to shake off any tension.'),
               );
             }
+            firstRand = firstRand + 1 + Random().nextInt(2);
+            if (firstRand >= lowerBody.length) {
+              firstRand -= lowerBody.length;
+            }
           }
           return exercise;
         }
       case 2:
         {
+          int firstRand = Random().nextInt(core.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise
-                .add(exerciseData.fromMap(core[Random().nextInt(core.length)]));
+            exercise.add(exerciseData.fromMap(core[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
                 exerciseData(
@@ -310,6 +353,10 @@ class DBHelper {
                     exerciseDescription:
                         'Use this time to prepare for the next exercise or to shake off any tension.'),
               );
+            }
+            firstRand = firstRand + 1 + Random().nextInt(2);
+            if (firstRand >= core.length) {
+              firstRand = firstRand - core.length;
             }
           }
           return exercise;

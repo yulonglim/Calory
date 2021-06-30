@@ -8,6 +8,7 @@ import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
+import 'package:flutter_app/main.dart';
 
 import 'CoolDownPage.dart';
 import 'WorkOutPage.dart';
@@ -108,6 +109,7 @@ class FullWorkoutPage extends StatelessWidget {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
+                      setWorkOutData(this.workoutItems);
                       dynamic currentGoal;
                       dynamic workout;
                       await DBHelper().getGoals().then((value) =>

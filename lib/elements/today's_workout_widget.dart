@@ -40,7 +40,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
     DBHelper().getWorkOut().then((value) => value.isNotEmpty
         ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
             ? setState(() {
-                print('here');
                 this.done = true;
               })
             : null
@@ -48,7 +47,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
             ? DBHelper()
                 .getExercises(goal.first.goal)
                 .then((workOutItems) => setState(() {
-                      print('here3');
                       planned = true;
                       goal.first.difficultyLevel == 0
                           ? this.difficulty = 'Easy'

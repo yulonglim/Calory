@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
-import 'package:flutter_app/main.dart';
+
 
 import 'FullWorkoutPage.dart';
 import 'database/DBHelper.dart';
@@ -107,7 +107,6 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                                   exerciseDescription:
                                       element.exerciseDescription));
                             });
-                            setWorkOutData(tempWorkOutItems);
                             this.workOutItems = tempWorkOutItems;
                           }));
                   Navigator.pushReplacement(
