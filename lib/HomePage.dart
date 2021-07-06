@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/SettingsPage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
-import 'package:flutter_app/main.dart';
 import 'package:intl/intl.dart';
 
 import './ProgressPage.dart';
@@ -60,21 +60,29 @@ class _HomepageState extends State<Homepage> {
             style: TextStyle(fontSize: 32),
           ),
           actions: [
-            ElevatedButton(
-              onPressed: () async {
-                int? currentID = 0;
-                await DBHelper().getGoals().then((value) =>
-                    currentID = value.isNotEmpty ? value.first.goalId : 0);
-                await DBHelper().deleteGoal(currentID!);
-                await DBHelper().deleteAllWorkOuts();
-                clearWorkOutData();
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Homepage()),
-                );
-              },
-              child: Text('Clear'),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Theme.of(context).primaryColor),
+                      shape: MaterialStateProperty.all<CircleBorder>(
+                          CircleBorder(
+                              side: BorderSide(color: Colors.red)))),
+                  onPressed: () {
+                    // int? currentID = 0;
+                    // await DBHelper().getGoals().then((value) =>
+                    //     currentID = value.isNotEmpty ? value.first.goalId : 0);
+                    // await DBHelper().deleteGoal(currentID!);
+                    // await DBHelper().deleteAllWorkOuts();
+                    // clearWorkOutData();
+                    // Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
+                  },
+                  child: Icon(Icons.person)),
             )
           ],
         ),
