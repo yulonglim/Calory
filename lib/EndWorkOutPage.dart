@@ -3,6 +3,7 @@ import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
+import 'package:flutter_app/main.dart';
 
 class EndWorkOutPage extends StatefulWidget {
   const EndWorkOutPage({Key? key}) : super(key: key);
@@ -81,6 +82,8 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   onPressed: () async {
                     dynamic currentGoal;
                     dynamic workout;
+                    int duration = 0;
+                    String workoutList = '';
                     await DBHelper().getGoals().then((value) =>
                         value.isNotEmpty ? currentGoal = value.first : null);
                     await DBHelper().getWorkOut().then((value) =>
@@ -113,16 +116,26 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                 : currentGoal.multiplier +
                                     5 -
                                     _currentSliderValue.round() * 2,
-                            progress: currentGoal.progress - 1 < 0 ? 0 : currentGoal.progress - 1));
+                            progress: currentGoal.progress - 1 < 0
+                                ? 0
+                                : currentGoal.progress - 1));
+                      }
+                      for (int i = 0; i < workoutData.length; i++) {
+                        duration += workoutData[i].exerciseTime;
+                        if (workoutData[i].exerciseName != 'Rest') {
+                          workoutList =
+                              workoutList + '\n' + workoutData[i].exerciseName;
+                        }
                       }
                       await DBHelper().insertWorkout(Workout(
                           //goalId: currentGoal != null ? currentGoal.goalId : 0,
-                          muscleGroup: 0,
+                          muscleGroup: 3,
                           difficultyLevel: currentGoal != null
                               ? currentGoal.difficultyLevel
                               : 0,
                           workoutDate: DateTime.now().toIso8601String(),
-                          workoutDuration: 0));
+                          workoutDuration: duration,
+                          workoutList: workoutList));
                     }
                     int count = 0;
                     Navigator.popUntil(context, (route) {

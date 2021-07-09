@@ -7,8 +7,7 @@ class Workout {
   final int difficultyLevel;
   final String workoutDate;
   final int workoutDuration;
-  final int
-      status; //Acts like a boolean with value of 0 (incomplete) or 1 (complete)
+  final String? workoutList;
 
   const Workout(
       {this.goalId,
@@ -17,7 +16,7 @@ class Workout {
       required this.difficultyLevel,
       required this.workoutDate,
       required this.workoutDuration,
-      this.status = 0});
+      required this.workoutList});
 
   static Workout fromMap(Map<String, dynamic> map) {
     int? goalId = map['goalId'];
@@ -26,7 +25,7 @@ class Workout {
     int difficultyLevel = map['difficultyLevel'];
     String workoutDate = map['workoutDate'];
     int workoutDuration = map['workoutDuration'];
-    int status = map['status'];
+    String? workoutList = map['workoutList'];
 
     return Workout(
         goalId: goalId,
@@ -35,7 +34,7 @@ class Workout {
         difficultyLevel: difficultyLevel,
         workoutDate: workoutDate,
         workoutDuration: workoutDuration,
-        status: status);
+        workoutList: workoutList);
   }
 
   Map<String, dynamic> toMap() {
@@ -46,7 +45,7 @@ class Workout {
       'difficultyLevel': difficultyLevel,
       'workoutDate': workoutDate,
       'workoutDuration': workoutDuration,
-      'status': status
+      'workoutList': workoutList
     };
 
     if (this.goalId != null) {
@@ -65,5 +64,75 @@ class Workout {
 
   static Workout fromJsonEncoding(String jsonEncoding) {
     return fromMap(jsonDecode(jsonEncoding));
+  }
+
+  String durationMMSS(int duration) {
+    int mins = 0;
+    int temp = duration;
+    while (temp >= 60) {
+      temp -= 60;
+      mins++;
+    }
+    return mins.toString() + 'm ' + temp.toString() + 's';
+  }
+
+  String difficulty(int difficulty) {
+    switch (difficulty) {
+      case 0:
+        {
+          return 'Easy';
+        }
+      case 1:
+        {
+          return 'Normal';
+        }
+      case 2:
+        {
+          return 'Hard';
+        }
+      default:
+        {
+          return '';
+        }
+    }
+  }
+
+  String MuscleGroup(int muscle) {
+    switch (muscle) {
+      case 0:
+        {
+          return 'Upper Body';
+        }
+      case 1:
+        {
+          return 'Lower Body';
+        }
+      case 2:
+        {
+          return 'Core';
+        }
+      case 3:
+        {
+          return 'Balanced';
+        }
+      default:
+        {
+          return '';
+        }
+    }
+  }
+
+  @override
+  String toString() {
+    return 'Duration: ' +
+        durationMMSS(this.workoutDuration) +
+        '\n' +
+        'Difficulty: ' +
+        difficulty(this.difficultyLevel) +
+        '\n' +
+        'Muscle Group: ' +
+        MuscleGroup(this.muscleGroup) +
+        '\n' +
+        workoutList!;
   }
 }

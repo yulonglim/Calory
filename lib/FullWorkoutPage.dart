@@ -6,7 +6,6 @@ import 'package:flutter_app/EndWorkOutPage.dart';
 import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
-import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
 import 'package:flutter_app/main.dart';
 
@@ -21,10 +20,9 @@ class FullWorkoutPage extends StatelessWidget {
   int restduration = 5;
   final List<exerciseData> workoutItems;
   final bool oneTime;
+  final int? difficultyLevel;
 
-  double _currentSliderValue = 15;
-
-  FullWorkoutPage({Key? key, required this.workoutItems, required this.oneTime}) : super(key: key);
+  FullWorkoutPage({Key? key, required this.workoutItems, required this.oneTime, this.difficultyLevel}) : super(key: key);
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -110,50 +108,23 @@ class FullWorkoutPage extends StatelessWidget {
                     ),
                     onPressed: () async {
                       setWorkOutData(this.workoutItems);
-                      dynamic currentGoal;
                       dynamic workout;
-                      await DBHelper().getGoals().then((value) =>
-                      value.isNotEmpty ? currentGoal = value.first : null);
+                      int duration = 0;
+                      for (int counter = 0; counter < workoutItems.length; counter++) {
+                        duration += workoutItems[counter].exerciseTime;
+                      }
                       await DBHelper().getWorkOut().then((value) =>
                       value.isNotEmpty ? workout = value.first : null);
                       if (workout == null ||
                           DateTime.parse(workout.workoutDate).day !=
                               DateTime.now().day) {
-                        if (currentGoal != null) {
-                          await DBHelper().updateGoal(Goal(
-                              goalId: currentGoal.goalId,
-                              goal: currentGoal.goal,
-                              difficultyLevel: currentGoal.multiplier +
-                                  5 -
-                                  _currentSliderValue.round() * 2 >
-                                  60
-                                  ? 2
-                                  : currentGoal.multiplier +
-                                  5 -
-                                  _currentSliderValue.round() * 2 >
-                                  40
-                                  ? 1
-                                  : 0,
-                              startDate: currentGoal.startDate,
-                              endDate: currentGoal.endDate,
-                              multiplier: currentGoal.multiplier +
-                                  5 -
-                                  _currentSliderValue.round() * 2 >=
-                                  100
-                                  ? 100
-                                  : currentGoal.multiplier +
-                                  5 -
-                                  _currentSliderValue.round() * 2,
-                              progress: currentGoal.progress - 1));
-                        }
                         await DBHelper().insertWorkout(Workout(
-                          //goalId: currentGoal != null ? currentGoal.goalId : 0,
                             muscleGroup: 0,
-                            difficultyLevel: currentGoal != null
-                                ? currentGoal.difficultyLevel
-                                : 0,
+                            difficultyLevel:  this.difficultyLevel! ,
                             workoutDate: DateTime.now().toIso8601String(),
-                            workoutDuration: 0));
+                            workoutDuration: duration,
+                          workoutList: workoutData.skipWhile((value) => value.exerciseName == 'Rest').map((e) => e.exerciseName).join('\n')
+                        ));
                       }
                       int count = 0;
                       Navigator.popUntil(context, (route) {

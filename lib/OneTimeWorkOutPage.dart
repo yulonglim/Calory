@@ -115,6 +115,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                         builder: (context) => FullWorkoutPage(
                               workoutItems: this.workOutItems,
                               oneTime: true,
+                          difficultyLevel: this.difficulty,
                             )),
                   );
                 },

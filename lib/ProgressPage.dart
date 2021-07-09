@@ -49,7 +49,7 @@ class _ProgressPageState extends State<ProgressPage> {
             this._kEventSource = Map.fromIterable(workouts,
                 key: (item) => DateTime.parse(item.workoutDate),
                 value: (item) => [
-                      Event('Did workout'),
+                      Event(item.toString()),
                     ]);
             this.kEvents = LinkedHashMap<DateTime, List<Event>>(
               equals: isSameDay,
@@ -60,7 +60,7 @@ class _ProgressPageState extends State<ProgressPage> {
             this._kEventSource = Map.fromIterable(workouts,
                 key: (item) => DateTime.parse(item.workoutDate),
                 value: (item) => [
-                      Event('Did workout'),
+                      Event(item.toString()),
                     ]);
             this.kEvents = LinkedHashMap<DateTime, List<Event>>(
               equals: isSameDay,
@@ -92,7 +92,7 @@ class _ProgressPageState extends State<ProgressPage> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null;
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
@@ -187,49 +187,108 @@ class _ProgressPageState extends State<ProgressPage> {
                 height: 15,
                 thickness: 2,
               ),
-              TableCalendar<Event>(
-                firstDay: FirstDay,
-                lastDay: LastDay,
-                focusedDay: _focusedDay,
-                selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                rangeStartDay: _rangeStart,
-                rangeEndDay: _rangeEnd,
-                calendarFormat: _calendarFormat,
-                rangeSelectionMode: _rangeSelectionMode,
-                eventLoader: _getEventsForDay,
-                startingDayOfWeek: StartingDayOfWeek.sunday,
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    shape: BoxShape.circle,
-                    //shape: BoxShape.rectangle,
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                  rangeHighlightColor: Theme.of(context).primaryColor,
-                  markerDecoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                  ),
-                  // image: DecorationImage(
-                  //     fit: BoxFit.fill,
-                  //     image: AssetImage('assets/images/check-mark.png'))),
-                  outsideDaysVisible: false,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.53,
+                child: Column(
+                  children: [
+                    TableCalendar<Event>(
+                      firstDay: FirstDay,
+                      lastDay: LastDay,
+                      focusedDay: _focusedDay,
+                      selectedDayPredicate: (day) =>
+                          isSameDay(_selectedDay, day),
+                      rangeStartDay: _rangeStart,
+                      rangeEndDay: _rangeEnd,
+                      calendarFormat: _calendarFormat,
+                      rangeSelectionMode: _rangeSelectionMode,
+                      eventLoader: _getEventsForDay,
+                      startingDayOfWeek: StartingDayOfWeek.sunday,
+                      calendarStyle: CalendarStyle(
+                        selectedDecoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          shape: BoxShape.circle,
+                          //shape: BoxShape.rectangle,
+                        ),
+                        todayDecoration: BoxDecoration(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.3),
+                          shape: BoxShape.circle,
+                        ),
+                        rangeHighlightColor: Theme.of(context).primaryColor,
+                        markerDecoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                        ),
+                        // image: DecorationImage(
+                        //     fit: BoxFit.fill,
+                        //     image: AssetImage('assets/images/check-mark.png'))),
+                        outsideDaysVisible: false,
+                      ),
+                      onDaySelected: _onDaySelected,
+                      onRangeSelected: _onRangeSelected,
+                      onFormatChanged: (format) {
+                        if (_calendarFormat != format) {
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        }
+                      },
+                      onPageChanged: (focusedDay) {
+                        _focusedDay = focusedDay;
+                      },
+                    ),
+                    Expanded(
+                      child: ValueListenableBuilder<List<Event>>(
+                        valueListenable: _selectedEvents,
+                        builder: (context, value, _) {
+                          return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: value.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 4.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: ListTile(
+                                  onTap: () => showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: Text('What you did!',
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w500)),
+                                      content: Text(
+                                          _getEventsForDay(_selectedDay!)
+                                              .first
+                                              .title,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500)),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'Cancel'),
+                                          child: const Text('Cancel'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  title: Text('Click to check what you did'),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                onDaySelected: _onDaySelected,
-                onRangeSelected: _onRangeSelected,
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
-                },
               ),
               Divider(
                 height: 15,

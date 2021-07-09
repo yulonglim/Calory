@@ -57,7 +57,7 @@ class DBHelper {
           "difficultyLevel INTEGER,"
           "workoutDate STRING,"
           "workoutDuration INTEGER,"
-          "status INTEGER,"
+          "workoutList String,"
           "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))");
 
       await db.execute("CREATE TABLE $tableUpperBody("

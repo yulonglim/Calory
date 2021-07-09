@@ -23,6 +23,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late List<exerciseData> workOutItems = [];
   late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
+  late int duration = 0;
 
   String durationMMSS(int duration) {
     int mins = 0;
@@ -40,7 +41,9 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
     DBHelper().getWorkOut().then((value) => value.isNotEmpty
         ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
             ? setState(() {
+                workOutItems = workoutData;
                 this.done = true;
+                this.duration = value.first.workoutDuration;
               })
             : null
         : DBHelper().getGoals().then((goal) => goal.isNotEmpty
@@ -90,16 +93,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   @override
   Widget build(BuildContext context) {
     if (done) {
-      if (!planned) {
-        int duration = 0;
-        for (int counter = 0; counter < workoutData.length; counter++) {
-          duration += workoutData[counter].exerciseTime;
-        }
-
-        return doneWorkout(durationMMSS(duration));
-      }
-
-      return doneWorkout(totalDuration());
+      return doneWorkout(durationMMSS(duration));
     }
     if (!planned) {
       return noPlan();
