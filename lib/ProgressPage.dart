@@ -25,10 +25,32 @@ class _ProgressPageState extends State<ProgressPage> {
   late DateTime startDate = DateTime.now();
   late DateTime endDate = DateTime.now();
   late String difficulty = 'Not Set';
+  late String goal = 'Not Set';
   late int progress = 0;
   late List<Workout> workouts = [];
   late Map<DateTime, List<Event>> _kEventSource = new Map();
   late LinkedHashMap<DateTime, List<Event>> kEvents = new LinkedHashMap();
+
+  String goalToString(int goalType) {
+    switch (goalType) {
+      case 0:
+        {
+          return 'Weight Loss';
+        }
+      case 1:
+        {
+          return 'Strength';
+        }
+      case 2:
+        {
+          return 'Endurance';
+        }
+      default:
+        {
+          return 'Not Set';
+        }
+    }
+  }
 
   @override
   void initState() {
@@ -38,14 +60,15 @@ class _ProgressPageState extends State<ProgressPage> {
     DBHelper().getWorkOut().then((value) => workouts = value);
     DBHelper().getGoals().then((value) => value.isNotEmpty
         ? setState(() {
-            value.first.difficultyLevel == 0
+            value.last.difficultyLevel == 0
                 ? this.difficulty = 'Easy'
-                : value.first.difficultyLevel == 1
+                : value.last.difficultyLevel == 1
                     ? this.difficulty = 'Medium'
                     : this.difficulty = 'Hard';
-            this.startDate = DateTime.parse(value.first.startDate);
-            this.endDate = DateTime.parse(value.first.endDate);
-            this.progress = value.first.progress;
+            this.goal = goalToString(value.last.goal);
+            this.startDate = DateTime.parse(value.last.startDate);
+            this.endDate = DateTime.parse(value.last.endDate);
+            this.progress = value.last.progress;
             this._kEventSource = Map.fromIterable(workouts,
                 key: (item) => DateTime.parse(item.workoutDate),
                 value: (item) => [
@@ -265,7 +288,7 @@ class _ProgressPageState extends State<ProgressPage> {
                                               fontWeight: FontWeight.w500)),
                                       content: Text(
                                           _getEventsForDay(_selectedDay!)
-                                              .first
+                                              .last
                                               .title,
                                           style: TextStyle(
                                               fontSize: 16,
@@ -353,6 +376,27 @@ class _ProgressPageState extends State<ProgressPage> {
                   ),
                   Text(
                     difficulty,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[600],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Current Goal Type:",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    goal,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

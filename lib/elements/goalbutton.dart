@@ -22,7 +22,8 @@ class _GoalButtonState extends State<GoalButton> {
   @override
   Widget build(BuildContext context) {
     DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
-        ? setState(() {
+        ? DateTime.parse(value.last.endDate).isBefore(DateTime.now()) ? null :
+    setState(() {
             planned = true;
           })
         : null);

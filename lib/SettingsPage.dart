@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/goal.dart';
+import 'package:flutter_app/elements/goal_card.dart';
 import 'package:flutter_app/main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -11,8 +13,10 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  int? goalID = 0;
+  int? goalNumber = 0;
   int progress = 0;
+  final goalListKey = GlobalKey<AnimatedListState>();
+  late List<Goal> goalList = [];
 
   @override
   void initState() {
@@ -20,8 +24,9 @@ class _SettingsPageState extends State<SettingsPage> {
     DBHelper().getGoals().then((value) => value.isEmpty
         ? null
         : setState(() {
-            this.goalID = value.first.goalId;
+            this.goalNumber = value.length;
             this.progress = value.first.progress;
+            this.goalList = value;
           }));
   }
 
@@ -83,7 +88,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 Text(
-                  progress == 0 ? goalID.toString() : (goalID!-1).toString() ,
+                  progress == 0
+                      ? goalNumber.toString()
+                      : (goalNumber! - 1).toString(),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -92,49 +99,63 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-           Container(
-             margin: EdgeInsets.all(4),
-             decoration: BoxDecoration(
-               borderRadius: BorderRadius.circular(8),
-               color: Theme.of(context).primaryColor,
-             ),
-             child: ListTile(
-                  contentPadding: EdgeInsets.all(16),
-                  title: new InkWell(
-                    onTap: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: Text('Clear Data?',
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500)),
-                        content: Text(
-                            'This will clear all data from the application. Continue?',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500)),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Back'),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              int? currentID = 0;
-                              await DBHelper().getGoals().then((value) =>
-                                  currentID =
-                                      value.isNotEmpty ? value.first.goalId : 0);
-                              await DBHelper().deleteGoal(currentID!);
-                              await DBHelper().deleteAllWorkOuts();
-                              clearWorkOutData();
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Homepage()),);
-                            },
-                            child: const Text('Clear'),
-                          ),
-                        ],
-                      ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: AnimatedList(
+                key: goalListKey,
+                initialItemCount: goalList.length + 1,
+                itemBuilder: (context, index, animation) => GoalCard(
+                  item: goalList[index],
+                  animation: animation,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Theme.of(context).primaryColor,
+              ),
+              child: ListTile(
+                contentPadding: EdgeInsets.all(16),
+                title: new InkWell(
+                  onTap: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Text('Clear Data?',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w500)),
+                      content: Text(
+                          'This will clear all data from the application. Continue?',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Back'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            int? currentID = 0;
+                            await DBHelper().getGoals().then((value) =>
+                                currentID =
+                                    value.isNotEmpty ? value.first.goalId : 0);
+                            await DBHelper().deleteGoal(currentID!);
+                            await DBHelper().deleteAllWorkOuts();
+                            clearWorkOutData();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => Homepage()),
+                            );
+                          },
+                          child: const Text('Clear'),
+                        ),
+                      ],
                     ),
-                    child: Row(
+                  ),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
@@ -149,9 +170,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  ),
                 ),
-           ),
+              ),
+            ),
             //)
           ],
         ),

@@ -110,8 +110,12 @@ class FullWorkoutPage extends StatelessWidget {
                       setWorkOutData(this.workoutItems);
                       dynamic workout;
                       int duration = 0;
+                      String workoutList = '';
                       for (int counter = 0; counter < workoutItems.length; counter++) {
                         duration += workoutItems[counter].exerciseTime;
+                        if(workoutItems[counter].exerciseName != 'Rest'){
+                          workoutList += workoutItems[counter].exerciseName + '\n';
+                        }
                       }
                       await DBHelper().getWorkOut().then((value) =>
                       value.isNotEmpty ? workout = value.first : null);
@@ -123,7 +127,7 @@ class FullWorkoutPage extends StatelessWidget {
                             difficultyLevel:  this.difficultyLevel! ,
                             workoutDate: DateTime.now().toIso8601String(),
                             workoutDuration: duration,
-                          workoutList: workoutData.skipWhile((value) => value.exerciseName == 'Rest').map((e) => e.exerciseName).join('\n')
+                          workoutList: workoutList
                         ));
                       }
                       int count = 0;
