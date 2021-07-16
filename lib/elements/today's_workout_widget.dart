@@ -43,18 +43,18 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
             ? setState(() {
                 workOutItems = workoutData;
                 this.done = true;
-                this.duration = value.first.workoutDuration;
+                this.duration = value.last.workoutDuration;
               })
             : DBHelper().getGoals().then((goal) => goal.isNotEmpty
                 ? DateTime.parse(goal.last.endDate).isAfter(
                         DateTime.now()) // check if previous goal finished
                     ? DBHelper()
-                        .getExercises(goal.first.goal)
+                        .getExercises(goal.last.goal)
                         .then((workOutItems) => setState(() {
                               planned = true;
-                              goal.first.difficultyLevel == 0
+                              goal.last.difficultyLevel == 0
                                   ? this.difficulty = 'Easy'
-                                  : goal.first.difficultyLevel == 1
+                                  : goal.last.difficultyLevel == 1
                                       ? this.difficulty = 'Medium'
                                       : this.difficulty = 'Hard';
                               workOutItems.forEach((element) {
@@ -62,7 +62,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                     exerciseId: element.exerciseId,
                                     exerciseValue: element.exerciseValue != null
                                         ? (element.exerciseValue! *
-                                                goal.first.multiplier /
+                                                goal.last.multiplier /
                                                 100)
                                             .round()
                                         : null,
@@ -80,12 +80,12 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
             ? DateTime.parse(goal.last.endDate)
                     .isAfter(DateTime.now()) // check if previous goal finished
                 ? DBHelper()
-                    .getExercises(goal.first.goal)
+                    .getExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
                           planned = true;
-                          goal.first.difficultyLevel == 0
+                          goal.last.difficultyLevel == 0
                               ? this.difficulty = 'Easy'
-                              : goal.first.difficultyLevel == 1
+                              : goal.last.difficultyLevel == 1
                                   ? this.difficulty = 'Medium'
                                   : this.difficulty = 'Hard';
                           workOutItems.forEach((element) {
@@ -93,7 +93,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                 exerciseId: element.exerciseId,
                                 exerciseValue: element.exerciseValue != null
                                     ? (element.exerciseValue! *
-                                            goal.first.multiplier /
+                                            goal.last.multiplier /
                                             100)
                                         .round()
                                     : null,

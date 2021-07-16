@@ -4,6 +4,12 @@ import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+
+FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class EndWorkOutPage extends StatefulWidget {
   const EndWorkOutPage({Key? key}) : super(key: key);
@@ -12,8 +18,15 @@ class EndWorkOutPage extends StatefulWidget {
   EndWorkOutPageState createState() => EndWorkOutPageState();
 }
 
+void initializeSetting() async {
+  var initializeAndroid = AndroidInitializationSettings('app_logo');
+  var initializeSetting = InitializationSettings(android: initializeAndroid);
+  await notificationsPlugin.initialize(initializeSetting);
+}
+
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
+  int notiId = 0;
 
   String? feedback(i) {
     switch (i.round()) {
@@ -38,6 +51,35 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
           return 'Too Difficult';
         }
     }
+  }
+
+  Future<void> displayNotification(DateTime dateTime) async {
+    notificationsPlugin.zonedSchedule(
+        0,
+        'ExerciseLah!',
+        'It has been 3 days since your last workout! Come back and sweat it out!',
+        tz.TZDateTime.from(dateTime, tz.local),
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            'channel id',
+            'channel name',
+            'channel description',
+            priority: Priority.high,
+            importance: Importance.max,
+            showWhen: true,
+            fullScreenIntent: true,
+          ),
+        ),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true);
+  }
+
+  @override
+  void initState() {
+    initializeSetting();
+    tz.initializeTimeZones();
+    super.initState();
   }
 
   @override
@@ -137,6 +179,8 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutDuration: duration,
                           workoutList: workoutList));
                     }
+                    displayNotification(
+                        DateTime.now().add(Duration(seconds: 5)));
                     int count = 0;
                     Navigator.popUntil(context, (route) {
                       return count++ == 4;

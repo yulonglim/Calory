@@ -16,13 +16,15 @@ class _SettingsPageState extends State<SettingsPage> {
   int? goalNumber = 0;
   int progress = 0;
   final goalListKey = GlobalKey<AnimatedListState>();
-  late List<Goal> goalList = [];
+  late List<Goal> goalList;
 
   @override
   void initState() {
     super.initState();
     DBHelper().getGoals().then((value) => value.isEmpty
-        ? null
+        ? setState(() {
+            this.goalList = [];
+          })
         : setState(() {
             this.goalNumber = value.length;
             this.progress = value.first.progress;
@@ -32,6 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    this.goalList.length == 0 ? goalList = [] : goalList = goalList;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -103,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: MediaQuery.of(context).size.height * 0.6,
               child: AnimatedList(
                 key: goalListKey,
-                initialItemCount: goalList.length + 1,
+                initialItemCount: goalList.length,
                 itemBuilder: (context, index, animation) => GoalCard(
                   item: goalList[index],
                   animation: animation,
@@ -136,11 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            int? currentID = 0;
-                            await DBHelper().getGoals().then((value) =>
-                                currentID =
-                                    value.isNotEmpty ? value.first.goalId : 0);
-                            await DBHelper().deleteGoal(currentID!);
+                            await DBHelper().deleteAll();
                             await DBHelper().deleteAllWorkOuts();
                             clearWorkOutData();
                             Navigator.pop(context);

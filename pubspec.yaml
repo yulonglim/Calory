@@ -39,6 +39,8 @@ dependencies:
   provider: ^5.0.0
   excel: 2.0.0-null-safety
   just_audio: ^0.7.4
+  flutter_local_notifications: ^6.0.0
+  flutter_native_timezone:  ^1.0.10
 
 
 dev_dependencies:

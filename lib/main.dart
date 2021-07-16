@@ -3,7 +3,11 @@ import 'package:flutter_app/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 
-void main() => runApp(MyApp());
+
+void main() {
+
+  runApp(MyApp());
+}
 
 late List<exerciseData> workoutData = [];
 late DateTime? tempDate;

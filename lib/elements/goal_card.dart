@@ -80,18 +80,21 @@ class GoalCard extends StatelessWidget {
                       //color: Theme.of(context).primaryColor
                   ),
                 ),
-                content: Column(
-                  children: [
-                    Text('Start Date: ' + dateTime(item.startDate),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                    Text('End Date: ' + dateTime(item.startDate),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                    Text('Difficulty: ' + (item.difficultyLevel == 0 ? 'Easy' : item.difficultyLevel == 1 ? 'Medium' : 'Hard'),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                  ],
+                content: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Column(
+                    children: [
+                      Text('Start Date: ' + dateTime(item.startDate),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      Text('End Date: ' + dateTime(item.startDate),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      Text('Difficulty: ' + (item.difficultyLevel == 0 ? 'Easy' : item.difficultyLevel == 1 ? 'Medium' : 'Hard'),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(

@@ -56,7 +56,7 @@ class _DateSelectorState extends State<DateSelector> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        result(selectedDate.toIso8601String());
+        result(selectedDate.add(Duration(hours: 23,minutes: 59,seconds: 59)).toIso8601String());
       });
   }
 }
