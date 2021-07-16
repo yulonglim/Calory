@@ -18,7 +18,7 @@ class FullWorkoutPage extends StatelessWidget {
   final List<exerciseData> WarmUpItems = List.from(warmUpData);
   final List<exerciseData> CoolDownItems = List.from(coolDownData);
   int restduration = 5;
-  final List<exerciseData> workoutItems;
+  List<exerciseData> workoutItems;
   final bool oneTime;
   final int? difficultyLevel;
 
@@ -59,7 +59,7 @@ class FullWorkoutPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     if(oneTime) {
       return Scaffold(
           appBar: AppBar(
@@ -127,7 +127,8 @@ class FullWorkoutPage extends StatelessWidget {
                             difficultyLevel:  this.difficultyLevel! ,
                             workoutDate: DateTime.now().toIso8601String(),
                             workoutDuration: duration,
-                          workoutList: workoutList
+                          workoutList: workoutList,
+                            multiplier: ((this.difficultyLevel! + 1) / 3 * 100).round()
                         ));
                       }
                       int count = 0;
@@ -179,7 +180,7 @@ class FullWorkoutPage extends StatelessWidget {
                 iconData: Icons.sports_handball_outlined,
                 buttonName: "Main Workout",
                 nextPage: WorkOutPage(
-                  items: workoutItems,
+                  items: workoutItems
                 ),
                 duration: workOutduration(),
               ),

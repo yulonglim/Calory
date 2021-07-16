@@ -58,6 +58,7 @@ class DBHelper {
           "workoutDate STRING,"
           "workoutDuration INTEGER,"
           "workoutList String,"
+          "multiplier INTEGER, "
           "FOREIGN KEY (goalId) REFERENCES $tableGoals (goalId))");
 
       await db.execute("CREATE TABLE $tableUpperBody("
@@ -364,6 +365,44 @@ class DBHelper {
       default:
         return exercise;
     }
+  }
+
+  Future<List<exerciseData>> previousExercises (
+      String exerciseList) async {
+    final Database db = await database;
+    final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
+    final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
+    final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
+    final List<Map<String, Object?>> cardio = await db.query(tableCardio);
+    List<exerciseData> exercise = <exerciseData>[];
+    List<String> list = exerciseList.split('\n');
+    for (int i = 0; i < list.length; i++) {
+      for (int j = 0; j < core.length; j++) {
+        if (exerciseData.fromMap(core[j]).exerciseName == list[i]) {
+          exercise.add(exerciseData.fromMap(core[j]));
+          continue;
+        }
+      }
+      for (int j = 0; j < upperBody.length; j++) {
+        if (exerciseData.fromMap(upperBody[j]).exerciseName == list[i]) {
+          exercise.add(exerciseData.fromMap(upperBody[j]));
+          continue;
+        }
+      }
+      for (int j = 0; j < lowerBody.length; j++) {
+        if (exerciseData.fromMap(lowerBody[j]).exerciseName == list[i]) {
+          exercise.add(exerciseData.fromMap(lowerBody[j]));
+          continue;
+        }
+      }
+      for (int j = 0; j < cardio.length; j++) {
+        if (exerciseData.fromMap(cardio[j]).exerciseName == list[i]) {
+          exercise.add(exerciseData.fromMap(cardio[j]));
+          continue;
+        }
+      }
+    }
+    return exercise;
   }
 
   Future<void> deleteAll() async {

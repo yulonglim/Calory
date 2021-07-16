@@ -26,7 +26,6 @@ void initializeSetting() async {
 
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
-  int notiId = 0;
 
   String? feedback(i) {
     switch (i.round()) {
@@ -177,10 +176,13 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                               : 0,
                           workoutDate: DateTime.now().toIso8601String(),
                           workoutDuration: duration,
-                          workoutList: workoutList));
+                          workoutList: workoutList,
+                        multiplier: currentGoal.multiplier
+                      ));
                     }
+                    notificationsPlugin.cancelAll();
                     displayNotification(
-                        DateTime.now().add(Duration(seconds: 5)));
+                        DateTime.now().add(Duration(days: 3)));
                     int count = 0;
                     Navigator.popUntil(context, (route) {
                       return count++ == 4;

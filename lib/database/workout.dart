@@ -8,6 +8,7 @@ class Workout {
   final String workoutDate;
   final int workoutDuration;
   final String? workoutList;
+  final int multiplier;
 
   const Workout(
       {this.goalId,
@@ -16,7 +17,8 @@ class Workout {
       required this.difficultyLevel,
       required this.workoutDate,
       required this.workoutDuration,
-      required this.workoutList});
+      required this.workoutList,
+      required this.multiplier});
 
   static Workout fromMap(Map<String, dynamic> map) {
     int? goalId = map['goalId'];
@@ -26,6 +28,7 @@ class Workout {
     String workoutDate = map['workoutDate'];
     int workoutDuration = map['workoutDuration'];
     String? workoutList = map['workoutList'];
+    int multiplier = map['multiplier'];
 
     return Workout(
         goalId: goalId,
@@ -34,7 +37,9 @@ class Workout {
         difficultyLevel: difficultyLevel,
         workoutDate: workoutDate,
         workoutDuration: workoutDuration,
-        workoutList: workoutList);
+        workoutList: workoutList,
+        multiplier: multiplier
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -45,7 +50,8 @@ class Workout {
       'difficultyLevel': difficultyLevel,
       'workoutDate': workoutDate,
       'workoutDuration': workoutDuration,
-      'workoutList': workoutList
+      'workoutList': workoutList,
+      'multiplier' : multiplier
     };
 
     if (this.goalId != null) {

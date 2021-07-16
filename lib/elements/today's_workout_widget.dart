@@ -40,11 +40,26 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
     super.initState();
     DBHelper().getWorkOut().then((value) => value.isNotEmpty
         ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
-            ? setState(() {
-                workOutItems = workoutData;
-                this.done = true;
-                this.duration = value.last.workoutDuration;
-              })
+            ? DBHelper()
+                .previousExercises(value.last.workoutList!)
+                .then((prevList) => setState(() {
+                      for (int i = 0; i < prevList.length; i++) {
+                        this.workOutItems.add(exerciseData(
+                            exerciseId: prevList[i].exerciseId,
+                            exerciseTime: prevList[i].exerciseTime,
+                            exerciseName: prevList[i].exerciseName,
+                            exerciseDescription:
+                                prevList[i].exerciseDescription,
+                            exerciseValue: prevList[i].exerciseValue != null
+                                ? (prevList[i].exerciseValue! *
+                                        value.last.multiplier /
+                                        100)
+                                    .round()
+                                : null));
+                      }
+                      this.done = true;
+                      this.duration = value.last.workoutDuration;
+                    }))
             : DBHelper().getGoals().then((goal) => goal.isNotEmpty
                 ? DateTime.parse(goal.last.endDate).isAfter(
                         DateTime.now()) // check if previous goal finished
@@ -121,7 +136,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   @override
   Widget build(BuildContext context) {
     if (done) {
-      return doneWorkout(durationMMSS(duration));
+      return doneWorkout(durationMMSS(duration), this.workOutItems);
     }
     if (!planned) {
       return noPlan();
