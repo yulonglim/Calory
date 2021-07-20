@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
+import 'package:flutter_beep/flutter_beep.dart';
 
 class exercising extends StatefulWidget {
   final List<exerciseData> items;
@@ -119,6 +120,7 @@ class _exercisingState extends State<exercising> {
                 if (temp.length == 1) {
                   Navigator.of(context).popUntil((route) => count++ == 1);
                 } else {
+                  FlutterBeep.beep();
                   removeItem(0);
                   _controller.restart(
                     duration: temp[0].exerciseTime,
