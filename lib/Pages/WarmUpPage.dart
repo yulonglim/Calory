@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/AppData/cool_down_data.dart';
-import 'package:flutter_app/Exercising.dart';
+import 'package:flutter_app/AppData/warm_up_data.dart';
+import 'package:flutter_app/Functions.dart';
+import 'package:flutter_app/Pages/Exercising.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
-class CoolDownPage extends StatefulWidget {
+class WarmUpPage extends StatefulWidget {
   @override
-  _CoolDownPageState createState() => _CoolDownPageState();
+  _WarmUpPageState createState() => _WarmUpPageState();
 }
 
-class _CoolDownPageState extends State<CoolDownPage> {
+class _WarmUpPageState extends State<WarmUpPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<exerciseData> items = List.from(coolDownData);
+  final List<exerciseData> items = List.from(warmUpData);
   int restDuration = 5;
 
   void removeItem(int index) {
@@ -26,24 +27,6 @@ class _CoolDownPageState extends State<CoolDownPage> {
             ));
   }
 
-  String durationMMSS(int duration) {
-    int mins = 0;
-    int temp = duration;
-    while (temp >= 60) {
-      temp -= 60;
-      mins++;
-    }
-    return mins.toString() + 'm ' + temp.toString() + 's';
-  }
-
-  String totalduration() {
-    int duration = 0;
-    for (int counter = 0; counter < items.length; counter++) {
-      duration += items[counter].exerciseTime;
-    }
-    return durationMMSS(duration);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<exerciseData> copyItems = <exerciseData>[];
@@ -55,7 +38,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
             exerciseTime: restDuration,
             exerciseName: 'Rest',
             exerciseDescription:
-            'Use this time to prepare for the next exercise or to shake off any tension.'),
+                'Use this time to prepare for the next exercise or to shake off any tension.'),
       );
     }
     return Scaffold(
@@ -72,7 +55,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
           ),
         ),
         title: Text(
-          "Cool Down",
+          "Warm Up",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
       ),
@@ -159,7 +142,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
                             ),
                           ),
                           Text(
-                            totalduration(),
+                            Functions().totalduration(items),
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,

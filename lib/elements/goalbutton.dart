@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/GoalSetPage.dart';
-import 'package:flutter_app/GoalUpdatePage.dart';
+import 'package:flutter_app/Pages/GoalSetPage.dart';
+import 'package:flutter_app/Pages/GoalUpdatePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 
 // Used for the 2 square buttons at the bottom of the HomePage

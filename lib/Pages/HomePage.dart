@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/SettingsPage.dart';
+import 'package:flutter_app/Pages/SettingsPage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
@@ -7,8 +7,7 @@ import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
 import 'package:intl/intl.dart';
 
-import './ProgressPage.dart';
-import 'package:just_audio/just_audio.dart';
+import 'ProgressPage.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -16,8 +15,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  late AudioPlayer player;
-
   String dateTime() {
     String day;
     String month = DateFormat.MMMM().format(DateTime.now());
@@ -43,14 +40,13 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    openExcel();
     DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2);
     DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
 
     DBHelper()
         .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
     DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);
-    player = AudioPlayer();
+    //player = AudioPlayer();
   }
 
   @override

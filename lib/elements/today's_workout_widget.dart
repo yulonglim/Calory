@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
+import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/No_plan_workout.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 import 'package:flutter_app/main.dart';
 
-import '../FullWorkoutPage.dart';
+import '../Pages/FullWorkoutPage.dart';
 
 class TodaysWorkOut extends StatefulWidget {
   @override
@@ -24,16 +25,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
   late int duration = 0;
-
-  String durationMMSS(int duration) {
-    int mins = 0;
-    int temp = duration;
-    while (temp >= 60) {
-      temp -= 60;
-      mins++;
-    }
-    return mins.toString() + 'm ' + temp.toString() + 's';
-  }
 
   @override
   void initState() {
@@ -67,11 +58,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                         .getExercises(goal.last.goal)
                         .then((workOutItems) => setState(() {
                               planned = true;
-                              goal.last.difficultyLevel == 0
-                                  ? this.difficulty = 'Easy'
-                                  : goal.last.difficultyLevel == 1
-                                      ? this.difficulty = 'Medium'
-                                      : this.difficulty = 'Hard';
+                              this.difficulty = Functions()
+                                  .goalToString(goal.last.difficultyLevel);
                               workOutItems.forEach((element) {
                                 this.tempWorkOutItems.add(exerciseData(
                                     exerciseId: element.exerciseId,
@@ -124,19 +112,10 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
             : null));
   }
 
-  String totalDuration() {
-    int duration = 0;
-    for (int counter = 0; counter < workOutItems.length; counter++) {
-      duration += workOutItems[counter].exerciseTime;
-    }
-
-    return durationMMSS(duration);
-  }
-
   @override
   Widget build(BuildContext context) {
     if (done) {
-      return doneWorkout(durationMMSS(duration), this.workOutItems);
+      return doneWorkout(this.workOutItems);
     }
     if (!planned) {
       return noPlan();
@@ -175,7 +154,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                   Column(
                     children: [
                       RectangleDisplay('Difficulty: ' + this.difficulty),
-                      RectangleDisplay('Duration: ' + totalDuration()),
+                      RectangleDisplay('Duration: ' +
+                          Functions().totalduration(this.workOutItems)),
                     ],
                   )
                 ],

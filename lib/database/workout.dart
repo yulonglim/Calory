@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_app/Functions.dart';
+
 class Workout {
   final int? goalId;
   final int? workoutId;
@@ -72,72 +74,17 @@ class Workout {
     return fromMap(jsonDecode(jsonEncoding));
   }
 
-  String durationMMSS(int duration) {
-    int mins = 0;
-    int temp = duration;
-    while (temp >= 60) {
-      temp -= 60;
-      mins++;
-    }
-    return mins.toString() + 'm ' + temp.toString() + 's';
-  }
-
-  String difficulty(int difficulty) {
-    switch (difficulty) {
-      case 0:
-        {
-          return 'Easy';
-        }
-      case 1:
-        {
-          return 'Normal';
-        }
-      case 2:
-        {
-          return 'Hard';
-        }
-      default:
-        {
-          return '';
-        }
-    }
-  }
-
-  String MuscleGroup(int muscle) {
-    switch (muscle) {
-      case 0:
-        {
-          return 'Upper Body';
-        }
-      case 1:
-        {
-          return 'Lower Body';
-        }
-      case 2:
-        {
-          return 'Core';
-        }
-      case 3:
-        {
-          return 'Balanced';
-        }
-      default:
-        {
-          return '';
-        }
-    }
-  }
 
   @override
   String toString() {
     return 'Duration: ' +
-        durationMMSS(this.workoutDuration) +
+        Functions().durationMMSS(this.workoutDuration) +
         '\n' +
         'Difficulty: ' +
-        difficulty(this.difficultyLevel) +
+        Functions().difficultyToString(this.difficultyLevel) +
         '\n' +
         'Muscle Group: ' +
-        MuscleGroup(this.muscleGroup) +
+        Functions().MuscleGroup(this.muscleGroup) +
         '\n' +
         workoutList!;
   }

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/AppData/warm_up_data.dart';
-import 'package:flutter_app/Exercising.dart';
+import 'package:flutter_app/Functions.dart';
+import 'package:flutter_app/Pages/Exercising.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
-class WarmUpPage extends StatefulWidget {
+class WorkOutPage extends StatefulWidget {
+  final List<exerciseData> items;
+
+  WorkOutPage({Key? key, required this.items}) : super(key: key);
+
   @override
-  _WarmUpPageState createState() => _WarmUpPageState();
+  _WorkOutPageState createState() => _WorkOutPageState(this.items);
 }
 
-class _WarmUpPageState extends State<WarmUpPage> {
+class _WorkOutPageState extends State<WorkOutPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<exerciseData> items = List.from(warmUpData);
+  final List<exerciseData> items;
   int restDuration = 5;
+
+  _WorkOutPageState(this.items);
 
   void removeItem(int index) {
     final removedItem = items[index];
@@ -26,37 +32,21 @@ class _WarmUpPageState extends State<WarmUpPage> {
             ));
   }
 
-  String durationMMSS(int duration) {
-    int mins = 0;
-    int temp = duration;
-    while (temp >= 60) {
-      temp -= 60;
-      mins++;
-    }
-    return mins.toString() + 'm ' + temp.toString() + 's';
-  }
-
-  String totalduration() {
-    int duration = 0;
-    for (int counter = 0; counter < items.length; counter++) {
-      duration += items[counter].exerciseTime;
-    }
-    return durationMMSS(duration);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<exerciseData> copyItems = <exerciseData>[];
     for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
-      copyItems.add(
-        exerciseData(
-            exerciseId: 'R1',
-            exerciseTime: restDuration,
-            exerciseName: 'Rest',
-            exerciseDescription:
-                'Use this time to prepare for the next exercise or to shake off any tension.'),
-      );
+      if(items[i].exerciseName != 'Rest' && (i+1 == items.length ? false : items[i+1].exerciseName != 'Rest')){
+        copyItems.add(
+          exerciseData(
+              exerciseId: 'R1',
+              exerciseTime: restDuration,
+              exerciseName: 'Rest',
+              exerciseDescription:
+              'Use this time to prepare for the next exercise or to shake off any tension.'),
+        );
+      }
     }
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +62,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
           ),
         ),
         title: Text(
-          "Warm Up",
+          "Work Out",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
       ),
@@ -159,7 +149,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                             ),
                           ),
                           Text(
-                            totalduration(),
+                            Functions().totalduration(items),
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,

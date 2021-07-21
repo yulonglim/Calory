@@ -4,7 +4,7 @@ import 'package:flutter_app/elements/toggle_button.dart';
 
 
 import 'FullWorkoutPage.dart';
-import 'database/DBHelper.dart';
+import '../database/DBHelper.dart';
 
 class OneTimeWorkOut extends StatefulWidget {
   const OneTimeWorkOut({Key? key}) : super(key: key);

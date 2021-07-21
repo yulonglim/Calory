@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/OneTimeWorkOutPage.dart';
+import 'package:flutter_app/Pages/OneTimeWorkOutPage.dart';
 
 class noPlan extends StatelessWidget {
   const noPlan({Key? key}) : super(key: key);

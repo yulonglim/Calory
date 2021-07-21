@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/HomePage.dart';
+import 'package:flutter_app/Functions.dart';
+import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
@@ -27,30 +28,7 @@ void initializeSetting() async {
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
 
-  String? feedback(i) {
-    switch (i.round()) {
-      case 0:
-        {
-          return 'Too Easy';
-        }
-      case 1:
-        {
-          return 'Easy';
-        }
-      case 2:
-        {
-          return 'Manageable';
-        }
-      case 3:
-        {
-          return 'Difficult';
-        }
-      case 4:
-        {
-          return 'Too Difficult';
-        }
-    }
-  }
+
 
   Future<void> displayNotification(DateTime dateTime) async {
     notificationsPlugin.zonedSchedule(
@@ -110,7 +88,7 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   min: 0,
                   max: 4,
                   divisions: 4,
-                  label: feedback(_currentSliderValue),
+                  label: Functions().feedbackToString(_currentSliderValue),
                   onChanged: (double value) {
                     setState(() {
                       _currentSliderValue = value;
@@ -169,7 +147,6 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                         }
                       }
                       await DBHelper().insertWorkout(Workout(
-                          //goalId: currentGoal != null ? currentGoal.goalId : 0,
                           muscleGroup: 3,
                           difficultyLevel: currentGoal != null
                               ? currentGoal.difficultyLevel
@@ -177,12 +154,10 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutDate: DateTime.now().toIso8601String(),
                           workoutDuration: duration,
                           workoutList: workoutList,
-                        multiplier: currentGoal.multiplier
-                      ));
+                          multiplier: currentGoal.multiplier));
                     }
                     notificationsPlugin.cancelAll();
-                    displayNotification(
-                        DateTime.now().add(Duration(days: 3)));
+                    displayNotification(DateTime.now().add(Duration(days: 3)));
                     int count = 0;
                     Navigator.popUntil(context, (route) {
                       return count++ == 4;

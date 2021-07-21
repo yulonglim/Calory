@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
-import 'package:flutter_app/FullWorkoutPage.dart';
+import 'package:flutter_app/Pages/FullWorkoutPage.dart';
 
 
 class doneWorkout extends StatelessWidget {
-  final String duration;
   final List<exerciseData> previousList;
-  doneWorkout(this.duration, this.previousList);
+  doneWorkout(this.previousList);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class doneWorkout extends StatelessWidget {
                   Column(
                     children: [
                       RectangleDisplay('Completed'),
-                      RectangleDisplay('Duration: ' + duration),
+                      RectangleDisplay('Duration: ' + Functions().totalduration(previousList)),
                     ],
                   )
                 ],

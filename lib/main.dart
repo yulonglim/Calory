@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/HomePage.dart';
+import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_beep/flutter_beep.dart';
+import 'package:just_audio/just_audio.dart';
 
 class exercising extends StatefulWidget {
   final List<exerciseData> items;
@@ -125,6 +126,7 @@ class _exercisingState extends State<exercising> {
                   _controller.restart(
                     duration: temp[0].exerciseTime,
                   );
+
                 }
               },
             ),
@@ -154,7 +156,9 @@ class _exercisingState extends State<exercising> {
           SizedBox(
             width: 32,
           ),
-          _button(title: "Pause", onPressed: () => _controller.pause()),
+          _button(title: "Pause", onPressed: () {
+            _controller.pause();
+          }),
           SizedBox(
             width: 8,
           ),

@@ -7,7 +7,8 @@ import 'package:flutter_app/database/workout.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'AppData/Event.dart';
+import '../Functions.dart';
+import '../database/Event.dart';
 
 class ProgressPage extends StatefulWidget {
   @override
@@ -31,27 +32,6 @@ class _ProgressPageState extends State<ProgressPage> {
   late Map<DateTime, List<Event>> _kEventSource = new Map();
   late LinkedHashMap<DateTime, List<Event>> kEvents = new LinkedHashMap();
 
-  String goalToString(int goalType) {
-    switch (goalType) {
-      case 0:
-        {
-          return 'Weight Loss';
-        }
-      case 1:
-        {
-          return 'Strength';
-        }
-      case 2:
-        {
-          return 'Endurance';
-        }
-      default:
-        {
-          return 'Not Set';
-        }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -65,7 +45,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 : value.last.difficultyLevel == 1
                     ? this.difficulty = 'Medium'
                     : this.difficulty = 'Hard';
-            this.goal = goalToString(value.last.goal);
+            this.goal = Functions().goalToString(value.last.goal);
             this.startDate = DateTime.parse(value.last.startDate);
             this.endDate = DateTime.parse(value.last.endDate);
             this.progress = value.last.progress;
@@ -140,28 +120,6 @@ class _ProgressPageState extends State<ProgressPage> {
     } else if (end != null) {
       _selectedEvents.value = _getEventsForDay(end);
     }
-  }
-
-  String dateTime() {
-    String day;
-    String month = DateFormat.MMMM().format(DateTime.now());
-    String year = DateTime.now().year.toString();
-
-    if (DateTime.now().day == 11 ||
-        DateTime.now().day == 12 ||
-        DateTime.now().day == 13) {
-      day = DateTime.now().day.toString() + "th";
-    } else if (DateTime.now().day % 10 == 1) {
-      day = DateTime.now().day.toString() + "st";
-    } else if (DateTime.now().day % 10 == 2) {
-      day = DateTime.now().day.toString() + "nd";
-    } else if (DateTime.now().day % 10 == 3) {
-      day = DateTime.now().day.toString() + "rd";
-    } else {
-      day = DateTime.now().day.toString() + "th";
-    }
-
-    return day + " " + month + " " + year;
   }
 
   @override

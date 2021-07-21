@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
-import 'package:flutter_app/EndWorkOutPage.dart';
-import 'package:flutter_app/HomePage.dart';
+import 'package:flutter_app/Pages/EndWorkOutPage.dart';
+import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/database/workout.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_app/main.dart';
 import 'CoolDownPage.dart';
 import 'WorkOutPage.dart';
 import 'WarmUpPage.dart';
-import 'elements/card_button.dart';
+import '../elements/card_button.dart';
 
 class FullWorkoutPage extends StatelessWidget {
   final List<exerciseData> WarmUpItems = List.from(warmUpData);
