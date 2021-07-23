@@ -55,7 +55,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                 ? DateTime.parse(goal.last.endDate).isAfter(
                         DateTime.now()) // check if previous goal finished
                     ? DBHelper()
-                        .getExercises(goal.last.goal)
+                        .generateExercises(goal.last.goal)
                         .then((workOutItems) => setState(() {
                               planned = true;
                               this.difficulty = Functions()
@@ -83,7 +83,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
             ? DateTime.parse(goal.last.endDate)
                     .isAfter(DateTime.now()) // check if previous goal finished
                 ? DBHelper()
-                    .getExercises(goal.last.goal)
+                    .generateExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
                           planned = true;
                           goal.last.difficultyLevel == 0

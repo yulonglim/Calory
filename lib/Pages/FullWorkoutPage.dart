@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/AppData/cool_down_data.dart';
 import 'package:flutter_app/AppData/warm_up_data.dart';
+import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/Pages/EndWorkOutPage.dart';
 import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
@@ -23,40 +24,6 @@ class FullWorkoutPage extends StatelessWidget {
   final int? difficultyLevel;
 
   FullWorkoutPage({Key? key, required this.workoutItems, required this.oneTime, this.difficultyLevel}) : super(key: key);
-
-  String durationMMSS(int duration) {
-    int mins = 0;
-    int temp = duration;
-    while (temp >= 60) {
-      temp -= 60;
-      mins++;
-    }
-    return mins.toString() + 'm ' + temp.toString() + 's';
-  }
-
-  String warmUpduration() {
-    int duration = 0;
-    for (int counter = 0; counter < WarmUpItems.length; counter++) {
-      duration += WarmUpItems[counter].exerciseTime;
-    }
-    return durationMMSS(duration);
-  }
-
-  String coolDownduration() {
-    int duration = 0;
-    for (int counter = 0; counter < CoolDownItems.length; counter++) {
-      duration += CoolDownItems[counter].exerciseTime;
-    }
-    return durationMMSS(duration);
-  }
-
-  String workOutduration() {
-    int duration = 0;
-    for (int counter = 0; counter < workoutItems.length; counter++) {
-      duration += workoutItems[counter].exerciseTime;
-    }
-    return durationMMSS(duration);
-  }
 
   @override
   Widget build(BuildContext context){
@@ -86,7 +53,7 @@ class FullWorkoutPage extends StatelessWidget {
                   iconData: Icons.whatshot,
                   buttonName: "Warm Up",
                   nextPage: WarmUpPage(),
-                  duration: warmUpduration(),
+                  duration: Functions().totalduration(WarmUpItems),
                 ),
                 CardButton(
                   iconData: Icons.sports_handball_outlined,
@@ -94,13 +61,13 @@ class FullWorkoutPage extends StatelessWidget {
                   nextPage: WorkOutPage(
                     items: workoutItems,
                   ),
-                  duration: workOutduration(),
+                  duration: Functions().totalduration(workoutItems),
                 ),
                 CardButton(
                   iconData: Icons.ac_unit_outlined,
                   buttonName: "Cool Down",
                   nextPage: CoolDownPage(),
-                  duration: coolDownduration(),
+                  duration: Functions().totalduration(coolDownData),
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -174,21 +141,21 @@ class FullWorkoutPage extends StatelessWidget {
                 iconData: Icons.whatshot,
                 buttonName: "Warm Up",
                 nextPage: WarmUpPage(),
-                duration: warmUpduration(),
+                duration: Functions().totalduration(WarmUpItems),
               ),
               CardButton(
                 iconData: Icons.sports_handball_outlined,
                 buttonName: "Main Workout",
                 nextPage: WorkOutPage(
-                  items: workoutItems
+                  items: workoutItems,
                 ),
-                duration: workOutduration(),
+                duration: Functions().totalduration(workoutItems),
               ),
               CardButton(
                 iconData: Icons.ac_unit_outlined,
                 buttonName: "Cool Down",
                 nextPage: CoolDownPage(),
-                duration: coolDownduration(),
+                duration: Functions().totalduration(coolDownData),
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

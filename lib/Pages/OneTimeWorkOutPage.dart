@@ -90,7 +90,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                 onPressed: () async {
                   this.tempWorkOutItems = [];
                   await DBHelper()
-                      .getExercisesMuscles(this.muscleGroup,
+                      .generateExercisesByMuscles(this.muscleGroup,
                           ((this._currentSliderValue) / 5).round() - 1)
                       .then((workOutItems) => setState(() {
                             workOutItems.forEach((element) {

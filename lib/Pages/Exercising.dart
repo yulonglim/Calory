@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_beep/flutter_beep.dart';
-import 'package:just_audio/just_audio.dart';
 
 class exercising extends StatefulWidget {
   final List<exerciseData> items;

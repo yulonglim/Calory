@@ -38,7 +38,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
             exerciseTime: restDuration,
             exerciseName: 'Rest',
             exerciseDescription:
-            'Use this time to prepare for the next exercise or to shake off any tension.'),
+                'Use this time to prepare for the next exercise or to shake off any tension.'),
       );
     }
     return Scaffold(

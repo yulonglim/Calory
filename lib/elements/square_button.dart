@@ -18,29 +18,32 @@ class SquareButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,
         ),
-        child: Column(
-          children: [
-            Icon(
-              _icon,
-              size: 48,
-            ),
-            Column(
-              children: [
-                Text(
-                  _text1,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).secondaryHeaderColor),
-                ),
-                Text(
-                  _text2,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).secondaryHeaderColor),
-                ),
-              ],
-            ),
-          ],
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.24,
+          child: Column(
+            children: [
+              Icon(
+                _icon,
+                size: 48,
+              ),
+              Column(
+                children: [
+                  Text(
+                    _text1,
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).secondaryHeaderColor),
+                  ),
+                  Text(
+                    _text2,
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).secondaryHeaderColor),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         onPressed: () async {
           await Navigator.push(

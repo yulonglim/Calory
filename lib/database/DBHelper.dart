@@ -143,6 +143,38 @@ class DBHelper {
     return workout;
   }
 
+  Future<List<exerciseData>> getExercises(int type) async {
+    final Database db = await database;
+    final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
+    final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
+    final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
+    List<exerciseData> exercise = <exerciseData>[];
+
+    switch (type) {
+      case 0: {
+        for(int i = 0 ; i < core.length ; i++) {
+          exercise.add(exerciseData.fromMap(core[i]));
+        }
+        return exercise;
+      }
+      case 1: {
+        for(int i = 0 ; i < upperBody.length ; i++) {
+          exercise.add(exerciseData.fromMap(upperBody[i]));
+        }
+        return exercise;
+      }
+      case 2: {
+        for(int i = 0 ; i < lowerBody.length ; i++) {
+          exercise.add(exerciseData.fromMap(lowerBody[i]));
+        }
+        return exercise;
+      }
+      default: {
+        return exercise;
+      }
+    }
+  }
+
   Future<void> updateGoal(Goal goal) async {
     Database db = await database;
     await db.update(
@@ -173,7 +205,7 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> getExercises(int goal) async {
+  Future<List<exerciseData>> generateExercises(int goal) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
@@ -284,7 +316,7 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> getExercisesMuscles(
+  Future<List<exerciseData>> generateExercisesByMuscles(
       int muscleGroup, int sets) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Functions.dart';
+import 'package:flutter_app/Pages/Library.dart';
 import 'package:flutter_app/Pages/SettingsPage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
 import 'package:flutter_app/elements/square_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
-import 'package:intl/intl.dart';
 
 import 'ProgressPage.dart';
 
@@ -15,27 +16,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  String dateTime() {
-    String day;
-    String month = DateFormat.MMMM().format(DateTime.now());
-    String year = DateTime.now().year.toString();
-
-    if (DateTime.now().day == 11 ||
-        DateTime.now().day == 12 ||
-        DateTime.now().day == 13) {
-      day = DateTime.now().day.toString() + "th";
-    } else if (DateTime.now().day % 10 == 1) {
-      day = DateTime.now().day.toString() + "st";
-    } else if (DateTime.now().day % 10 == 2) {
-      day = DateTime.now().day.toString() + "nd";
-    } else if (DateTime.now().day % 10 == 3) {
-      day = DateTime.now().day.toString() + "rd";
-    } else {
-      day = DateTime.now().day.toString() + "th";
-    }
-
-    return day + " " + month + " " + year;
-  }
+  List<exerciseData> upperBody = [];
+  List<exerciseData> lowerBody = [];
+  List<exerciseData> core = [];
 
   @override
   void initState() {
@@ -43,84 +26,99 @@ class _HomepageState extends State<Homepage> {
     openExcel();
     DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2);
     DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
-
     DBHelper()
         .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
     DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);
-    //player = AudioPlayer();
+    DBHelper().getExercises(0).then((c) => c.isNotEmpty
+        ? setState(() {
+            this.core = c;
+          })
+        : null);
+    DBHelper().getExercises(1).then((u) => u.isNotEmpty
+        ? setState(() {
+            this.upperBody = u;
+          })
+        : null);
+    DBHelper().getExercises(2).then((l) => l.isNotEmpty
+        ? setState(() {
+            this.lowerBody = l;
+          })
+        : null);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            "ExerciseLah!",
-            style: TextStyle(fontSize: 32),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).primaryColor),
-                      shape: MaterialStateProperty.all<CircleBorder>(
-                          CircleBorder(
-                              side: BorderSide(color: Colors.red)))),
-                  onPressed: () {
-                    // int? currentID = 0;
-                    // await DBHelper().getGoals().then((value) =>
-                    //     currentID = value.isNotEmpty ? value.first.goalId : 0);
-                    // await DBHelper().deleteGoal(currentID!);
-                    // await DBHelper().deleteAllWorkOuts();
-                    // clearWorkOutData();
-                    // Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsPage()),
-                    );
-                  },
-                  child: Icon(Icons.person)),
-            )
-          ],
+      backgroundColor: Theme.of(context).secondaryHeaderColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          "ExerciseLah!",
+          style: TextStyle(fontSize: 32),
         ),
-        body: Wrap(
-          spacing: MediaQuery.of(context).size.height * 0.01,
-          runSpacing: MediaQuery.of(context).size.height * 0.01,
-          children: [
-            Container(
-              // Container for today's plan
-              color: Theme.of(context).secondaryHeaderColor,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 5,
-              alignment: Alignment.centerLeft,
-              child: Center(
-                child: Text(
-                  dateTime(),
-                  style: TextStyle(
-                    fontSize: 48,
-                    //color: Theme.of(context).primaryColor,
-                  ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).primaryColor),
+                    shape: MaterialStateProperty.all<CircleBorder>(
+                        CircleBorder(side: BorderSide(color: Colors.red)))),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                  );
+                },
+                child: Icon(Icons.person)),
+          )
+        ],
+      ),
+      body: Wrap(
+        spacing: MediaQuery.of(context).size.height * 0.01,
+        runSpacing: MediaQuery.of(context).size.height * 0.01,
+        children: [
+          Container(
+            // Container for today's plan
+            color: Theme.of(context).secondaryHeaderColor,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 5,
+            alignment: Alignment.centerLeft,
+            child: Center(
+              child: Text(
+                Functions().dateTime(),
+                style: TextStyle(
+                  fontSize: 48,
+                  //color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
-            TodaysWorkOut(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            Row(
-              //buttons
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GoalButton(Icons.settings, 'Goal'),
-                SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
-                    ProgressPage()),
-              ],
-            ), //the buttons
-          ],
-        ));
+          ),
+          TodaysWorkOut(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Row(
+            //buttons
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GoalButton(Icons.settings, 'Goal'),
+              SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
+                  ProgressPage()),
+              SquareButton(
+                  Icons.book,
+                  'Exercise',
+                  'Library',
+                  LibraryPage(
+                    core: core,
+                    upperBody: upperBody,
+                    lowerBody: lowerBody,
+                  ))
+            ],
+          ), //the buttons
+        ],
+      ),
+    );
   }
 }

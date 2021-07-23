@@ -22,39 +22,43 @@ class _GoalButtonState extends State<GoalButton> {
   @override
   Widget build(BuildContext context) {
     DBHelper().getGoals().then((value) => this.planned != value.isNotEmpty
-        ? DateTime.parse(value.last.endDate).isBefore(DateTime.now()) ? null :
-    setState(() {
-            planned = true;
-          })
+        ? DateTime.parse(value.last.endDate).isBefore(DateTime.now())
+            ? null
+            : setState(() {
+                planned = true;
+              })
         : null);
     return Center(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,
         ),
-        child: Column(
-          children: [
-            Icon(
-              widget._icon,
-              size: 48,
-            ),
-            Column(
-              children: [
-                Text(
-                  planned ? 'Update Your' : 'Set Your',
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).secondaryHeaderColor),
-                ),
-                Text(
-                  widget._text,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Theme.of(context).secondaryHeaderColor),
-                ),
-              ],
-            ),
-          ],
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.24,
+          child: Column(
+            children: [
+              Icon(
+                widget._icon,
+                size: 48,
+              ),
+              Column(
+                children: [
+                  Text(
+                    planned ? 'Update' : 'Set a',
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).secondaryHeaderColor),
+                  ),
+                  Text(
+                    widget._text,
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Theme.of(context).secondaryHeaderColor),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         onPressed: () async {
           await Navigator.push(
