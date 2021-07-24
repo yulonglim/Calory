@@ -22,12 +22,21 @@ class FullWorkoutPage extends StatelessWidget {
   List<exerciseData> workoutItems;
   final bool oneTime;
   final int? difficultyLevel;
+  final bool? recalibrate;
+  final int? done;
 
-  FullWorkoutPage({Key? key, required this.workoutItems, required this.oneTime, this.difficultyLevel}) : super(key: key);
+  FullWorkoutPage(
+      {Key? key,
+      required this.workoutItems,
+      required this.oneTime,
+      this.recalibrate,
+      this.difficultyLevel,
+      this.done})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    if(oneTime) {
+  Widget build(BuildContext context) {
+    if (oneTime) {
       return Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
@@ -74,38 +83,46 @@ class FullWorkoutPage extends StatelessWidget {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
-                      setWorkOutData(this.workoutItems);
-                      dynamic workout;
-                      int duration = 0;
-                      String workoutList = '';
-                      for (int counter = 0; counter < workoutItems.length; counter++) {
-                        duration += workoutItems[counter].exerciseTime;
-                        if(workoutItems[counter].exerciseName != 'Rest'){
-                          workoutList += workoutItems[counter].exerciseName + '\n';
+                      if (done == true) {
+                        Navigator.pop(context);
+                      } else {
+                        setWorkOutData(this.workoutItems);
+                        dynamic workout;
+                        int duration = 0;
+                        String workoutList = '';
+                        for (int counter = 0;
+                            counter < workoutItems.length;
+                            counter++) {
+                          duration += workoutItems[counter].exerciseTime;
+                          if (workoutItems[counter].exerciseName != 'Rest') {
+                            workoutList +=
+                                workoutItems[counter].exerciseName + '\n';
+                          }
                         }
+                        await DBHelper().getWorkOut().then((value) =>
+                            value.isNotEmpty ? workout = value.first : null);
+                        if (workout == null ||
+                            DateTime.parse(workout.workoutDate).day !=
+                                DateTime.now().day) {
+                          await DBHelper().insertWorkout(Workout(
+                              muscleGroup: 0,
+                              difficultyLevel: this.difficultyLevel!,
+                              workoutDate: DateTime.now().toIso8601String(),
+                              workoutDuration: duration,
+                              workoutList: workoutList,
+                              multiplier:
+                                  ((this.difficultyLevel! + 1) / 3 * 100)
+                                      .round()));
+                        }
+                        int count = 0;
+                        Navigator.popUntil(context, (route) {
+                          return count++ == 3;
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Homepage()),
+                        );
                       }
-                      await DBHelper().getWorkOut().then((value) =>
-                      value.isNotEmpty ? workout = value.first : null);
-                      if (workout == null ||
-                          DateTime.parse(workout.workoutDate).day !=
-                              DateTime.now().day) {
-                        await DBHelper().insertWorkout(Workout(
-                            muscleGroup: 0,
-                            difficultyLevel:  this.difficultyLevel! ,
-                            workoutDate: DateTime.now().toIso8601String(),
-                            workoutDuration: duration,
-                          workoutList: workoutList,
-                            multiplier: ((this.difficultyLevel! + 1) / 3 * 100).round()
-                        ));
-                      }
-                      int count = 0;
-                      Navigator.popUntil(context, (route) {
-                        return count++ == 3;
-                      });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
-                      );
                     },
                     child: Text(
                       'End Workout',
@@ -162,10 +179,16 @@ class FullWorkoutPage extends StatelessWidget {
                     primary: Theme.of(context).primaryColor,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EndWorkOutPage()),
-                    );
+                    if (done == false) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                EndWorkOutPage(recalibrate: this.recalibrate)),
+                      );
+                    } else {
+                      Navigator.pop(context);
+                    }
                   },
                   child: Text(
                     'End Workout',
@@ -176,5 +199,4 @@ class FullWorkoutPage extends StatelessWidget {
                   )),
             ])));
   }
-
 }

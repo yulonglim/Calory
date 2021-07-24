@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/database/goal.dart';
-import 'package:intl/intl.dart';
 
 class GoalCard extends StatelessWidget {
   final Goal item;
@@ -12,49 +12,6 @@ class GoalCard extends StatelessWidget {
       required this.item,
       required this.animation,})
       : super(key: key);
-
-  String goalToString(int goalType) {
-    switch (goalType) {
-      case 0:
-        {
-          return 'Weight Loss';
-        }
-      case 1:
-        {
-          return 'Strength';
-        }
-      case 2:
-        {
-          return 'Endurance';
-        }
-      default:
-        {
-          return 'Not Set';
-        }
-    }
-  }
-
-  String dateTime(String formattedDate) {
-    String day;
-    String month = DateFormat.MMMM().format(DateTime.parse(formattedDate));
-    String year = DateTime.parse(formattedDate).year.toString();
-
-    if (DateTime.parse(formattedDate).day == 11 ||
-        DateTime.parse(formattedDate).day == 12 ||
-        DateTime.parse(formattedDate).day == 13) {
-      day = DateTime.parse(formattedDate).day.toString() + "th";
-    } else if (DateTime.parse(formattedDate).day % 10 == 1) {
-      day = DateTime.parse(formattedDate).day.toString() + "st";
-    } else if (DateTime.parse(formattedDate).day % 10 == 2) {
-      day = DateTime.parse(formattedDate).day.toString() + "nd";
-    } else if (DateTime.parse(formattedDate).day % 10 == 3) {
-      day = DateTime.parse(formattedDate).day.toString() + "rd";
-    } else {
-      day = DateTime.parse(formattedDate).day.toString() + "th";
-    }
-
-    return day + " " + month + " " + year;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +41,13 @@ class GoalCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.3,
                   child: Column(
                     children: [
-                      Text('Start Date: ' + dateTime(item.startDate),
+                      Text('Start Date: ' + Functions().dateTime2(item.startDate),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                      Text('End Date: ' + dateTime(item.startDate),
+                      Text('End Date: ' + Functions().dateTime2(item.startDate),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                      Text('Difficulty: ' + (item.difficultyLevel == 0 ? 'Easy' : item.difficultyLevel == 1 ? 'Medium' : 'Hard'),
+                      Text('Difficulty: ' + Functions().difficultyToString(item.difficultyLevel),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ],
@@ -114,7 +71,7 @@ class GoalCard extends StatelessWidget {
                       color: Theme.of(context).secondaryHeaderColor),
                 ),
                 Text(
-                  'Goal Type: ' + goalToString(item.goal),
+                  'Goal Type: ' + Functions().goalToString(item.goal),
                   style: TextStyle(
                       fontSize: 24,
                       color: Theme.of(context).secondaryHeaderColor),

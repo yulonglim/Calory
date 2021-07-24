@@ -25,6 +25,28 @@ class Functions {
     return day + " " + month + " " + year;
   }
 
+  String dateTime2(String formattedDate) {
+    String day;
+    String month = DateFormat.MMMM().format(DateTime.parse(formattedDate));
+    String year = DateTime.parse(formattedDate).year.toString();
+
+    if (DateTime.parse(formattedDate).day == 11 ||
+        DateTime.parse(formattedDate).day == 12 ||
+        DateTime.parse(formattedDate).day == 13) {
+      day = DateTime.parse(formattedDate).day.toString() + "th";
+    } else if (DateTime.parse(formattedDate).day % 10 == 1) {
+      day = DateTime.parse(formattedDate).day.toString() + "st";
+    } else if (DateTime.parse(formattedDate).day % 10 == 2) {
+      day = DateTime.parse(formattedDate).day.toString() + "nd";
+    } else if (DateTime.parse(formattedDate).day % 10 == 3) {
+      day = DateTime.parse(formattedDate).day.toString() + "rd";
+    } else {
+      day = DateTime.parse(formattedDate).day.toString() + "th";
+    }
+
+    return day + " " + month + " " + year;
+  }
+
   String durationMMSS(int duration) {
     int mins = 0;
     int temp = duration;
@@ -137,5 +159,21 @@ class Functions {
           return '';
         }
     }
+  }
+
+  int newDifficulty(int currentDifficulty, double sliderValue) {
+    if (currentDifficulty + 5 - sliderValue.round() * 2 > 60) {
+      return 2;
+    } else if (currentDifficulty + 5 - sliderValue.round() * 2 > 40) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  int newMultiplier(int currentMultiplier, double sliderValue) {
+    return currentMultiplier + 5 - sliderValue.round() * 2 >= 100
+        ? 100
+        : currentMultiplier + 5 - sliderValue.round() * 2;
   }
 }

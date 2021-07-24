@@ -63,7 +63,6 @@ flutter:
   assets:
     - assets/images/
     - assets/Database.xlsx
-    - assets/audio/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

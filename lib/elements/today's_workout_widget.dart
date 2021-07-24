@@ -19,6 +19,7 @@ class TodaysWorkOut extends StatefulWidget {
 class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late bool planned = false;
   bool done = false;
+  bool recalibrate = false;
   final List<exerciseData> warmUpItems = List.from(warmUpData);
   final List<exerciseData> coolDownItems = List.from(coolDownData);
   late List<exerciseData> workOutItems = [];
@@ -80,9 +81,36 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                     : null
                 : null)
         : DBHelper().getGoals().then((goal) => goal.isNotEmpty
-            ? DateTime.parse(goal.last.endDate)
-                    .isAfter(DateTime.now()) // check if previous goal finished
+            ? DateTime.parse(goal.last.endDate).isBefore(DateTime.now()) &&
+                    goal.last.progress == 0 // check if previous goal finished
                 ? DBHelper()
+                    .generateExercises(goal.last.goal)
+                    .then((workOutItems) => setState(() {
+                          planned = true;
+                          goal.last.difficultyLevel == 0
+                              ? this.difficulty = 'Easy'
+                              : goal.last.difficultyLevel == 1
+                                  ? this.difficulty = 'Medium'
+                                  : this.difficulty = 'Hard';
+                          workOutItems.forEach((element) {
+                            this.tempWorkOutItems.add(exerciseData(
+                                exerciseId: element.exerciseId,
+                                exerciseValue: element.exerciseValue != null
+                                    ? (element.exerciseValue! *
+                                            goal.last.multiplier /
+                                            100)
+                                        .round()
+                                    : null,
+                                exerciseTime: element.exerciseTime,
+                                exerciseName: element.exerciseName,
+                                exerciseDescription:
+                                    element.exerciseDescription));
+                          });
+                          this.recalibrate = true;
+                          this.workOutItems = tempWorkOutItems;
+                          setWorkOutData(this.workOutItems);
+                        }))
+                : DBHelper()
                     .generateExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
                           planned = true;
@@ -108,7 +136,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                           this.workOutItems = tempWorkOutItems;
                           setWorkOutData(this.workOutItems);
                         }))
-                : null
             : null));
   }
 
@@ -175,8 +202,10 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => FullWorkoutPage(
-                                  workoutItems: this.workOutItems,
-                                  oneTime: false)),
+                                    workoutItems: this.workOutItems,
+                                    oneTime: false,
+                                    recalibrate: this.recalibrate,
+                                  )),
                         );
                       },
                       child: Text(

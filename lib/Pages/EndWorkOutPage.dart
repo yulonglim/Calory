@@ -13,10 +13,12 @@ FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class EndWorkOutPage extends StatefulWidget {
-  const EndWorkOutPage({Key? key}) : super(key: key);
+  final bool? recalibrate;
+
+  const EndWorkOutPage({Key? key, this.recalibrate}) : super(key: key);
 
   @override
-  EndWorkOutPageState createState() => EndWorkOutPageState();
+  EndWorkOutPageState createState() => EndWorkOutPageState(this.recalibrate);
 }
 
 void initializeSetting() async {
@@ -27,8 +29,9 @@ void initializeSetting() async {
 
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
+  final bool? recalibrate;
 
-
+  EndWorkOutPageState(this.recalibrate);
 
   Future<void> displayNotification(DateTime dateTime) async {
     notificationsPlugin.zonedSchedule(
@@ -107,34 +110,60 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                         value.isNotEmpty ? currentGoal = value.first : null);
                     await DBHelper().getWorkOut().then((value) =>
                         value.isNotEmpty ? workout = value.first : null);
+
+                    if (this.recalibrate == true) {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                            "You've missed too many days of workout! The application will now postpone your end date.",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 24,
+                              //color: Theme.of(context).primaryColor
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Ok!');
+                              },
+                              child: const Text('Ok!'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
                     if (workout == null ||
                         DateTime.parse(workout.workoutDate).day !=
                             DateTime.now().day) {
-                      if (currentGoal != null) {
+                      if (currentGoal != null && recalibrate == false) {
                         await DBHelper().updateGoal(Goal(
                             goalId: currentGoal.goalId,
                             goal: currentGoal.goal,
-                            difficultyLevel: currentGoal.multiplier +
-                                        5 -
-                                        _currentSliderValue.round() * 2 >
-                                    60
-                                ? 2
-                                : currentGoal.multiplier +
-                                            5 -
-                                            _currentSliderValue.round() * 2 >
-                                        40
-                                    ? 1
-                                    : 0,
+                            difficultyLevel: Functions().newDifficulty(
+                                currentGoal.multiplier, _currentSliderValue),
                             startDate: currentGoal.startDate,
                             endDate: currentGoal.endDate,
-                            multiplier: currentGoal.multiplier +
-                                        5 -
-                                        _currentSliderValue.round() * 2 >=
-                                    100
-                                ? 100
-                                : currentGoal.multiplier +
-                                    5 -
-                                    _currentSliderValue.round() * 2,
+                            multiplier: Functions().newMultiplier(
+                                currentGoal.multiplier, _currentSliderValue),
+                            progress: currentGoal.progress - 1 < 0
+                                ? 0
+                                : currentGoal.progress - 1));
+                      } else {
+                        await DBHelper().updateGoal(Goal(
+                            goalId: currentGoal.goalId,
+                            goal: currentGoal.goal,
+                            difficultyLevel: Functions().newDifficulty(
+                                currentGoal.multiplier, _currentSliderValue),
+                            startDate: currentGoal.startDate,
+                            endDate: DateTime.parse(currentGoal.endDate)
+                                .add(Duration(
+                                    days: (currentGoal.progress * 1.5).round))
+                                .toIso8601String(),
+                            multiplier: Functions().newMultiplier(
+                                currentGoal.multiplier, _currentSliderValue),
                             progress: currentGoal.progress - 1 < 0
                                 ? 0
                                 : currentGoal.progress - 1));
