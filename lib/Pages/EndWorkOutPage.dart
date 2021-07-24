@@ -125,76 +125,136 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           ),
                           actions: <Widget>[
                             TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, 'Ok!');
+                              onPressed: () async {
+                                if (workout == null ||
+                                    DateTime.parse(workout.workoutDate).day !=
+                                        DateTime.now().day) {
+                                  if (currentGoal != null &&
+                                      recalibrate == false) {
+                                    await DBHelper().updateGoal(Goal(
+                                        goalId: currentGoal.goalId,
+                                        goal: currentGoal.goal,
+                                        difficultyLevel: Functions()
+                                            .newDifficulty(
+                                                currentGoal.multiplier,
+                                                _currentSliderValue),
+                                        startDate: currentGoal.startDate,
+                                        endDate: currentGoal.endDate,
+                                        multiplier: Functions().newMultiplier(
+                                            currentGoal.multiplier,
+                                            _currentSliderValue),
+                                        progress: currentGoal.progress - 1 < 0
+                                            ? 0
+                                            : currentGoal.progress - 1));
+                                  } else {
+                                    await DBHelper().updateGoal(Goal(
+                                        goalId: currentGoal.goalId,
+                                        goal: currentGoal.goal,
+                                        difficultyLevel: Functions()
+                                            .newDifficulty(
+                                                currentGoal.multiplier,
+                                                _currentSliderValue),
+                                        startDate: currentGoal.startDate,
+                                        endDate:
+                                            DateTime.parse(currentGoal.endDate)
+                                                .add(Duration(
+                                                    days:
+                                                        (currentGoal.progress *
+                                                                1.5)
+                                                            .round()))
+                                                .toIso8601String(),
+                                        multiplier: Functions().newMultiplier(
+                                            currentGoal.multiplier,
+                                            _currentSliderValue),
+                                        progress: currentGoal.progress - 1 < 0
+                                            ? 0
+                                            : currentGoal.progress - 1));
+                                  }
+                                  for (int i = 0; i < workoutData.length; i++) {
+                                    duration += workoutData[i].exerciseTime;
+                                    if (workoutData[i].exerciseName != 'Rest') {
+                                      workoutList = workoutList +
+                                          '\n' +
+                                          workoutData[i].exerciseName;
+                                    }
+                                  }
+                                  await DBHelper().insertWorkout(Workout(
+                                      muscleGroup: 3,
+                                      difficultyLevel: currentGoal != null
+                                          ? currentGoal.difficultyLevel
+                                          : 0,
+                                      workoutDate:
+                                          DateTime.now().toIso8601String(),
+                                      workoutDuration: duration,
+                                      workoutList: workoutList,
+                                      multiplier: currentGoal.multiplier));
+                                }
+                                notificationsPlugin.cancelAll();
+                                displayNotification(
+                                    DateTime.now().add(Duration(days: 3)));
+                                int count = 0;
+                                Navigator.popUntil(context, (route) {
+                                  return count++ == 4;
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Homepage()),
+                                );
                               },
                               child: const Text('Ok!'),
                             ),
                           ],
                         ),
                       );
-                    }
-
-                    if (workout == null ||
-                        DateTime.parse(workout.workoutDate).day !=
-                            DateTime.now().day) {
-                      if (currentGoal != null && recalibrate == false) {
-                        await DBHelper().updateGoal(Goal(
-                            goalId: currentGoal.goalId,
-                            goal: currentGoal.goal,
-                            difficultyLevel: Functions().newDifficulty(
-                                currentGoal.multiplier, _currentSliderValue),
-                            startDate: currentGoal.startDate,
-                            endDate: currentGoal.endDate,
-                            multiplier: Functions().newMultiplier(
-                                currentGoal.multiplier, _currentSliderValue),
-                            progress: currentGoal.progress - 1 < 0
-                                ? 0
-                                : currentGoal.progress - 1));
-                      } else {
-                        await DBHelper().updateGoal(Goal(
-                            goalId: currentGoal.goalId,
-                            goal: currentGoal.goal,
-                            difficultyLevel: Functions().newDifficulty(
-                                currentGoal.multiplier, _currentSliderValue),
-                            startDate: currentGoal.startDate,
-                            endDate: DateTime.parse(currentGoal.endDate)
-                                .add(Duration(
-                                    days: (currentGoal.progress * 1.5).round))
-                                .toIso8601String(),
-                            multiplier: Functions().newMultiplier(
-                                currentGoal.multiplier, _currentSliderValue),
-                            progress: currentGoal.progress - 1 < 0
-                                ? 0
-                                : currentGoal.progress - 1));
-                      }
-                      for (int i = 0; i < workoutData.length; i++) {
-                        duration += workoutData[i].exerciseTime;
-                        if (workoutData[i].exerciseName != 'Rest') {
-                          workoutList =
-                              workoutList + '\n' + workoutData[i].exerciseName;
+                    } else {
+                      if (workout == null ||
+                          DateTime.parse(workout.workoutDate).day !=
+                              DateTime.now().day) {
+                        if (currentGoal != null) {
+                          await DBHelper().updateGoal(Goal(
+                              goalId: currentGoal.goalId,
+                              goal: currentGoal.goal,
+                              difficultyLevel: Functions().newDifficulty(
+                                  currentGoal.multiplier, _currentSliderValue),
+                              startDate: currentGoal.startDate,
+                              endDate: currentGoal.endDate,
+                              multiplier: Functions().newMultiplier(
+                                  currentGoal.multiplier, _currentSliderValue),
+                              progress: currentGoal.progress - 1 < 0
+                                  ? 0
+                                  : currentGoal.progress - 1));
                         }
+                        for (int i = 0; i < workoutData.length; i++) {
+                          duration += workoutData[i].exerciseTime;
+                          if (workoutData[i].exerciseName != 'Rest') {
+                            workoutList = workoutList +
+                                '\n' +
+                                workoutData[i].exerciseName;
+                          }
+                        }
+                        await DBHelper().insertWorkout(Workout(
+                            muscleGroup: 3,
+                            difficultyLevel: currentGoal != null
+                                ? currentGoal.difficultyLevel
+                                : 0,
+                            workoutDate: DateTime.now().toIso8601String(),
+                            workoutDuration: duration,
+                            workoutList: workoutList,
+                            multiplier: currentGoal.multiplier));
                       }
-                      await DBHelper().insertWorkout(Workout(
-                          muscleGroup: 3,
-                          difficultyLevel: currentGoal != null
-                              ? currentGoal.difficultyLevel
-                              : 0,
-                          workoutDate: DateTime.now().toIso8601String(),
-                          workoutDuration: duration,
-                          workoutList: workoutList,
-                          multiplier: currentGoal.multiplier));
+                      notificationsPlugin.cancelAll();
+                      displayNotification(
+                          DateTime.now().add(Duration(days: 3)));
+                      int count = 0;
+                      Navigator.popUntil(context, (route) {
+                        return count++ == 4;
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homepage()),
+                      );
                     }
-                    notificationsPlugin.cancelAll();
-                    displayNotification(DateTime.now().add(Duration(days: 3)));
-                    int count = 0;
-                    Navigator.popUntil(context, (route) {
-                      return count++ == 4;
-                    });
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Homepage()),
-                    );
                   },
                   child: Text(
                     'Done',

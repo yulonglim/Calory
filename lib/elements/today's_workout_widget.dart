@@ -210,6 +210,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                     workoutItems: this.workOutItems,
                                     oneTime: false,
                                     recalibrate: this.recalibrate,
+                                done: false,
                                   )),
                         );
                       },

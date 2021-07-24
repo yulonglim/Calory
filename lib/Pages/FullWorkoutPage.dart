@@ -23,7 +23,7 @@ class FullWorkoutPage extends StatelessWidget {
   final bool oneTime;
   final int? difficultyLevel;
   final bool? recalibrate;
-  final int? done;
+  final bool? done;
 
   FullWorkoutPage(
       {Key? key,
