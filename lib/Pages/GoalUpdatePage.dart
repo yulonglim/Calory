@@ -115,7 +115,13 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                         difficultyLevel: difficultyLevel,
                         startDate: currentGoal.startDate,
                         endDate: endDate,
-                        multiplier: 20 + difficultyLevel * 20,
+                        multiplier:
+                            currentGoal.difficultyLevel == this.difficultyLevel
+                                ? currentGoal.goal == this.goal
+                                    ? currentGoal.multiplier
+                                    : 20 + difficultyLevel * 20
+                                : 20 + difficultyLevel * 20,
+                        //if user doesnt change their difficulty and goal type, progress is still saved
                         progress: ((DateTime.parse(endDate)
                                         .difference(DateTime.now())
                                         .inDays +

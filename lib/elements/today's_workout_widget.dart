@@ -59,8 +59,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                         .generateExercises(goal.last.goal)
                         .then((workOutItems) => setState(() {
                               planned = true;
-                              this.difficulty = Functions()
-                                  .goalToString(goal.last.difficultyLevel);
+                              this.difficulty = Functions().difficultyToString(
+                                  goal.last.difficultyLevel);
                               workOutItems.forEach((element) {
                                 this.tempWorkOutItems.add(exerciseData(
                                     exerciseId: element.exerciseId,
@@ -210,7 +210,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                     workoutItems: this.workOutItems,
                                     oneTime: false,
                                     recalibrate: this.recalibrate,
-                                done: false,
+                                    done: false,
                                   )),
                         );
                       },
