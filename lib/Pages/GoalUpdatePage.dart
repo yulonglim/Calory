@@ -110,27 +110,37 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                   ),
                   onPressed: () async {
                     await DBHelper().updateGoal(Goal(
-                        goalId: currentGoal.goalId,
-                        goal: goal,
-                        difficultyLevel: difficultyLevel,
-                        startDate: currentGoal.startDate,
-                        endDate: endDate,
-                        multiplier:
-                            currentGoal.difficultyLevel == this.difficultyLevel
-                                ? currentGoal.goal == this.goal
-                                    ? currentGoal.multiplier
-                                    : 20 + difficultyLevel * 20
-                                : 20 + difficultyLevel * 20,
-                        //if user doesnt change their difficulty and goal type, progress is still saved
-                        progress: currentGoal.endDate != DateTime.parse(endDate)
-                            ? ((DateTime.parse(endDate)
-                                            .difference(DateTime.now())
-                                            .inDays +
-                                        1) /
-                                    7 *
-                                    _currentSliderValue)
-                                .round()
-                            : currentGoal.progress));
+                      goalId: currentGoal.goalId,
+                      goal: goal,
+                      difficultyLevel: difficultyLevel,
+                      startDate: currentGoal.startDate,
+                      endDate: endDate,
+                      multiplier:
+                          currentGoal.difficultyLevel == this.difficultyLevel
+                              ? currentGoal.goal == this.goal
+                                  ? currentGoal.multiplier
+                                  : 20 + difficultyLevel * 20
+                              : 20 + difficultyLevel * 20,
+                      //if user doesnt change their difficulty and goal type, progress is still saved
+                      progress: currentGoal.endDate == endDate
+                          ? currentGoal.daysAWeek == _currentSliderValue.round()
+                              ? currentGoal.progress
+                              : ((DateTime.parse(endDate)
+                                              .difference(DateTime.now())
+                                              .inDays +
+                                          1) /
+                                      7 *
+                                      _currentSliderValue)
+                                  .round()
+                          : ((DateTime.parse(endDate)
+                                          .difference(DateTime.now())
+                                          .inDays +
+                                      1) /
+                                  7 *
+                                  _currentSliderValue)
+                              .round(),
+                      daysAWeek: _currentSliderValue.round(),
+                    ));
                     //This is to refresh the homepage with the new goal data
                     Navigator.popUntil(context, (route) {
                       return count++ == 2;

@@ -107,7 +107,8 @@ class _GoalSetPageState extends State<GoalSetPage> {
                     primary: Theme.of(context).primaryColor,
                   ),
                   onPressed: () async {
-                    await DBHelper().insertGoal(Goal(
+                    await DBHelper().insertGoal(
+                      Goal(
                         goal: goal,
                         difficultyLevel: difficultyLevel,
                         startDate: startDate,
@@ -119,7 +120,10 @@ class _GoalSetPageState extends State<GoalSetPage> {
                                     1) /
                                 7 *
                                 _currentSliderValue)
-                            .round()));
+                            .round(),
+                        daysAWeek: _currentSliderValue.round(),
+                      ),
+                    );
                     //This is to refresh the homepage with the new goal data
                     int count = 0;
                     Navigator.popUntil(context, (route) {

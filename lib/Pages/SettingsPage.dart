@@ -28,6 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
         : setState(() {
             this.goalNumber = value.length;
             this.progress = value.last.progress;
+            this.goalList = [];
             this.goalList = value;
           }));
   }

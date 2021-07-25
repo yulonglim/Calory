@@ -44,10 +44,13 @@ class GoalCard extends StatelessWidget {
                       Text('Start Date: ' + Functions().dateTime2(item.startDate),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                      Text('End Date: ' + Functions().dateTime2(item.startDate),
+                      Text('End Date: ' + Functions().dateTime2(item.endDate),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                       Text('Difficulty: ' + Functions().difficultyToString(item.difficultyLevel),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      Text('Days Done: ' + (Functions().daysWorkedOut(item.startDate, item.endDate, item.daysAWeek) - item.progress).toString(),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
                     ],

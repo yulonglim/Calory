@@ -176,4 +176,8 @@ class Functions {
         ? 100
         : currentMultiplier + 5 - sliderValue.round() * 2;
   }
+
+  int daysWorkedOut(String startDate, String endDate, int daysAWeek) {
+    return ((DateTime.parse(endDate).difference(DateTime.parse(startDate)).inDays + 1) / 7 * daysAWeek).round();
+  }
 }

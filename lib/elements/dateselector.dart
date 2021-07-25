@@ -12,7 +12,7 @@ class DateSelector extends StatefulWidget {
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  late DateTime selectedDate;
+  late DateTime selectedDate = DateTime.now();
   final Function result;
 
   _DateSelectorState(this.result);
@@ -20,9 +20,16 @@ class _DateSelectorState extends State<DateSelector> {
   @override
   void initState() {
     super.initState();
-    DBHelper().getGoals().then((value) => value.isNotEmpty ? setState(() {
-      this.selectedDate = DateTime.parse(value.last.endDate).isBefore(DateTime.now()) ? DateTime.now() : DateTime.parse(value.last.endDate);
-    }): this.selectedDate = DateTime.now());
+    DBHelper().getGoals().then((value) => value.isNotEmpty
+        ? setState(() {
+            this.selectedDate =
+                DateTime.parse(value.last.endDate).isBefore(DateTime.now())
+                    ? DateTime.now()
+                    : DateTime.parse(value.last.endDate);
+          })
+        : setState(() {
+            this.selectedDate = DateTime.now();
+          }));
   }
 
   @override
@@ -65,7 +72,9 @@ class _DateSelectorState extends State<DateSelector> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        result(selectedDate.add(Duration(hours: 23,minutes: 59,seconds: 59)).toIso8601String());
+        result(selectedDate
+            .add(Duration(hours: 23, minutes: 59, seconds: 59))
+            .toIso8601String());
       });
   }
 }

@@ -48,7 +48,8 @@ class DBHelper {
           "startDate TEXT, "
           "endDate TEXT, "
           "multiplier INTEGER, "
-          "progress INTEGER)");
+          "progress INTEGER, "
+          "daysAWeek INTEGER)");
 
       await db.execute("CREATE TABLE $tableWorkouts ("
           "goalId INTEGER, "

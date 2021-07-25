@@ -8,6 +8,7 @@ class Goal {
   final String endDate;
   final int multiplier;
   final int progress;
+  final int daysAWeek;
 
   const Goal({
     this.goalId,
@@ -17,6 +18,7 @@ class Goal {
     required this.endDate,
     required this.multiplier,
     required this.progress,
+    required this.daysAWeek,
   });
 
   static Goal fromMap(Map<String, dynamic> map) {
@@ -27,15 +29,18 @@ class Goal {
     String endDate = map['endDate'];
     int multiplier = map['multiplier'];
     int progress = map['progress'];
+    int daysAWeek = map['daysAWeek'];
 
     return Goal(
-        goalId: goalId,
-        goal: goal,
-        difficultyLevel: difficultyLevel,
-        startDate: startDate,
-        endDate: endDate,
-        multiplier: multiplier,
-        progress: progress);
+      goalId: goalId,
+      goal: goal,
+      difficultyLevel: difficultyLevel,
+      startDate: startDate,
+      endDate: endDate,
+      multiplier: multiplier,
+      progress: progress,
+      daysAWeek: daysAWeek,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -47,6 +52,7 @@ class Goal {
       'endDate': endDate,
       'multiplier': multiplier,
       'progress': progress,
+      'daysAWeek':daysAWeek,
     };
 
     if (this.goalId != null) {
@@ -66,6 +72,6 @@ class Goal {
 
   @override
   String toString() {
-    return "goalId: $goalId, goal: $goal, difficulty: $difficultyLevel, startdate: $startDate, endDate: $endDate, multiplier $multiplier, progress $progress";
+    return "goalId: $goalId, goal: $goal, difficulty: $difficultyLevel, startdate: $startDate, endDate: $endDate, multiplier $multiplier, progress $progress, daysAWeek $daysAWeek";
   }
 }
