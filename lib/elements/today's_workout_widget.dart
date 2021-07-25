@@ -77,7 +77,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                               });
                               if (DateTime.parse(goal.last.endDate).isBefore(
                                   DateTime.now().add(
-                                      Duration(days: goal.last.progress)))) {
+                                      Duration(days: goal.last.progress == 0 ? 0 : goal.last.progress - 1)))) {
                                 recalibrate = true;
                               }
                               this.workOutItems = tempWorkOutItems;

@@ -152,31 +152,31 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                     workoutList = workoutList +
                                         '\n' +
                                         workoutData[i].exerciseName;
-
-                                    await DBHelper().insertWorkout(Workout(
-                                        muscleGroup: 3,
-                                        difficultyLevel: currentGoal != null
-                                            ? currentGoal.difficultyLevel
-                                            : 0,
-                                        workoutDate:
-                                            DateTime.now().toIso8601String(),
-                                        workoutDuration: duration,
-                                        workoutList: workoutList,
-                                        multiplier: currentGoal.multiplier));
                                   }
-                                  notificationsPlugin.cancelAll();
-                                  displayNotification(
-                                      DateTime.now().add(Duration(days: 3)));
-                                  int count = 0;
-                                  Navigator.popUntil(context, (route) {
-                                    return count++ == 4;
-                                  });
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Homepage()),
-                                  );
                                 }
+                                await DBHelper().insertWorkout(Workout(
+                                    muscleGroup: 3,
+                                    difficultyLevel: currentGoal != null
+                                        ? currentGoal.difficultyLevel
+                                        : 0,
+                                    workoutDate:
+                                        DateTime.now().toIso8601String(),
+                                    workoutDuration: duration,
+                                    workoutList: workoutList,
+                                    multiplier: currentGoal.multiplier));
+
+                                notificationsPlugin.cancelAll();
+                                displayNotification(
+                                    DateTime.now().add(Duration(days: 3)));
+                                int count = 0;
+                                Navigator.popUntil(context, (route) {
+                                  return count++ == 4;
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Homepage()),
+                                );
                               },
                               child: const Text('Ok!'),
                             ),
@@ -206,17 +206,17 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutList =
                               workoutList + '\n' + workoutData[i].exerciseName;
                         }
-
-                        await DBHelper().insertWorkout(Workout(
-                            muscleGroup: 3,
-                            difficultyLevel: currentGoal != null
-                                ? currentGoal.difficultyLevel
-                                : 0,
-                            workoutDate: DateTime.now().toIso8601String(),
-                            workoutDuration: duration,
-                            workoutList: workoutList,
-                            multiplier: currentGoal.multiplier));
                       }
+                      await DBHelper().insertWorkout(Workout(
+                          muscleGroup: 3,
+                          difficultyLevel: currentGoal != null
+                              ? currentGoal.difficultyLevel
+                              : 0,
+                          workoutDate: DateTime.now().toIso8601String(),
+                          workoutDuration: duration,
+                          workoutList: workoutList,
+                          multiplier: currentGoal.multiplier));
+
                       notificationsPlugin.cancelAll();
                       displayNotification(
                           DateTime.now().add(Duration(days: 3)));

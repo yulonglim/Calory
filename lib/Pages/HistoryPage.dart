@@ -36,6 +36,12 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     this.goalList.length == 0 ? goalList = [] : goalList = goalList;
+    for(int i = 0 ; i < goalList.length/2.ceil() ;i++){
+      Goal temp = goalList[i];
+      goalList[i] = goalList[goalList.length - 1];
+      goalList[goalList.length - 1] = temp;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -55,7 +61,7 @@ class _HistoryPageState extends State<HistoryPage> {
         child: ListView(
           children: [
             Text(
-              "Settings",
+              "History",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
             ),
             SizedBox(
