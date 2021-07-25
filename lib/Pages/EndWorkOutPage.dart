@@ -107,16 +107,16 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                     int duration = 0;
                     String workoutList = '';
                     await DBHelper().getGoals().then((value) =>
-                        value.isNotEmpty ? currentGoal = value.first : null);
+                        value.isNotEmpty ? currentGoal = value.last : null);
                     await DBHelper().getWorkOut().then((value) =>
-                        value.isNotEmpty ? workout = value.first : null);
+                        value.isNotEmpty ? workout = value.last : null);
 
                     if (this.recalibrate == true) {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
                           title: Text(
-                            "You've missed too many days of workout! The application will now postpone your end date.",
+                            "You've missed too many days of workout! \nThe application will now postpone your end date.",
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 24,

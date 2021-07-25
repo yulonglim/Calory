@@ -92,7 +92,7 @@ class ExerciseCard extends StatelessWidget {
                   title: Text(item.exerciseName,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
-                  content: Text(item.exerciseDescription,
+                  content: Text(item.exerciseDescription.split('. ').join('.\n\n'),
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   actions: <Widget>[

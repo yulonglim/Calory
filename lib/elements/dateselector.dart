@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/database/DBHelper.dart';
 
 // Used for the 3 square buttons at the bottom of the HomePage
 class DateSelector extends StatefulWidget {
@@ -11,10 +12,18 @@ class DateSelector extends StatefulWidget {
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
   final Function result;
 
   _DateSelectorState(this.result);
+
+  @override
+  void initState() {
+    super.initState();
+    DBHelper().getGoals().then((value) => value.isNotEmpty ? setState(() {
+      this.selectedDate = DateTime.parse(value.last.endDate).isBefore(DateTime.now()) ? DateTime.now() : DateTime.parse(value.last.endDate);
+    }): this.selectedDate = DateTime.now());
+  }
 
   @override
   Widget build(BuildContext context) {

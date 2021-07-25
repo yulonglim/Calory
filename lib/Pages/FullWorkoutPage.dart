@@ -100,7 +100,7 @@ class FullWorkoutPage extends StatelessWidget {
                           }
                         }
                         await DBHelper().getWorkOut().then((value) =>
-                            value.isNotEmpty ? workout = value.first : null);
+                            value.isNotEmpty ? workout = value.last : null);
                         if (workout == null ||
                             DateTime.parse(workout.workoutDate).day !=
                                 DateTime.now().day) {

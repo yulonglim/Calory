@@ -24,26 +24,28 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     openExcel();
-    DBHelper().insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2);
+    DBHelper()
+        .insertExerciseData(DBHelper.tableLowerBody, lowerBodyData2)
+        .whenComplete(() => DBHelper().getExercises(2).then((l) => l.isNotEmpty
+            ? setState(() {
+                this.lowerBody = l;
+              })
+            : null));
     DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
     DBHelper()
-        .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2);
-    DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);
-    DBHelper().getExercises(0).then((c) => c.isNotEmpty
-        ? setState(() {
-            this.core = c;
-          })
-        : null);
-    DBHelper().getExercises(1).then((u) => u.isNotEmpty
-        ? setState(() {
-            this.upperBody = u;
-          })
-        : null);
-    DBHelper().getExercises(2).then((l) => l.isNotEmpty
-        ? setState(() {
-            this.lowerBody = l;
-          })
-        : null);
+        .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2)
+        .whenComplete(() => DBHelper().getExercises(0).then((c) => c.isNotEmpty
+            ? setState(() {
+                this.core = c;
+              })
+            : null));
+    DBHelper()
+        .insertExerciseData(DBHelper.tableCardio, cardioData2)
+        .whenComplete(() => DBHelper().getExercises(1).then((u) => u.isNotEmpty
+            ? setState(() {
+                this.upperBody = u;
+              })
+            : null));
   }
 
   @override

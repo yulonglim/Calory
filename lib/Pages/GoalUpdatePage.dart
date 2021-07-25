@@ -32,7 +32,7 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
     int count = 0;
     DBHelper()
         .getGoals()
-        .then((value) => value.isNotEmpty ? currentGoal = value.first : null);
+        .then((value) => value.isNotEmpty ? currentGoal = value.last : null);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -122,13 +122,15 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                                     : 20 + difficultyLevel * 20
                                 : 20 + difficultyLevel * 20,
                         //if user doesnt change their difficulty and goal type, progress is still saved
-                        progress: ((DateTime.parse(endDate)
-                                        .difference(DateTime.now())
-                                        .inDays +
-                                    1) /
-                                7 *
-                                _currentSliderValue)
-                            .round()));
+                        progress: currentGoal.endDate != DateTime.parse(endDate)
+                            ? ((DateTime.parse(endDate)
+                                            .difference(DateTime.now())
+                                            .inDays +
+                                        1) /
+                                    7 *
+                                    _currentSliderValue)
+                                .round()
+                            : currentGoal.progress));
                     //This is to refresh the homepage with the new goal data
                     Navigator.popUntil(context, (route) {
                       return count++ == 2;
