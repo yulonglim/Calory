@@ -110,7 +110,7 @@ class _HistoryPageState extends State<HistoryPage> {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.55,
               child: AnimatedList(
                 key: goalListKey,
                 initialItemCount: goalList.length,
