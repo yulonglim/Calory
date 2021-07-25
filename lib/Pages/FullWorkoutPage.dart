@@ -82,7 +82,7 @@ class FullWorkoutPage extends StatelessWidget {
                     primary: Theme.of(context).primaryColor,
                   ),
                   onPressed: () async {
-                    if (oneTime) {
+                    if (!oneTime) {
                       if (done == false) {
                         Navigator.push(
                           context,
