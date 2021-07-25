@@ -5,14 +5,14 @@ import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/elements/goal_card.dart';
 import 'package:flutter_app/main.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _HistoryPageState createState() => _HistoryPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _HistoryPageState extends State<HistoryPage> {
   int? goalNumber = 0;
   int progress = 0;
   final goalListKey = GlobalKey<AnimatedListState>();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/Pages/Library.dart';
-import 'package:flutter_app/Pages/SettingsPage.dart';
+import 'package:flutter_app/Pages/HistoryPage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/goalbutton.dart';
@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                    MaterialPageRoute(builder: (context) => HistoryPage()),
                   );
                 },
                 child: Icon(Icons.person)),
