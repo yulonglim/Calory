@@ -106,17 +106,18 @@ class _HomepageState extends State<Homepage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GoalButton(Icons.settings, 'Goal'),
+              SquareButton(
+                Icons.book,
+                'Exercise',
+                'Library',
+                LibraryPage(
+                  core: core,
+                  upperBody: upperBody,
+                  lowerBody: lowerBody,
+                ),
+              ),
               SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
                   ProgressPage()),
-              SquareButton(
-                  Icons.book,
-                  'Exercise',
-                  'Library',
-                  LibraryPage(
-                    core: core,
-                    upperBody: upperBody,
-                    lowerBody: lowerBody,
-                  ))
             ],
           ), //the buttons
         ],

@@ -52,7 +52,7 @@ class Goal {
       'endDate': endDate,
       'multiplier': multiplier,
       'progress': progress,
-      'daysAWeek':daysAWeek,
+      'daysAWeek': daysAWeek,
     };
 
     if (this.goalId != null) {

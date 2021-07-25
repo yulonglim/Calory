@@ -67,11 +67,14 @@ class GoalCard extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Goal no: ' + item.goalId.toString(),
+                  'Goal Date: ' + Functions().dateTime2(item.startDate),
                   style: TextStyle(
                       //fontWeight: FontWeight.w500,
                       fontSize: 24,
                       color: Theme.of(context).secondaryHeaderColor),
+                ),
+                SizedBox(
+                  height: 4,
                 ),
                 Text(
                   'Goal Type: ' + Functions().goalToString(item.goal),
