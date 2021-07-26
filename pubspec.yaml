@@ -42,12 +42,18 @@ dependencies:
   flutter_native_timezone:  ^1.0.10
   flutter_beep: ^1.0.0
   google_fonts: ^2.1.0
+  flutter_launcher_icons: ^0.9.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.16.8
+
+flutter_icons:
+  image_path: "assets/images/ExerciseLah_Logo_1.png"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
