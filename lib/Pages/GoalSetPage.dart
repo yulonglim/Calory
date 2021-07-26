@@ -51,7 +51,9 @@ class _GoalSetPageState extends State<GoalSetPage> {
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text('Set Your Goal',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
+                style: Theme.of(context).textTheme.headline4!
+                    .merge(TextStyle(color: Colors.black))
+              )
             ),
             Divider(
               height: 15,
@@ -60,7 +62,9 @@ class _GoalSetPageState extends State<GoalSetPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('What is your Goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context).textTheme.headline6!
+                      .merge(TextStyle(color: Colors.black))
+              ),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -69,7 +73,9 @@ class _GoalSetPageState extends State<GoalSetPage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context).textTheme.headline6!
+                      .merge(TextStyle(color: Colors.black))
+              ),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -78,7 +84,9 @@ class _GoalSetPageState extends State<GoalSetPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('When will you reach your goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context).textTheme.headline6!
+                      .merge(TextStyle(color: Colors.black))
+              ),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -86,7 +94,10 @@ class _GoalSetPageState extends State<GoalSetPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('How many days a week would you like to exercise?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context).textTheme.headline6!
+                      .merge(TextStyle(color: Colors.black)),
+                  textAlign: TextAlign.center,
+              ),
             ),
             Slider(
                 value: _currentSliderValue.toDouble(),
@@ -136,9 +147,8 @@ class _GoalSetPageState extends State<GoalSetPage> {
                   },
                   child: Text(
                     'Done',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1!
+                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor))
                   )),
             )
           ],

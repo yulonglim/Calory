@@ -38,9 +38,8 @@ class _DateSelectorState extends State<DateSelector> {
       onPressed: () => _selectDate(context), // Refer step 3
       child: Text(
         'Select date',
-        style: TextStyle(
-            color: Theme.of(context).secondaryHeaderColor,
-            fontWeight: FontWeight.bold),
+        style: Theme.of(context).textTheme.bodyText1!
+          .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor))
       ),
 
       style: ElevatedButton.styleFrom(

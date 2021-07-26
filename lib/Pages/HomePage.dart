@@ -66,7 +66,7 @@ class _HomepageState extends State<Homepage> {
                     backgroundColor: MaterialStateProperty.all<Color>(
                         Theme.of(context).primaryColor),
                     shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder(side: BorderSide(color: Colors.red)))),
+                        CircleBorder(side: BorderSide(color: Theme.of(context).primaryColor)))),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -90,10 +90,8 @@ class _HomepageState extends State<Homepage> {
             child: Center(
               child: Text(
                 Functions().dateTime(),
-                style: TextStyle(
-                  fontSize: 48,
-                  //color: Theme.of(context).primaryColor,
-                ),
+                style: Theme.of(context).textTheme.headline1!
+                    .merge(TextStyle(color: Colors.black)),
               ),
             ),
           ),
@@ -108,15 +106,14 @@ class _HomepageState extends State<Homepage> {
               GoalButton(Icons.settings, 'Goal'),
               SquareButton(
                 Icons.book,
-                'Exercise',
-                'Library',
+                'Exercise Library',
                 LibraryPage(
                   core: core,
                   upperBody: upperBody,
                   lowerBody: lowerBody,
                 ),
               ),
-              SquareButton(Icons.calendar_today_rounded, 'View', 'Progress',
+              SquareButton(Icons.calendar_today_rounded, 'View Progress',
                   ProgressPage()),
             ],
           ), //the buttons

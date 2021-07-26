@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
 
@@ -33,11 +33,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App',
       theme: ThemeData(
-        //fontFamily: "Cairo",
         primaryColor: Color.fromRGBO(184, 15, 10, 1),
         secondaryHeaderColor: Color.fromRGBO(243, 240, 240, 1),
         brightness: Brightness.light,
+
+        //fontFamily: 'OpenSans',
+
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 42.0, fontWeight: FontWeight.w500),
+          headline3: TextStyle(fontSize: 36.0),
+          headline4: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w500),
+          headline5: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
+          headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          bodyText1: TextStyle(fontSize: 20),
+        ),
       ),
+
       darkTheme: ThemeData(
           primaryColor: Colors.grey[800],
           secondaryHeaderColor: Colors.blueGrey[400],

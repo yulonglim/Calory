@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// Used for the 2 square buttons at the bottom of the HomePage
+// Used for the square buttons at the bottom of the HomePage
 
 class SquareButton extends StatelessWidget {
   final IconData _icon;
-  final String _text1;
-  final String _text2;
+  final String _text;
   final Widget _nextpage;
 
-  SquareButton(this._icon, this._text1, this._text2, this._nextpage);
+  SquareButton(this._icon, this._text, this._nextpage);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +28,10 @@ class SquareButton extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    _text1,
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                  Text(
-                    _text2,
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).secondaryHeaderColor),
+                    _text,
+                    style: Theme.of(context).textTheme.bodyText1!
+                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),

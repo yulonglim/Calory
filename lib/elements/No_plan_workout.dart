@@ -24,18 +24,14 @@ class noPlan extends StatelessWidget {
                 children: [
                   Text(
                     "You have not",
-                    style: TextStyle(
-                      //color: Theme.of(context).primaryColor,
-                      fontSize: 48,
-                    ),
+                    style: Theme.of(context).textTheme.headline2!
+                        .merge(TextStyle(color: Colors.black)),
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     "set a goal!",
-                    style: TextStyle(
-                      //color: Theme.of(context).primaryColor,
-                      fontSize: 48,
-                    ),
+                    style: Theme.of(context).textTheme.headline2!
+                        .merge(TextStyle(color: Colors.black)),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -68,17 +64,9 @@ class noPlan extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                'Start a',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'one-time workout',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
+                                'Start a one-time workout',
+                                style: Theme.of(context).textTheme.headline4!
+                                    .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                                 textAlign: TextAlign.center,
                               ),
                             ],

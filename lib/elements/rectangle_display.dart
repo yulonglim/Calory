@@ -22,13 +22,11 @@ class RectangleDisplay extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             _text,
-            style: TextStyle(
-              fontSize: 32,
-              color: Theme.of(context).secondaryHeaderColor,
+            style: Theme.of(context).textTheme.headline4!
+                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+              )
             ),
           ),
-        ),
-      ),
-    );
+        );
   }
 }

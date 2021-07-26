@@ -4,7 +4,7 @@ import 'package:flutter_app/Pages/GoalSetPage.dart';
 import 'package:flutter_app/Pages/GoalUpdatePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 
-// Used for the 2 square buttons at the bottom of the HomePage
+// Used for the goal set square buttons at the bottom of the HomePage
 
 class GoalButton extends StatefulWidget {
   final IconData _icon;
@@ -47,15 +47,13 @@ class _GoalButtonState extends State<GoalButton> {
                 children: [
                   Text(
                     planned ? 'Update' : 'Set a',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).secondaryHeaderColor),
+                    style: Theme.of(context).textTheme.bodyText1!
+                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                   ),
                   Text(
                     widget._text,
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).secondaryHeaderColor),
+                    style: Theme.of(context).textTheme.bodyText1!
+                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ],
               ),

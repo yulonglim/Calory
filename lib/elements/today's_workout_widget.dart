@@ -8,8 +8,9 @@ import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
 import 'package:flutter_app/main.dart';
-
 import '../Pages/FullWorkoutPage.dart';
+
+//Today's Workout Widget on the Homepage
 
 class TodaysWorkOut extends StatefulWidget {
   @override
@@ -168,10 +169,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Today's Workout",
-                style: TextStyle(
-                  //color: Theme.of(context).primaryColor,
-                  fontSize: 40,
-                ),
+                style: Theme.of(context).textTheme.headline2!
+                    .merge(TextStyle(color: Colors.black)),
               ),
             ),
             Container(
@@ -216,9 +215,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                       },
                       child: Text(
                         'Start',
-                        style: TextStyle(
-                          fontSize: 30,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1!
+                            .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                       )),
                 ],
               ),
