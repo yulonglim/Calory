@@ -77,8 +77,10 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                         element.exerciseDescription));
                               });
                               if (DateTime.parse(goal.last.endDate).isBefore(
-                                  DateTime.now().add(
-                                      Duration(days: goal.last.progress == 0 ? 0 : goal.last.progress - 1)))) {
+                                  DateTime.now().add(Duration(
+                                      days: goal.last.progress == 0
+                                          ? 0
+                                          : goal.last.progress - 1)))) {
                                 recalibrate = true;
                               }
                               this.workOutItems = tempWorkOutItems;
@@ -93,11 +95,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                     .generateExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
                           planned = true;
-                          goal.last.difficultyLevel == 0
-                              ? this.difficulty = 'Easy'
-                              : goal.last.difficultyLevel == 1
-                                  ? this.difficulty = 'Medium'
-                                  : this.difficulty = 'Hard';
+                          this.difficulty = Functions()
+                              .difficultyToString(goal.last.difficultyLevel);
                           workOutItems.forEach((element) {
                             this.tempWorkOutItems.add(exerciseData(
                                 exerciseId: element.exerciseId,
@@ -119,12 +118,10 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                 : DBHelper()
                     .generateExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
-                          planned = true;
-                          goal.last.difficultyLevel == 0
-                              ? this.difficulty = 'Easy'
-                              : goal.last.difficultyLevel == 1
-                                  ? this.difficulty = 'Medium'
-                                  : this.difficulty = 'Hard';
+                          this.planned = true;
+                          this.difficulty = Functions()
+                              .difficultyToString(goal.last.difficultyLevel);
+
                           workOutItems.forEach((element) {
                             this.tempWorkOutItems.add(exerciseData(
                                 exerciseId: element.exerciseId,

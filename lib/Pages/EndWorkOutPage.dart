@@ -148,7 +148,10 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
 
                                 for (int i = 0; i < workoutData.length; i++) {
                                   duration += workoutData[i].exerciseTime;
-                                  if (workoutData[i].exerciseName != 'Rest') {
+                                  if (workoutData[i].exerciseName == 'Rest' &&
+                                      workoutData[i].exerciseTime == 5) {
+                                  } else {
+                                    print(workoutData[i].exerciseName);
                                     workoutList = workoutList +
                                         '\n' +
                                         workoutData[i].exerciseName;
@@ -202,7 +205,10 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                       }
                       for (int i = 0; i < workoutData.length; i++) {
                         duration += workoutData[i].exerciseTime;
-                        if (workoutData[i].exerciseName != 'Rest') {
+                        if (workoutData[i].exerciseName == 'Rest' &&
+                            workoutData[i].exerciseTime == 5) {
+                        } else {
+                          print(workoutData[i].exerciseName);
                           workoutList =
                               workoutList + '\n' + workoutData[i].exerciseName;
                         }

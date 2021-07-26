@@ -152,27 +152,31 @@ class DBHelper {
     List<exerciseData> exercise = <exerciseData>[];
 
     switch (type) {
-      case 0: {
-        for(int i = 0 ; i < core.length ; i++) {
-          exercise.add(exerciseData.fromMap(core[i]));
+      case 0:
+        {
+          for (int i = 0; i < core.length; i++) {
+            exercise.add(exerciseData.fromMap(core[i]));
+          }
+          return exercise;
         }
-        return exercise;
-      }
-      case 1: {
-        for(int i = 0 ; i < upperBody.length ; i++) {
-          exercise.add(exerciseData.fromMap(upperBody[i]));
+      case 1:
+        {
+          for (int i = 0; i < upperBody.length; i++) {
+            exercise.add(exerciseData.fromMap(upperBody[i]));
+          }
+          return exercise;
         }
-        return exercise;
-      }
-      case 2: {
-        for(int i = 0 ; i < lowerBody.length ; i++) {
-          exercise.add(exerciseData.fromMap(lowerBody[i]));
+      case 2:
+        {
+          for (int i = 0; i < lowerBody.length; i++) {
+            exercise.add(exerciseData.fromMap(lowerBody[i]));
+          }
+          return exercise;
         }
-        return exercise;
-      }
-      default: {
-        return exercise;
-      }
+      default:
+        {
+          return exercise;
+        }
     }
   }
 
@@ -400,8 +404,7 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> previousExercises (
-      String exerciseList) async {
+  Future<List<exerciseData>> previousExercises(String exerciseList) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
@@ -410,6 +413,16 @@ class DBHelper {
     List<exerciseData> exercise = <exerciseData>[];
     List<String> list = exerciseList.split('\n');
     for (int i = 0; i < list.length; i++) {
+      if (list[i] == 'Rest') {
+        exercise.add(
+          exerciseData(
+              exerciseId: 'R1',
+              exerciseTime: 30,
+              exerciseName: 'Rest',
+              exerciseDescription:
+                  'Use this time to prepare for the next exercise or to shake off any tension.'),
+        );
+      }
       for (int j = 0; j < core.length; j++) {
         if (exerciseData.fromMap(core[j]).exerciseName == list[i]) {
           exercise.add(exerciseData.fromMap(core[j]));
