@@ -38,7 +38,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
     notificationsPlugin.zonedSchedule(
         notiId++,
         'ExerciseLah!',
-        'It has been '+ days.toString() +' days since your last workout! Come back and sweat it out!',
+        'It has been ' +
+            days.toString() +
+            ' days since your last workout! Come back and sweat it out!',
         tz.TZDateTime.from(dateTime, tz.local),
         NotificationDetails(
           android: AndroidNotificationDetails(
@@ -85,7 +87,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
             children: [
               Text(
                 "Please Rate Today's Workout",
-                style: Theme.of(context).textTheme.headline5!
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
                     .merge(TextStyle(color: Colors.black)),
               ),
               Slider(
@@ -105,9 +109,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   ),
                   onPressed: () async {
                     notificationsPlugin.cancelAll();
-                    for(int i = 1 ; i < 4 ; i++) {
+                    for (int i = 1; i < 4; i++) {
                       displayNotification(
-                          DateTime.now().add(Duration(days: 3*i)),3 * (i));
+                          DateTime.now().add(Duration(days: 3 * i)), 3 * (i));
                     }
                     dynamic currentGoal;
                     int duration = 0;
@@ -121,7 +125,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                         builder: (BuildContext context) => AlertDialog(
                           title: Text(
                             "You've missed too many days of workout! \nThe application will postpone your end date.",
-                            style: Theme.of(context).textTheme.headline5!
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
                                 .merge(TextStyle(color: Colors.black)),
                           ),
                           actions: <Widget>[
@@ -181,7 +187,13 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                       builder: (context) => Homepage()),
                                 );
                               },
-                              child: const Text('Ok!'),
+                              child: Text(
+                                'Ok!',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .merge(TextStyle(color: Colors.black)),
+                              ),
                             ),
                           ],
                         ),
@@ -234,8 +246,9 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                   },
                   child: Text(
                     'Done',
-                    style: Theme.of(context).textTheme.headline5!
-                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    style: Theme.of(context).textTheme.headline5!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   )),
             ],
           ),

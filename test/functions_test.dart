@@ -4,11 +4,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('Time related', () {
-    test('datetime() function in homepage', () {
-      var string = Functions().dateTime();
-      expect(string, equals('21st July 2021')); //change according to day
+    test('datetime2() function', () {
+        var string = Functions().dateTime2(DateTime.parse('2021-07-26T12:10:36.651318').toIso8601String());
+        expect(string, equals('26th July 2021'));
+      });
+    test('datetime2() function', () {
+      var string = Functions().dateTime2(DateTime.parse('2021-07-21T12:10:36.651318').toIso8601String());
+      expect(string, equals('21st July 2021'));
     });
-
+    test('datetime2() function', () {
+      var string = Functions().dateTime2(DateTime.parse('2021-07-22T12:10:36.651318').toIso8601String());
+      expect(string, equals('22nd July 2021'));
+    });
     test('durationMMSS function used in Warmup/workout/cooldown pages', () {
       var duration = Functions().durationMMSS(0);
       expect(duration, equals('0m 0s'));

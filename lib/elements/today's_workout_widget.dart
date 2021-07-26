@@ -4,6 +4,8 @@ import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
+import 'package:flutter_app/database/goal.dart';
+import 'package:flutter_app/database/workout.dart';
 import 'package:flutter_app/elements/No_plan_workout.dart';
 import 'package:flutter_app/elements/done_workout.dart';
 import 'package:flutter_app/elements/rectangle_display.dart';
@@ -54,8 +56,8 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                       this.duration = value.last.workoutDuration;
                     }))
             : DBHelper().getGoals().then((goal) => goal.isNotEmpty
-                ? DateTime.parse(goal.last.endDate).isAfter(
-                        DateTime.now()) // check if previous goal finished
+                ? DateTime.parse(goal.last.endDate).isAfter(DateTime
+                        .now()) // if enddate is after == planned and not finished
                     ? DBHelper()
                         .generateExercises(goal.last.goal)
                         .then((workOutItems) => setState(() {
@@ -86,11 +88,37 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                               this.workOutItems = tempWorkOutItems;
                               setWorkOutData(this.workOutItems);
                             }))
-                    : null
+                    : goal.last.progress == 0
+                        ? null
+                        : DBHelper()
+                            .generateExercises(goal.last.goal)
+                            .then((workOutItems) => setState(() {
+                                  planned = true;
+                                  this.difficulty = Functions()
+                                      .difficultyToString(
+                                          goal.last.difficultyLevel);
+                                  workOutItems.forEach((element) {
+                                    this.tempWorkOutItems.add(exerciseData(
+                                        exerciseId: element.exerciseId,
+                                        exerciseValue:
+                                            element.exerciseValue != null
+                                                ? (element.exerciseValue! *
+                                                        goal.last.multiplier /
+                                                        100)
+                                                    .round()
+                                                : null,
+                                        exerciseTime: element.exerciseTime,
+                                        exerciseName: element.exerciseName,
+                                        exerciseDescription:
+                                            element.exerciseDescription));
+                                  });
+                                  this.recalibrate = true;
+                                  this.workOutItems = tempWorkOutItems;
+                                  setWorkOutData(this.workOutItems);
+                                }))
                 : null)
         : DBHelper().getGoals().then((goal) => goal.isNotEmpty
-            ? DateTime.parse(goal.last.endDate).isBefore(DateTime.now()) &&
-                    goal.last.progress == 0 // check if previous goal finished
+            ? DateTime.parse(goal.last.endDate).isBefore(DateTime.now())
                 ? DBHelper()
                     .generateExercises(goal.last.goal)
                     .then((workOutItems) => setState(() {
