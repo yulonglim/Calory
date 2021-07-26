@@ -53,10 +53,12 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: Theme.of(context).secondaryHeaderColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Color.fromRGBO(220, 220, 220, 1.0),
+        leading: Image.asset("assets/images/ExerciseLah_Logo_1.png",
+        height: 50, width: 50,),
         title: Text(
           "ExerciseLah!",
-          style: TextStyle(fontSize: 32),
+          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600, fontStyle: FontStyle.italic, color: Colors.black),
         ),
         actions: [
           Padding(
@@ -82,16 +84,27 @@ class _HomepageState extends State<Homepage> {
         runSpacing: MediaQuery.of(context).size.height * 0.01,
         children: [
           Container(
-            // Container for today's plan
+            // Container for Header
             color: Theme.of(context).secondaryHeaderColor,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 5,
             alignment: Alignment.centerLeft,
             child: Center(
-              child: Text(
-                Functions().dateTime(),
-                style: Theme.of(context).textTheme.headline1!
-                    .merge(TextStyle(color: Colors.black)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Today's Workout",
+                    style: Theme.of(context).textTheme.headline1!
+                        .merge(TextStyle(color: Colors.black)),
+                  ),
+                  Text(
+                    Functions().dateTime(),
+                    style: Theme.of(context).textTheme.headline6!
+                        .merge(TextStyle(color: Colors.black)),
+                    )
+                ],
               ),
             ),
           ),

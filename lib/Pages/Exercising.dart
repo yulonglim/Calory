@@ -132,7 +132,7 @@ class _exercisingState extends State<exercising> {
           ),
           Text(
             'Next Exercise:',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+            style:Theme.of(context).textTheme.headline5
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.14,
@@ -174,8 +174,8 @@ class _exercisingState extends State<exercising> {
       child: ElevatedButton(
         child: Text(
           title,
-          style: TextStyle(
-              fontSize: 24, color: Theme.of(context).secondaryHeaderColor),
+          style: Theme.of(context).textTheme.headline5!
+              .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
         ),
         style: ElevatedButton.styleFrom(
           primary: Theme.of(context).primaryColor,

@@ -25,7 +25,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Color.fromRGBO(220, 220, 220, 1.0),
           elevation: 1,
           leading: IconButton(
             onPressed: () {

@@ -16,7 +16,7 @@ class RectangleDisplay extends StatelessWidget {
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(8))),
-        width: MediaQuery.of(context).size.width * 0.7,
+        width: MediaQuery.of(context).size.width * 0.65,
         //color: Theme.of(context).primaryColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

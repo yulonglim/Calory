@@ -18,24 +18,18 @@ class noPlan extends StatelessWidget {
         ),
         child: Column(
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.005,
+            ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
+              padding: const EdgeInsets.fromLTRB(80.0, 10.0, 80.0, 10.0),
+              child:
                   Text(
-                    "You have not",
-                    style: Theme.of(context).textTheme.headline2!
+                    "You have not set a goal!",
+                    style: Theme.of(context).textTheme.headline3!
                         .merge(TextStyle(color: Colors.black)),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                    "set a goal!",
-                    style: Theme.of(context).textTheme.headline2!
-                        .merge(TextStyle(color: Colors.black)),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -63,11 +57,14 @@ class noPlan extends StatelessWidget {
                           },
                           child: Column(
                             children: [
-                              Text(
-                                'Start a one-time workout',
-                                style: Theme.of(context).textTheme.headline4!
-                                    .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-                                textAlign: TextAlign.center,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Start a one-time workout',
+                                  style: Theme.of(context).textTheme.headline5!
+                                      .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ],
                           )),
@@ -75,6 +72,9 @@ class noPlan extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
             ),
           ],
         ),

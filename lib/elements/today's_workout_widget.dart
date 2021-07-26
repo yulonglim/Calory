@@ -156,12 +156,13 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
         decoration: BoxDecoration(
           border: Border.all(
             color: Theme.of(context).primaryColor.withAlpha(600),
-            width: 2,
+            width: 3,
           ),
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         child: Column(
           children: [
+            /*
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -169,6 +170,10 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                 style: Theme.of(context).textTheme.headline2!
                     .merge(TextStyle(color: Colors.black)),
               ),
+            ),
+             */
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
             Container(
               child: Row(

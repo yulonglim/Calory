@@ -50,7 +50,7 @@ class _WorkOutPageState extends State<WorkOutPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Color.fromRGBO(220, 220, 220, 1.0),
         elevation: 1,
         leading: IconButton(
           onPressed: () {
@@ -58,12 +58,13 @@ class _WorkOutPageState extends State<WorkOutPage> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).secondaryHeaderColor,
+            color: Theme.of(context).primaryColor,
           ),
         ),
         title: Text(
           "Work Out",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          style: Theme.of(context).textTheme.headline5!
+              .merge(TextStyle(color: Colors.black)),
         ),
       ),
       body: Column(
@@ -88,19 +89,14 @@ class _WorkOutPageState extends State<WorkOutPage> {
                         children: [
                           Text(
                             'No. of exercises',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            textAlign: TextAlign.center,
                           ),
                           Text(
                             items.length.toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.headline5!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                           ),
                         ],
                       ),
@@ -115,19 +111,14 @@ class _WorkOutPageState extends State<WorkOutPage> {
                         children: [
                           Text(
                             'Rest',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            textAlign: TextAlign.center,
                           ),
                           Text(
                             restDuration.toString() + 's',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.headline5!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                           ),
                         ],
                       ),
@@ -142,19 +133,14 @@ class _WorkOutPageState extends State<WorkOutPage> {
                         children: [
                           Text(
                             'Duration',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            textAlign: TextAlign.center,
                           ),
                           Text(
                             Functions().totalduration(items),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).secondaryHeaderColor,
-                            ),
+                            style: Theme.of(context).textTheme.headline5!
+                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                           ),
                         ],
                       ),
@@ -198,11 +184,8 @@ class _WorkOutPageState extends State<WorkOutPage> {
                 child: Center(
                   child: Text(
                     'Start',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).secondaryHeaderColor,
-                    ),
+                    style: Theme.of(context).textTheme.headline5!
+                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ),
               ),
