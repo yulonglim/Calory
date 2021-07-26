@@ -167,7 +167,9 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Today's Workout",
-                style: Theme.of(context).textTheme.headline2!
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2!
                     .merge(TextStyle(color: Colors.black)),
               ),
             ),
@@ -217,8 +219,9 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                       },
                       child: Text(
                         'Start',
-                        style: Theme.of(context).textTheme.bodyText1!
-                            .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                        style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                                color: Theme.of(context).secondaryHeaderColor)),
                       )),
                 ],
               ),

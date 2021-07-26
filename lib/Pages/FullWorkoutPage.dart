@@ -51,7 +51,9 @@ class FullWorkoutPage extends StatelessWidget {
           ),
           title: Text(
             "Today's Workout",
-            style: Theme.of(context).textTheme.headline5!
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
                 .merge(TextStyle(color: Colors.black)),
           ),
         ),
@@ -101,13 +103,14 @@ class FullWorkoutPage extends StatelessWidget {
                       dynamic workout;
                       int duration = 0;
                       String workoutList = '';
-                      for (int counter = 0;
-                          counter < workoutItems.length;
-                          counter++) {
-                        duration += workoutItems[counter].exerciseTime;
-                        if (workoutItems[counter].exerciseName != 'Rest') {
-                          workoutList +=
-                              workoutItems[counter].exerciseName + '\n';
+                      for (int i = 0; i < workoutItems.length; i++) {
+                        duration += workoutItems[i].exerciseTime;
+                        if (workoutItems[i].exerciseName == 'Rest' &&
+                            workoutItems[i].exerciseTime == 5) {
+                        } else {
+                          print(workoutItems[i].exerciseName);
+                          workoutList =
+                              workoutList + '\n' + workoutItems[i].exerciseName;
                         }
                       }
                       await DBHelper().getWorkOut().then((value) =>
@@ -136,8 +139,9 @@ class FullWorkoutPage extends StatelessWidget {
                   },
                   child: Text(
                     'End Workout',
-                    style: Theme.of(context).textTheme.headline5!
-                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    style: Theme.of(context).textTheme.headline5!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                     textAlign: TextAlign.center,
                   )),
             ])));

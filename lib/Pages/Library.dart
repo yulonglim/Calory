@@ -7,10 +7,16 @@ class LibraryPage extends StatefulWidget {
   final List<exerciseData> upperBody;
   final List<exerciseData> lowerBody;
   final List<exerciseData> core;
-  const LibraryPage({Key? key, required this.upperBody, required this.lowerBody, required this.core}) : super(key: key);
+  const LibraryPage(
+      {Key? key,
+      required this.upperBody,
+      required this.lowerBody,
+      required this.core})
+      : super(key: key);
 
   @override
-  _LibraryPageState createState() => _LibraryPageState(this.upperBody, this.lowerBody, this.core);
+  _LibraryPageState createState() =>
+      _LibraryPageState(this.upperBody, this.lowerBody, this.core);
 }
 
 class _LibraryPageState extends State<LibraryPage> {
@@ -18,11 +24,10 @@ class _LibraryPageState extends State<LibraryPage> {
   final List<exerciseData> lowerBody;
   final List<exerciseData> core;
   final corelistKey = new GlobalKey<AnimatedListState>();
-  final ubodylistKey = new  GlobalKey<AnimatedListState>();
+  final ubodylistKey = new GlobalKey<AnimatedListState>();
   final lbodylistKey = new GlobalKey<AnimatedListState>();
 
   _LibraryPageState(this.upperBody, this.lowerBody, this.core);
-
 
   void removeItem(int index, GlobalKey<AnimatedListState> key,
       List<exerciseData> exercise) {
@@ -41,39 +46,42 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
-        title: Text(
-          "Exercise Library",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-        ),
+        // title: Text(
+        //   "Exercise Library",
+        //   style: Theme.of(context).textTheme.headline5!.merge(
+        //     TextStyle(color: Theme.of(context).primaryColor,)
+        //   ),
+        // ),
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).secondaryHeaderColor,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Text(
+            "Exercise Library",
+            style: Theme.of(context).textTheme.headline5,
+          ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
-          Row(
-            children: [
-              Text(
-                "Core",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              )
-            ],
+          Text(
+            "Core",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.right,
           ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
           SizedBox(
@@ -89,19 +97,15 @@ class _LibraryPageState extends State<LibraryPage> {
             ),
           ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
-          Row(
-            children: [
-              Text(
-                "Upper Body",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              )
-            ],
+          Text(
+            "Upper Body",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
           SizedBox(
@@ -117,19 +121,15 @@ class _LibraryPageState extends State<LibraryPage> {
             ),
           ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
-          Row(
-            children: [
-              Text(
-                "Lower Body",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              )
-            ],
+          Text(
+            "Lower Body",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Divider(
-            height: 15,
+            height: 10,
             thickness: 2,
           ),
           SizedBox(

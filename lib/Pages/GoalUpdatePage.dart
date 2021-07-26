@@ -51,10 +51,12 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
           children: [
             //ImageBanner("assets/images/reach_goal.jpg"),
             Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text('Update Your Goal',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
-            ),
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Update Your Goal',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .merge(TextStyle(color: Colors.black)))),
             Divider(
               height: 15,
               thickness: 2,
@@ -62,7 +64,10 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('What is your Goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -71,7 +76,10 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -80,15 +88,24 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('When will you reach your goal?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
                 child: DateSelector((x) => this.endDate = x)),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text('How many days a week would you like to exercise?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              child: Text(
+                'How many days a week would you like to exercise?',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .merge(TextStyle(color: Colors.black)),
+                textAlign: TextAlign.center,
+              ),
             ),
             Slider(
                 value: _currentSliderValue.toDouble(),

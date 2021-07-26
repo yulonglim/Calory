@@ -70,18 +70,18 @@ class _WarmUpPageState extends State<WarmUpPage> {
                 borderRadius: BorderRadius.circular(12),
                 color: Theme.of(context).primaryColor,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    // height: MediaQuery.of(context).size.height * 0.1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'No. of exercises',
+                            'No. of exercises:',
                             style: Theme.of(context).textTheme.bodyText1!
                                 .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                             textAlign: TextAlign.center,
@@ -96,36 +96,14 @@ class _WarmUpPageState extends State<WarmUpPage> {
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    // height: MediaQuery.of(context).size.width * 0.1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Rest',
-                            style: Theme.of(context).textTheme.bodyText1!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            restDuration.toString() + 's',
-                            style: Theme.of(context).textTheme.headline5!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Duration',
+                            'Duration:',
                             style: Theme.of(context).textTheme.bodyText1!
                                 .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                             textAlign: TextAlign.center,

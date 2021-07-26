@@ -45,7 +45,7 @@ class CardButton extends StatelessWidget {
                     Text(
                       buttonName,
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                      Theme.of(context).textTheme.headline5,
                     ),
                     SizedBox(
                       height: 8,
@@ -53,7 +53,7 @@ class CardButton extends StatelessWidget {
                     Text(
                       'Duration: ' + this.duration,
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          Theme.of(context).textTheme.bodyText2,
                     ),
                   ],
                 ),

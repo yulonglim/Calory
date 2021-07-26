@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/toggle_button.dart';
 
-
 import 'FullWorkoutPage.dart';
 import '../database/DBHelper.dart';
 
@@ -42,7 +41,10 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text('Choose a workout',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             Divider(
               height: 15,
@@ -51,7 +53,10 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Which Muscle Group would u like to train?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -60,7 +65,10 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text('Difficulty Level',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             SizedBox(
                 width: MediaQuery.of(context).size.width * 0.92,
@@ -69,7 +77,10 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text('How long would you like to exercise?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .merge(TextStyle(color: Colors.black))),
             ),
             Slider(
                 value: _currentSliderValue,
@@ -115,16 +126,14 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                         builder: (context) => FullWorkoutPage(
                               workoutItems: this.workOutItems,
                               oneTime: true,
-                          difficultyLevel: this.difficulty,
+                              difficultyLevel: this.difficulty,
                             )),
                   );
                 },
-                child: Text(
-                  'Start',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                )),
+                child: Text('Start',
+                    style: Theme.of(context).textTheme.bodyText1!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)))),
           ],
         ));
   }

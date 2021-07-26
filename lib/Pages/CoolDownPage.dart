@@ -56,8 +56,10 @@ class _CoolDownPageState extends State<CoolDownPage> {
         ),
         title: Text(
           "Cool Down",
-          style: Theme.of(context).textTheme.headline5!
-                .merge(TextStyle(color: Colors.black)),
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .merge(TextStyle(color: Colors.black)),
         ),
       ),
       body: Column(
@@ -70,70 +72,56 @@ class _CoolDownPageState extends State<CoolDownPage> {
                 borderRadius: BorderRadius.circular(12),
                 color: Theme.of(context).primaryColor,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    // height: MediaQuery.of(context).size.height * 0.1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'No. of exercises',
-                            style: Theme.of(context).textTheme.bodyText1!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            'No. of exercises:',
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                    color: Theme.of(context)
+                                        .secondaryHeaderColor)),
                             textAlign: TextAlign.center,
                           ),
                           Text(
                             items.length.toString(),
-                            style: Theme.of(context).textTheme.headline5!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            style: Theme.of(context).textTheme.headline5!.merge(
+                                TextStyle(
+                                    color: Theme.of(context)
+                                        .secondaryHeaderColor)),
                           ),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    // height: MediaQuery.of(context).size.width * 0.1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Rest',
-                            style: Theme.of(context).textTheme.bodyText1!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            restDuration.toString() + 's',
-                            style: Theme.of(context).textTheme.headline5!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Duration',
-                            style: Theme.of(context).textTheme.bodyText1!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            'Duration:',
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                    color: Theme.of(context)
+                                        .secondaryHeaderColor)),
                             textAlign: TextAlign.center,
                           ),
                           Text(
                             Functions().totalduration(items),
-                            style: Theme.of(context).textTheme.headline5!
-                                .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                            style: Theme.of(context).textTheme.headline5!.merge(
+                                TextStyle(
+                                    color: Theme.of(context)
+                                        .secondaryHeaderColor)),
                           ),
                         ],
                       ),
@@ -177,8 +165,9 @@ class _CoolDownPageState extends State<CoolDownPage> {
                 child: Center(
                   child: Text(
                     'Start',
-                    style: Theme.of(context).textTheme.headline5!
-                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    style: Theme.of(context).textTheme.headline5!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ),
               ),

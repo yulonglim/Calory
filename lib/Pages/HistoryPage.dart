@@ -36,7 +36,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     this.goalList.length == 0 ? goalList = [] : goalList = goalList;
-    for(int i = 0 ; i < goalList.length/2.ceil() ;i++){
+    for (int i = 0; i < goalList.length / 2.ceil(); i++) {
       Goal temp = goalList[i];
       goalList[i] = goalList[goalList.length - 1];
       goalList[goalList.length - 1] = temp;
@@ -62,25 +62,7 @@ class _HistoryPageState extends State<HistoryPage> {
           children: [
             Text(
               "History",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.person,
-                  color: Theme.of(context).primaryColor,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "Account",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                )
-              ],
+              style: Theme.of(context).textTheme.headline5,
             ),
             Divider(
               height: 15,
@@ -89,23 +71,15 @@ class _HistoryPageState extends State<HistoryPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Total Goals Finished:",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
+                Text("Total Goals Finished:",
+                    style: Theme.of(context).textTheme.bodyText2),
                 Text(
                   progress == 0
                       ? goalNumber.toString()
                       : (goalNumber! - 1).toString(),
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[600],
-                  ),
+                  style: Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                        color: Colors.grey[600],
+                      )),
                 ),
               ],
             ),
@@ -127,18 +101,16 @@ class _HistoryPageState extends State<HistoryPage> {
                 color: Theme.of(context).primaryColor,
               ),
               child: ListTile(
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: EdgeInsets.all(8),
                 title: new InkWell(
                   onTap: () => showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text('Clear Data?',
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w500)),
+                          style: Theme.of(context).textTheme.bodyText1),
                       content: Text(
                           'This will clear all data from the application. Continue?',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
+                          style: Theme.of(context).textTheme.bodyText2),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context),
@@ -165,13 +137,13 @@ class _HistoryPageState extends State<HistoryPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        // width: MediaQuery.of(context).size.width * 0.4,
                         child: Text(
                           'Clear All Data',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              color: Theme.of(context).secondaryHeaderColor),
+                          style: Theme.of(context).textTheme.bodyText1!.merge(
+                              TextStyle(
+                                  color:
+                                      Theme.of(context).secondaryHeaderColor)),
                         ),
                       ),
                     ],

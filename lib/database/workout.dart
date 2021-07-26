@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_app/Functions.dart';
 
 class Workout {
@@ -74,6 +75,16 @@ class Workout {
     return fromMap(jsonDecode(jsonEncoding));
   }
 
+  String filterRest(String workoutList) {
+    List<String> temp = workoutList.split('\n');
+    String result = '';
+    for (int i = 0 ; i < temp.length ; i++) {
+      if(temp[i] != 'Rest'){
+        result += '\n' + temp[i];
+      }
+    }
+    return result;
+  }
 
   @override
   String toString() {
@@ -86,6 +97,6 @@ class Workout {
         'Muscle Group: ' +
         Functions().MuscleGroup(this.muscleGroup) +
         '\n' +
-        workoutList!;
+        filterRest(this.workoutList!);
   }
 }

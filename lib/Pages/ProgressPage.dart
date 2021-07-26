@@ -144,7 +144,7 @@ class _ProgressPageState extends State<ProgressPage> {
             children: [
               Text(
                 "Your Progress",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.headline5,
               ),
               SizedBox(
                 height: 4,
@@ -169,7 +169,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 thickness: 2,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.53,
+                height: MediaQuery.of(context).size.height * 0.52,
                 child: Column(
                   children: [
                     TableCalendar<Event>(
@@ -241,16 +241,12 @@ class _ProgressPageState extends State<ProgressPage> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                       title: Text('What you did!',
-                                          style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.w500)),
+                                          style: Theme.of(context).textTheme.bodyText1),
                                       content: Text(
                                           _getEventsForDay(_selectedDay!)
                                               .last
                                               .title,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500)),
+                                          style: Theme.of(context).textTheme.bodyText2),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () =>
@@ -260,7 +256,7 @@ class _ProgressPageState extends State<ProgressPage> {
                                       ],
                                     ),
                                   ),
-                                  title: Text('Click to check what you did'),
+                                  title: Text('Click to see workout!',style: Theme.of(context).textTheme.bodyText2,),
                                 ),
                               );
                             },
@@ -278,130 +274,88 @@ class _ProgressPageState extends State<ProgressPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Start Date:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("Start Date:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     DateFormat.MMMM().format(startDate) +
                         " " +
                         startDate.day.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "End Date:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("End Date:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     DateFormat.MMMM().format(endDate) +
                         " " +
                         endDate.day.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Current Difficulty Level:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("Current Difficulty Level:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     difficulty,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Current Goal Type:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("Current Goal Type:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     goal,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Days Left:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("Days Left:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     (endDate.difference(DateTime.now()).inDays + 1).toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "No. of days of workout left:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Text("No. of days of workout left:",
+                      style: Theme.of(context).textTheme.bodyText2),
                   Text(
                     progress.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600],
-                    ),
+                    style:
+                        Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
+                              color: Colors.grey[600],
+                            )),
                   )
                 ],
               ),

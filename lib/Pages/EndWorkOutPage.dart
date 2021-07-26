@@ -30,14 +30,15 @@ void initializeSetting() async {
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
   final bool? recalibrate;
+  static int notiId = 0;
 
   EndWorkOutPageState(this.recalibrate);
 
-  Future<void> displayNotification(DateTime dateTime) async {
+  Future<void> displayNotification(DateTime dateTime, int days) async {
     notificationsPlugin.zonedSchedule(
-        0,
+        notiId++,
         'ExerciseLah!',
-        'It has been 3 days since your last workout! Come back and sweat it out!',
+        'It has been '+ days.toString() +' days since your last workout! Come back and sweat it out!',
         tz.TZDateTime.from(dateTime, tz.local),
         NotificationDetails(
           android: AndroidNotificationDetails(
@@ -103,6 +104,11 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                     primary: Theme.of(context).primaryColor,
                   ),
                   onPressed: () async {
+                    notificationsPlugin.cancelAll();
+                    for(int i = 1 ; i < 4 ; i++) {
+                      displayNotification(
+                          DateTime.now().add(Duration(days: 3*i)),3 * (i));
+                    }
                     dynamic currentGoal;
                     int duration = 0;
                     String workoutList = '';
@@ -165,10 +171,6 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                     workoutDuration: duration,
                                     workoutList: workoutList,
                                     multiplier: currentGoal.multiplier));
-
-                                notificationsPlugin.cancelAll();
-                                displayNotification(
-                                    DateTime.now().add(Duration(days: 3)));
                                 int count = 0;
                                 Navigator.popUntil(context, (route) {
                                   return count++ == 4;
@@ -220,10 +222,6 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutDuration: duration,
                           workoutList: workoutList,
                           multiplier: currentGoal.multiplier));
-
-                      notificationsPlugin.cancelAll();
-                      displayNotification(
-                          DateTime.now().add(Duration(days: 3)));
                       int count = 0;
                       Navigator.popUntil(context, (route) {
                         return count++ == 4;

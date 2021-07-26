@@ -32,11 +32,10 @@ class ExerciseCard extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: Text(item.exerciseName,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
-                  content: Text(item.exerciseDescription,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                      style: Theme.of(context).textTheme.headline1!),
+                  content: Text(
+                      item.exerciseDescription.split('. ').join('.\n\n'),
+                      style: Theme.of(context).textTheme.bodyText2),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -49,13 +48,12 @@ class ExerciseCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.45,
                     child: Text(
                       item.exerciseName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 24,
-                          color: Theme.of(context).secondaryHeaderColor),
+                      style: Theme.of(context).textTheme.headline4!.merge(
+                          TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor)),
                     ),
                   ),
                   SizedBox(
@@ -63,9 +61,9 @@ class ExerciseCard extends StatelessWidget {
                   ),
                   Text(
                     item.exerciseTime.toString() + 's',
-                    style: TextStyle(
-                        fontSize: 32,
-                        color: Theme.of(context).secondaryHeaderColor),
+                    style: Theme.of(context).textTheme.headline3!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ],
               ),
@@ -90,11 +88,10 @@ class ExerciseCard extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: Text(item.exerciseName,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
-                  content: Text(item.exerciseDescription.split('. ').join('.\n\n'),
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                      style: Theme.of(context).textTheme.headline1!),
+                  content: Text(
+                      item.exerciseDescription.split('. ').join('.\n\n'),
+                      style: Theme.of(context).textTheme.bodyText2),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -107,13 +104,12 @@ class ExerciseCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.45,
                     child: Text(
                       item.exerciseName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 24,
-                          color: Theme.of(context).secondaryHeaderColor),
+                      style: Theme.of(context).textTheme.headline4!.merge(
+                          TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor)),
                     ),
                   ),
                   SizedBox(
@@ -121,24 +117,13 @@ class ExerciseCard extends StatelessWidget {
                   ),
                   Text(
                     'x' + item.exerciseValue.toString(),
-                    style: TextStyle(
-                        fontSize: 32,
-                        color: Theme.of(context).secondaryHeaderColor),
+                    style: Theme.of(context).textTheme.headline3!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ],
               ),
             ),
-            // trailing: ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     primary: Theme.of(context).secondaryHeaderColor,
-            //   ),
-            //   child: Text(
-            //     'Done',
-            //     style: TextStyle(
-            //         fontSize: 24, color: Theme.of(context).primaryColor),
-            //   ),
-            //   onPressed: onClicked,
-            // )
           ),
         ),
       );
