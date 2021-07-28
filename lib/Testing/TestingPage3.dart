@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/Testing/TestingPage4.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
@@ -51,7 +52,7 @@ class _TestPage3State extends State<TestPage3> {
           SizedBox(
             child: Text('The widget should be showing workout completed, duration 0m 30s'),
           ),
-          TestButton(Icons.done, "Passed", TestPage3(),
+          TestButton(Icons.done, "Passed", TestPage4(),
               DBHelper().deleteAll()
           ),
         ],

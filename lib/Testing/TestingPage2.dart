@@ -41,13 +41,13 @@ class _TestPage2State extends State<TestPage2> {
         children: [
           TodaysWorkOut(),
           SizedBox(
-            child: Text('Test with a goal planned + not completed , when end workout is clicked recalibration should occur'),
+            child: Text('Test with a goal planned + not completed'),
           ),
           SizedBox(
             height: 4,
           ),
           SizedBox(
-            child: Text('The widget should be showing goal set, difficulty easy'),
+            child: Text('The widget should be showing goal set, difficulty easy, pressing end workout will bring u back to this page. \nWhen end workout is clicked recalibration should occur use back button to come back'),
           ),
           TestButton(Icons.done, "Passed", TestPage3(),
               DBHelper().deleteAll()
