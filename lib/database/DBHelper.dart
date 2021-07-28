@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-//import 'package:path_provider/path_provider.dart';
 
 import 'goal.dart';
 import 'workout.dart';
-//import 'package:sqflite_database_example/model/note.dart';
 
 class DBHelper {
   static const String tableGoals = 'goals';
@@ -453,7 +451,7 @@ class DBHelper {
 
   Future<void> deleteAll() async {
     Database db = await database;
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 200; i++) {
       await db.delete(
         tableGoals,
         where: "goalId = ?",

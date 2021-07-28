@@ -21,8 +21,8 @@ class TodaysWorkOut extends StatefulWidget {
 
 class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late bool planned = false;
-  bool done = false;
-  bool recalibrate = false;
+  late bool done = false;
+  late bool recalibrate = false;
   final List<exerciseData> warmUpItems = List.from(warmUpData);
   final List<exerciseData> coolDownItems = List.from(coolDownData);
   late List<exerciseData> workOutItems = [];
@@ -30,144 +30,112 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late String difficulty = 'Error ';
   late int duration = 0;
 
+  void asyncInitialize() async {
+    List<Goal> goal = [];
+    List<Workout> workout = [];
+
+    // get list of goals from db
+    await DBHelper().getGoals().then((goals) => goals.isEmpty
+        ? null
+        : DateTime.parse(goals.last.endDate).isAfter(DateTime.now())
+            ? {this.planned = true, goal = goals}
+            : goals.last.progress == 0
+                ? null
+                : {this.planned = true, this.recalibrate = true, goal = goals});
+
+    // get list of workout from db
+    await DBHelper().getWorkOut().then((value) => value.isEmpty
+        ? null
+        : DateTime.parse(value.last.workoutDate).day == DateTime.now().day
+            ? {this.done = true, workout = value}
+            : null);
+    if (this.done) {
+      //get list from prev workout + generate done widget
+      await DBHelper()
+          .previousExercises(workout.last.workoutList!)
+          .then((prevList) => setState(() {
+                for (int i = 0; i < prevList.length; i++) {
+                  this.workOutItems.add(exerciseData(
+                      exerciseId: prevList[i].exerciseId,
+                      exerciseTime: prevList[i].exerciseTime,
+                      exerciseName: prevList[i].exerciseName,
+                      exerciseDescription: prevList[i].exerciseDescription,
+                      exerciseValue: prevList[i].exerciseValue != null
+                          ? (prevList[i].exerciseValue! *
+                                  workout.last.multiplier /
+                                  100)
+                              .round()
+                          : null));
+                }
+                this.done = this.done;
+                this.duration = workout.last.workoutDuration;
+              }));
+    } else if (planned) {
+      if (recalibrate) {
+        // generate todays workout + recalibrate at the end
+        await DBHelper()
+            .generateExercises(goal.last.goal)
+            .then((workOutItems) => setState(() {
+                  planned = true;
+                  this.difficulty =
+                      Functions().difficultyToString(goal.last.difficultyLevel);
+                  workOutItems.forEach((element) {
+                    this.tempWorkOutItems.add(exerciseData(
+                        exerciseId: element.exerciseId,
+                        exerciseValue: element.exerciseValue != null
+                            ? (element.exerciseValue! *
+                                    goal.last.multiplier /
+                                    100)
+                                .round()
+                            : null,
+                        exerciseTime: element.exerciseTime,
+                        exerciseName: element.exerciseName,
+                        exerciseDescription: element.exerciseDescription));
+                  });
+                  this.recalibrate = true;
+                  this.workOutItems = tempWorkOutItems;
+                  setWorkOutData(this.workOutItems);
+                }));
+      } else {
+        // generate todays workout
+        await DBHelper()
+            .generateExercises(goal.last.goal)
+            .then((workOutItems) => setState(() {
+                  planned = true;
+                  this.difficulty =
+                      Functions().difficultyToString(goal.last.difficultyLevel);
+                  workOutItems.forEach((element) {
+                    this.tempWorkOutItems.add(exerciseData(
+                        exerciseId: element.exerciseId,
+                        exerciseValue: element.exerciseValue != null
+                            ? (element.exerciseValue! *
+                                    goal.last.multiplier /
+                                    100)
+                                .round()
+                            : null,
+                        exerciseTime: element.exerciseTime,
+                        exerciseName: element.exerciseName,
+                        exerciseDescription: element.exerciseDescription));
+                  });
+                  if (DateTime.parse(goal.last.endDate).isBefore(DateTime.now()
+                      .add(Duration(
+                          days: goal.last.progress == 0
+                              ? 0
+                              : goal.last.progress - 1)))) {
+                    this.recalibrate = true;
+                  }
+                  this.workOutItems = tempWorkOutItems;
+                  setWorkOutData(this.workOutItems);
+                }));
+      }
+    }
+    //if planned == false , get the no plan widget to allow one time workout
+  }
+
   @override
   void initState() {
     super.initState();
-    DBHelper().getWorkOut().then((value) => value.isNotEmpty
-        ? DateTime.parse(value.last.workoutDate).day == DateTime.now().day
-            ? DBHelper()
-                .previousExercises(value.last.workoutList!)
-                .then((prevList) => setState(() {
-                      for (int i = 0; i < prevList.length; i++) {
-                        this.workOutItems.add(exerciseData(
-                            exerciseId: prevList[i].exerciseId,
-                            exerciseTime: prevList[i].exerciseTime,
-                            exerciseName: prevList[i].exerciseName,
-                            exerciseDescription:
-                                prevList[i].exerciseDescription,
-                            exerciseValue: prevList[i].exerciseValue != null
-                                ? (prevList[i].exerciseValue! *
-                                        value.last.multiplier /
-                                        100)
-                                    .round()
-                                : null));
-                      }
-                      this.done = true;
-                      this.duration = value.last.workoutDuration;
-                    }))
-            : DBHelper().getGoals().then((goal) => goal.isNotEmpty
-                ? DateTime.parse(goal.last.endDate).isAfter(DateTime
-                        .now()) // if enddate is after == planned and not finished
-                    ? DBHelper()
-                        .generateExercises(goal.last.goal)
-                        .then((workOutItems) => setState(() {
-                              planned = true;
-                              this.difficulty = Functions().difficultyToString(
-                                  goal.last.difficultyLevel);
-                              workOutItems.forEach((element) {
-                                this.tempWorkOutItems.add(exerciseData(
-                                    exerciseId: element.exerciseId,
-                                    exerciseValue: element.exerciseValue != null
-                                        ? (element.exerciseValue! *
-                                                goal.last.multiplier /
-                                                100)
-                                            .round()
-                                        : null,
-                                    exerciseTime: element.exerciseTime,
-                                    exerciseName: element.exerciseName,
-                                    exerciseDescription:
-                                        element.exerciseDescription));
-                              });
-                              if (DateTime.parse(goal.last.endDate).isBefore(
-                                  DateTime.now().add(Duration(
-                                      days: goal.last.progress == 0
-                                          ? 0
-                                          : goal.last.progress - 1)))) {
-                                recalibrate = true;
-                              }
-                              this.workOutItems = tempWorkOutItems;
-                              setWorkOutData(this.workOutItems);
-                            }))
-                    : goal.last.progress == 0
-                        ? null
-                        : DBHelper()
-                            .generateExercises(goal.last.goal)
-                            .then((workOutItems) => setState(() {
-                                  planned = true;
-                                  this.difficulty = Functions()
-                                      .difficultyToString(
-                                          goal.last.difficultyLevel);
-                                  workOutItems.forEach((element) {
-                                    this.tempWorkOutItems.add(exerciseData(
-                                        exerciseId: element.exerciseId,
-                                        exerciseValue:
-                                            element.exerciseValue != null
-                                                ? (element.exerciseValue! *
-                                                        goal.last.multiplier /
-                                                        100)
-                                                    .round()
-                                                : null,
-                                        exerciseTime: element.exerciseTime,
-                                        exerciseName: element.exerciseName,
-                                        exerciseDescription:
-                                            element.exerciseDescription));
-                                  });
-                                  this.recalibrate = true;
-                                  this.workOutItems = tempWorkOutItems;
-                                  setWorkOutData(this.workOutItems);
-                                }))
-                : null)
-        : DBHelper().getGoals().then((goal) => goal.isNotEmpty
-            ? DateTime.parse(goal.last.endDate).isBefore(DateTime.now())
-                ? DBHelper()
-                    .generateExercises(goal.last.goal)
-                    .then((workOutItems) => setState(() {
-                          planned = true;
-                          this.difficulty = Functions()
-                              .difficultyToString(goal.last.difficultyLevel);
-                          workOutItems.forEach((element) {
-                            this.tempWorkOutItems.add(exerciseData(
-                                exerciseId: element.exerciseId,
-                                exerciseValue: element.exerciseValue != null
-                                    ? (element.exerciseValue! *
-                                            goal.last.multiplier /
-                                            100)
-                                        .round()
-                                    : null,
-                                exerciseTime: element.exerciseTime,
-                                exerciseName: element.exerciseName,
-                                exerciseDescription:
-                                    element.exerciseDescription));
-                          });
-                          this.recalibrate = true;
-                          this.workOutItems = tempWorkOutItems;
-                          setWorkOutData(this.workOutItems);
-                        }))
-                : DBHelper()
-                    .generateExercises(goal.last.goal)
-                    .then((workOutItems) => setState(() {
-                          this.planned = true;
-                          this.difficulty = Functions()
-                              .difficultyToString(goal.last.difficultyLevel);
-
-                          workOutItems.forEach((element) {
-                            this.tempWorkOutItems.add(exerciseData(
-                                exerciseId: element.exerciseId,
-                                exerciseValue: element.exerciseValue != null
-                                    ? (element.exerciseValue! *
-                                            goal.last.multiplier /
-                                            100)
-                                        .round()
-                                    : null,
-                                exerciseTime: element.exerciseTime,
-                                exerciseName: element.exerciseName,
-                                exerciseDescription:
-                                    element.exerciseDescription));
-                          });
-                          this.workOutItems = tempWorkOutItems;
-                          setWorkOutData(this.workOutItems);
-                        }))
-            : null));
+    asyncInitialize();
   }
 
   @override

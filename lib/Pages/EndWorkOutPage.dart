@@ -161,7 +161,6 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                   if (workoutData[i].exerciseName == 'Rest' &&
                                       workoutData[i].exerciseTime == 5) {
                                   } else {
-                                    print(workoutData[i].exerciseName);
                                     workoutList = workoutList +
                                         '\n' +
                                         workoutData[i].exerciseName;
@@ -220,7 +219,6 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                         if (workoutData[i].exerciseName == 'Rest' &&
                             workoutData[i].exerciseTime == 5) {
                         } else {
-                          print(workoutData[i].exerciseName);
                           workoutList =
                               workoutList + '\n' + workoutData[i].exerciseName;
                         }
