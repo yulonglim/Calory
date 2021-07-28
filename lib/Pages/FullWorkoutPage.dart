@@ -24,6 +24,7 @@ class FullWorkoutPage extends StatelessWidget {
   final int? difficultyLevel;
   final bool? recalibrate;
   final bool? done;
+  final bool? test;
 
   FullWorkoutPage(
       {Key? key,
@@ -31,7 +32,7 @@ class FullWorkoutPage extends StatelessWidget {
       required this.oneTime,
       this.recalibrate,
       this.difficultyLevel,
-      this.done})
+      this.done, this.test})
       : super(key: key);
 
   @override
@@ -91,7 +92,7 @@ class FullWorkoutPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EndWorkOutPage(
-                                  recalibrate: this.recalibrate)),
+                                  recalibrate: this.recalibrate,testing: this.test,)),
                         );
                       } else {
                         Navigator.pop(context);

@@ -14,11 +14,14 @@ FlutterLocalNotificationsPlugin notificationsPlugin =
 
 class EndWorkOutPage extends StatefulWidget {
   final bool? recalibrate;
+  final bool? testing;
 
-  const EndWorkOutPage({Key? key, this.recalibrate}) : super(key: key);
+  const EndWorkOutPage({Key? key, this.recalibrate, this.testing})
+      : super(key: key);
 
   @override
-  EndWorkOutPageState createState() => EndWorkOutPageState(this.recalibrate);
+  EndWorkOutPageState createState() =>
+      EndWorkOutPageState(this.recalibrate, this.testing);
 }
 
 void initializeSetting() async {
@@ -30,9 +33,10 @@ void initializeSetting() async {
 class EndWorkOutPageState extends State<EndWorkOutPage> {
   double _currentSliderValue = 2;
   final bool? recalibrate;
+  final bool? testing;
   static int notiId = 0;
 
-  EndWorkOutPageState(this.recalibrate);
+  EndWorkOutPageState(this.recalibrate, this.testing);
 
   Future<void> displayNotification(DateTime dateTime, int days) async {
     notificationsPlugin.zonedSchedule(
@@ -177,14 +181,19 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                     workoutList: workoutList,
                                     multiplier: currentGoal.multiplier));
                                 int count = 0;
-                                Navigator.popUntil(context, (route) {
-                                  return count++ == 4;
-                                });
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Homepage()),
-                                );
+                                if (this.testing == true) {
+                                  Navigator.popUntil(context, (route) {
+                                    return count++ == 2;
+                                  });
+                                } else {
+                                  Navigator.popUntil(context, (route) {
+                                    return count++ == 4;
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Homepage()),
+                                  );
+                                }
                               },
                               child: Text(
                                 'Ok!',
@@ -233,13 +242,19 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                           workoutList: workoutList,
                           multiplier: currentGoal.multiplier));
                       int count = 0;
-                      Navigator.popUntil(context, (route) {
-                        return count++ == 4;
-                      });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
-                      );
+                      if (this.testing == true) {
+                        Navigator.popUntil(context, (route) {
+                          return count++ == 2;
+                        });
+                      } else {
+                        Navigator.popUntil(context, (route) {
+                          return count++ == 4;
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Homepage()),
+                        );
+                      }
                     }
                   },
                   child: Text(

@@ -4,7 +4,7 @@ import 'package:flutter_app/Testing/TestingPage4.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/database/workout.dart';
-import 'package:flutter_app/elements/test_button.dart';
+
 import "package:flutter_app/elements/today's_workout_widget.dart";
 
 class TestPage3 extends StatefulWidget {
@@ -52,8 +52,35 @@ class _TestPage3State extends State<TestPage3> {
           SizedBox(
             child: Text('The widget should be showing workout completed, duration 0m 30s'),
           ),
-          TestButton(Icons.done, "Passed", TestPage4(),
-              DBHelper().deleteAll()
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor,
+            ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.24,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.done,
+                    size: 48,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Passed',
+                        style: Theme.of(context).textTheme.bodyText1!
+                            .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              DBHelper().deleteAll().whenComplete(() => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TestPage4())));
+            },
           ),
         ],
       ),

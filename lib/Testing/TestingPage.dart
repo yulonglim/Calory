@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app/Testing/TestingPage2.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
-import 'package:flutter_app/elements/test_button.dart';
 import "package:flutter_app/elements/today's_workout_widget.dart";
 
 class TestPage extends StatefulWidget {
@@ -23,10 +22,6 @@ class _TestPageState extends State<TestPage> {
       multiplier: 20,
       progress: 0,
       daysAWeek: 5);
-
-  void asyncInitialize() async {
-    await DBHelper().insertGoal(test).then((value) => setState(() {}));
-  }
 
   @override
   void initState() {
@@ -52,9 +47,37 @@ class _TestPageState extends State<TestPage> {
           SizedBox(
             child: Text('The widget should be showing no goal set'),
           ),
-
-          TestButton(
-              Icons.done, "Passed", TestPage2(), DBHelper().deleteAll()),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor,
+            ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.24,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.done,
+                    size: 48,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Passed',
+                        style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                                color: Theme.of(context).secondaryHeaderColor)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              DBHelper().deleteAll().whenComplete(() => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TestPage2())));
+            },
+          ),
         ],
       ),
     );

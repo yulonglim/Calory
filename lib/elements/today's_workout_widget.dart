@@ -15,8 +15,12 @@ import '../Pages/FullWorkoutPage.dart';
 //Today's Workout Widget on the Homepage
 
 class TodaysWorkOut extends StatefulWidget {
+  final bool? test;
+
+  const TodaysWorkOut({Key? key, this.test}) : super(key: key);
+
   @override
-  _TodaysWorkOutState createState() => _TodaysWorkOutState();
+  _TodaysWorkOutState createState() => _TodaysWorkOutState(this.test);
 }
 
 class _TodaysWorkOutState extends State<TodaysWorkOut> {
@@ -29,6 +33,9 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late List<exerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
   late int duration = 0;
+  final bool? test;
+
+  _TodaysWorkOutState(this.test);
 
   void asyncInitialize() async {
     List<Goal> goal = [];
@@ -210,6 +217,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                                     oneTime: false,
                                     recalibrate: this.recalibrate,
                                     done: false,
+                                    test: this.test,
                                   )),
                         );
                       },
