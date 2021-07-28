@@ -1,5 +1,7 @@
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/Functions.dart';
+import 'package:flutter_app/database/DBHelper.dart';
+import 'package:flutter_app/database/goal.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -116,6 +118,14 @@ void main() {
 
   });
 
-
+  // group('Time related', () {
+  //   setUp(() async {
+  //     var database = await DBHelper;
+  //
+  //   })
+  //   test('insert', () async{
+  //     DBHelper().insertGoal(Goal(goal: 1, difficultyLevel: 0, startDate: DateTime.now().toIso8601String(), endDate: DateTime.now().toIso8601String(), multiplier: 0, progress: 0, daysAWeek: daysAWeek))
+  //   })
+  // });
 
 }
