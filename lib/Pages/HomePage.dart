@@ -131,7 +131,7 @@ class _HomepageState extends State<Homepage> {
                   ProgressPage()),
             ],
           ),
-          SquareButton(Icons.title, 'Testing', TestPage())//the buttons
+          // SquareButton(Icons.title, 'Testing', TestPage()) // uncomment to test some widgets
         ],
       ),
     );
