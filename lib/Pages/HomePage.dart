@@ -32,7 +32,13 @@ class _HomepageState extends State<Homepage> {
                 this.lowerBody = l;
               })
             : null));
-    DBHelper().insertExerciseData(DBHelper.tableUpperBody, upperBodyData2);
+    DBHelper()
+        .insertExerciseData(DBHelper.tableUpperBody, upperBodyData2)
+        .whenComplete(() => DBHelper().getExercises(1).then((u) => u.isNotEmpty
+            ? setState(() {
+                this.upperBody = u;
+              })
+            : null));
     DBHelper()
         .insertExerciseData(DBHelper.tableCoreExercise, coreExerciseData2)
         .whenComplete(() => DBHelper().getExercises(0).then((c) => c.isNotEmpty
@@ -40,13 +46,7 @@ class _HomepageState extends State<Homepage> {
                 this.core = c;
               })
             : null));
-    DBHelper()
-        .insertExerciseData(DBHelper.tableCardio, cardioData2)
-        .whenComplete(() => DBHelper().getExercises(1).then((u) => u.isNotEmpty
-            ? setState(() {
-                this.upperBody = u;
-              })
-            : null));
+    DBHelper().insertExerciseData(DBHelper.tableCardio, cardioData2);
   }
 
   @override
@@ -55,11 +55,18 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: Theme.of(context).secondaryHeaderColor,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(220, 220, 220, 1.0),
-        leading: Image.asset("assets/images/ExerciseLah_Logo_1.png",
-        height: 50, width: 50,),
+        leading: Image.asset(
+          "assets/images/ExerciseLah_Logo_1.png",
+          height: 50,
+          width: 50,
+        ),
         title: Text(
           "ExerciseLah!",
-          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600, fontStyle: FontStyle.italic, color: Colors.black),
+          style: TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.italic,
+              color: Colors.black),
         ),
         actions: [
           Padding(
@@ -68,8 +75,9 @@ class _HomepageState extends State<Homepage> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                         Theme.of(context).primaryColor),
-                    shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder(side: BorderSide(color: Theme.of(context).primaryColor)))),
+                    shape: MaterialStateProperty.all<CircleBorder>(CircleBorder(
+                        side: BorderSide(
+                            color: Theme.of(context).primaryColor)))),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -97,14 +105,18 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   Text(
                     "Today's Workout",
-                    style: Theme.of(context).textTheme.headline1!
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
                         .merge(TextStyle(color: Colors.black)),
                   ),
                   Text(
                     Functions().dateTime(),
-                    style: Theme.of(context).textTheme.headline6!
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
                         .merge(TextStyle(color: Colors.black)),
-                    )
+                  )
                 ],
               ),
             ),

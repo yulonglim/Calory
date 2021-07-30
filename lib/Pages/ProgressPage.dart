@@ -36,7 +36,6 @@ class _ProgressPageState extends State<ProgressPage> {
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
     DBHelper().getWorkOut().then((value) => workouts = value);
     DBHelper().getGoals().then((value) => value.isNotEmpty
         ? setState(() {
@@ -58,6 +57,7 @@ class _ProgressPageState extends State<ProgressPage> {
               equals: isSameDay,
               hashCode: getHashCode,
             )..addAll(_kEventSource);
+            _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
           })
         : setState(() {
             this._kEventSource = Map.fromIterable(workouts,
@@ -69,6 +69,7 @@ class _ProgressPageState extends State<ProgressPage> {
               equals: isSameDay,
               hashCode: getHashCode,
             )..addAll(_kEventSource);
+            _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
           }));
   }
 
@@ -241,12 +242,16 @@ class _ProgressPageState extends State<ProgressPage> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                       title: Text('What you did!',
-                                          style: Theme.of(context).textTheme.bodyText1),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1),
                                       content: Text(
                                           _getEventsForDay(_selectedDay!)
                                               .last
                                               .title,
-                                          style: Theme.of(context).textTheme.bodyText2),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () =>
@@ -256,7 +261,11 @@ class _ProgressPageState extends State<ProgressPage> {
                                       ],
                                     ),
                                   ),
-                                  title: Text('Click to see workout!',style: Theme.of(context).textTheme.bodyText2,),
+                                  title: Text(
+                                    'Click to see workout!',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
                                 ),
                               );
                             },
