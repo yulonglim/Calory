@@ -154,9 +154,7 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                   multiplier: Functions().newMultiplier(
                                       currentGoal.multiplier,
                                       _currentSliderValue),
-                                  progress: currentGoal.progress - 1 < 0
-                                      ? 0
-                                      : currentGoal.progress - 1,
+                                  progress: currentGoal.progress - 1,
                                   daysAWeek: currentGoal.daysAWeek,
                                 ));
 
@@ -191,7 +189,8 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
                                   });
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => Homepage()),
+                                    MaterialPageRoute(
+                                        builder: (context) => Homepage()),
                                   );
                                 }
                               },

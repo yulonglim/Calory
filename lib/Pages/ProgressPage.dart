@@ -360,7 +360,7 @@ class _ProgressPageState extends State<ProgressPage> {
                   Text("No. of days of workout left:",
                       style: Theme.of(context).textTheme.bodyText2),
                   Text(
-                    progress.toString(),
+                    progress <= 0 ? "0" : progress.toString(),
                     style:
                         Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
                               color: Colors.grey[600],

@@ -74,7 +74,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 Text("Total Goals Finished:",
                     style: Theme.of(context).textTheme.bodyText2),
                 Text(
-                  progress == 0
+                  progress <= 0
                       ? goalNumber.toString()
                       : (goalNumber! - 1).toString(),
                   style: Theme.of(context).textTheme.bodyText2!.merge(TextStyle(

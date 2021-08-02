@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Functions.dart';
 import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
@@ -19,11 +20,9 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
 
   late String endDate = DateTime.now().toIso8601String();
 
-  final int progress = 0;
-
   late Goal currentGoal;
 
-  var _currentSliderValue = 1;
+  var ExercisesPerWeek = 1;
 
   int daysAWeek = 1;
 
@@ -108,15 +107,15 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
               ),
             ),
             Slider(
-                value: _currentSliderValue.toDouble(),
+                value: ExercisesPerWeek.toDouble(),
                 min: 1,
                 max: 6,
                 divisions: 5,
-                label: _currentSliderValue.round().toString() + " Days",
+                label: ExercisesPerWeek.round().toString() + " Days",
                 onChanged: (double value) {
                   setState(() {
                     this.daysAWeek = value.round();
-                    _currentSliderValue = value.round();
+                    ExercisesPerWeek = value.round();
                   });
                 }),
             SizedBox(
@@ -138,25 +137,27 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                                   ? currentGoal.multiplier
                                   : 20 + difficultyLevel * 20
                               : 20 + difficultyLevel * 20,
-                      //if user doesnt change their difficulty and goal type, progress is still saved
-                      progress: currentGoal.endDate == endDate
-                          ? currentGoal.daysAWeek == _currentSliderValue.round()
-                              ? currentGoal.progress
-                              : ((DateTime.parse(endDate)
-                                              .difference(DateTime.now())
-                                              .inDays +
-                                          1) /
-                                      7 *
-                                      _currentSliderValue)
-                                  .round()
-                          : ((DateTime.parse(endDate)
-                                          .difference(DateTime.now())
-                                          .inDays +
-                                      1) /
-                                  7 *
-                                  _currentSliderValue)
-                              .round(),
-                      daysAWeek: _currentSliderValue.round(),
+                      //if user doesn't change their difficulty and goal type, progress is still saved
+                      progress: currentGoal.endDate == endDate &&
+                              currentGoal.daysAWeek == ExercisesPerWeek.round()
+                          ? currentGoal.progress
+                          : currentGoal.progress <
+                                  Functions().daysWorkedOut(
+                                          currentGoal.startDate,
+                                          currentGoal.endDate,
+                                          currentGoal.daysAWeek) -
+                                      currentGoal.progress
+                              ? Functions().daysWorkedOut(currentGoal.startDate,
+                                      endDate, ExercisesPerWeek) -
+                                  currentGoal.progress
+                              : Functions().daysWorkedOut(currentGoal.startDate,
+                                      endDate, ExercisesPerWeek) -
+                                  (Functions().daysWorkedOut(
+                                          currentGoal.startDate,
+                                          currentGoal.endDate,
+                                          currentGoal.daysAWeek) -
+                                      currentGoal.progress),
+                      daysAWeek: ExercisesPerWeek.round(),
                     ));
                     //This is to refresh the homepage with the new goal data
                     Navigator.popUntil(context, (route) {
