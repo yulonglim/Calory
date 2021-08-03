@@ -141,16 +141,7 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                       progress: currentGoal.endDate == endDate &&
                               currentGoal.daysAWeek == ExercisesPerWeek.round()
                           ? currentGoal.progress
-                          : currentGoal.progress <
-                                  Functions().daysWorkedOut(
-                                          currentGoal.startDate,
-                                          currentGoal.endDate,
-                                          currentGoal.daysAWeek) -
-                                      currentGoal.progress
-                              ? Functions().daysWorkedOut(currentGoal.startDate,
-                                      endDate, ExercisesPerWeek) -
-                                  currentGoal.progress
-                              : Functions().daysWorkedOut(currentGoal.startDate,
+                          : Functions().daysWorkedOut(currentGoal.startDate,
                                       endDate, ExercisesPerWeek) -
                                   (Functions().daysWorkedOut(
                                           currentGoal.startDate,
