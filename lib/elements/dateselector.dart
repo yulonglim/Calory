@@ -68,7 +68,7 @@ class _DateSelectorState extends State<DateSelector> {
       selectableDayPredicate:
           _decideWhichDayToEnable, //Decides which days can be selected
     ))!;
-    if (picked != null && picked != selectedDate)
+    if (picked != selectedDate)
       setState(() {
         selectedDate = picked;
         result(selectedDate

@@ -12,7 +12,7 @@ class CoolDownPage extends StatefulWidget {
 
 class _CoolDownPageState extends State<CoolDownPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<exerciseData> items = List.from(coolDownData);
+  final List<ExerciseData> items = List.from(coolDownData);
   int restDuration = 5;
 
   void removeItem(int index) {
@@ -29,11 +29,11 @@ class _CoolDownPageState extends State<CoolDownPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<exerciseData> copyItems = <exerciseData>[];
+    List<ExerciseData> copyItems = <ExerciseData>[];
     for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
       copyItems.add(
-        exerciseData(
+        ExerciseData(
             exerciseId: 'R1',
             exerciseTime: restDuration,
             exerciseName: 'Rest',
@@ -117,7 +117,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            Functions().totalduration(items),
+                            Functions().totalDuration(items),
                             style: Theme.of(context).textTheme.headline5!.merge(
                                 TextStyle(
                                     color: Theme.of(context)

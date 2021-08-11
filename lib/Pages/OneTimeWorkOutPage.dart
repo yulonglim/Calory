@@ -17,8 +17,8 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
   late int muscleGroup = 0;
   late int difficulty = 0;
   late int duration = 0;
-  List<exerciseData> tempWorkOutItems = [];
-  List<exerciseData> workOutItems = [];
+  List<ExerciseData> tempWorkOutItems = [];
+  List<ExerciseData> workOutItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _OneTimeWorkOutState extends State<OneTimeWorkOut> {
                           ((this._currentSliderValue) / 5).round() - 1)
                       .then((workOutItems) => setState(() {
                             workOutItems.forEach((element) {
-                              this.tempWorkOutItems.add(exerciseData(
+                              this.tempWorkOutItems.add(ExerciseData(
                                   exerciseId: element.exerciseId,
                                   exerciseValue: element.exerciseValue != null
                                       ? (element.exerciseValue! *

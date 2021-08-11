@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class SquareButton extends StatelessWidget {
   final IconData _icon;
   final String _text;
-  final Widget _nextpage;
+  final Widget _nextPage;
 
-  SquareButton(this._icon, this._text, this._nextpage);
+  SquareButton(this._icon, this._text, this._nextPage);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class SquareButton extends StatelessWidget {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => _nextpage),
+            MaterialPageRoute(builder: (context) => _nextPage),
           );
         },
       ),

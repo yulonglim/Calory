@@ -17,9 +17,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<exerciseData> upperBody = [];
-  List<exerciseData> lowerBody = [];
-  List<exerciseData> core = [];
+  List<ExerciseData> upperBody = [];
+  List<ExerciseData> lowerBody = [];
+  List<ExerciseData> core = [];
 
   @override
   void initState() {

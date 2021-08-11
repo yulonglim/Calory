@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/database/exercise_data.dart';
 
 class ExerciseCard extends StatelessWidget {
-  final exerciseData item;
+  final ExerciseData item;
   final Animation<double>? animation;
   final VoidCallback onClicked;
 

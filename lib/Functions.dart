@@ -48,16 +48,16 @@ class Functions {
   }
 
   String durationMMSS(int duration) {
-    int mins = 0;
+    int min = 0;
     int temp = duration;
     while (temp >= 60) {
       temp -= 60;
-      mins++;
+      min++;
     }
-    return mins.toString() + 'm ' + temp.toString() + 's';
+    return min.toString() + 'm ' + temp.toString() + 's';
   }
 
-  String totalduration(List<exerciseData> items) {
+  String totalDuration(List<ExerciseData> items) {
     int duration = 0;
     for (int counter = 0; counter < items.length; counter++) {
       duration += items[counter].exerciseTime;
@@ -136,7 +136,7 @@ class Functions {
     }
   }
 
-  String MuscleGroup(int muscle) {
+  String muscleGroup(int muscle) {
     switch (muscle) {
       case 0:
         {

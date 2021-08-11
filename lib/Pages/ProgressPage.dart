@@ -147,8 +147,8 @@ class _ProgressPageState extends State<ProgressPage> {
                 child: Column(
                   children: [
                     TableCalendar<Event>(
-                      firstDay: FirstDay,
-                      lastDay: LastDay,
+                      firstDay: firstDay,
+                      lastDay: lastDay,
                       focusedDay: _focusedDay,
                       selectedDayPredicate: (day) =>
                           isSameDay(_selectedDay, day),

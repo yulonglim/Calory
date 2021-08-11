@@ -94,7 +94,7 @@ class Workout {
         Functions().difficultyToString(this.difficultyLevel) +
         '\n' +
         'Muscle Group: ' +
-        Functions().MuscleGroup(this.muscleGroup) +
+        Functions().muscleGroup(this.muscleGroup) +
         '\n' +
         filterRest(this.workoutList!);
   }

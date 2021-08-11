@@ -4,9 +4,9 @@ import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
 class LibraryPage extends StatefulWidget {
-  final List<exerciseData> upperBody;
-  final List<exerciseData> lowerBody;
-  final List<exerciseData> core;
+  final List<ExerciseData> upperBody;
+  final List<ExerciseData> lowerBody;
+  final List<ExerciseData> core;
   LibraryPage(
       {Key? key,
       required this.upperBody,
@@ -21,9 +21,9 @@ class LibraryPage extends StatefulWidget {
 
 class _LibraryPageState extends State<LibraryPage> {
   List<bool> _isOpen = [false, false, false];
-  final List<exerciseData> upperBody;
-  final List<exerciseData> lowerBody;
-  final List<exerciseData> core;
+  final List<ExerciseData> upperBody;
+  final List<ExerciseData> lowerBody;
+  final List<ExerciseData> core;
   final coreListKey = new GlobalKey<AnimatedListState>();
   final uBodyListKey = new GlobalKey<AnimatedListState>();
   final lBodyListKey = new GlobalKey<AnimatedListState>();
@@ -31,7 +31,7 @@ class _LibraryPageState extends State<LibraryPage> {
   _LibraryPageState(this.upperBody, this.lowerBody, this.core);
 
   void removeItem(int index, GlobalKey<AnimatedListState> key,
-      List<exerciseData> exercise) {
+      List<ExerciseData> exercise) {
     final removedItem = exercise[index];
     exercise.removeAt(index);
     key.currentState!.removeItem(

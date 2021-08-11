@@ -1,7 +1,5 @@
 import 'package:flutter_app/AppData/warm_up_data.dart';
 import 'package:flutter_app/Functions.dart';
-import 'package:flutter_app/database/DBHelper.dart';
-import 'package:flutter_app/database/goal.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,12 +32,12 @@ void main() {
     });
 
     test('totalduration function with warmup data', () {
-      var duration = Functions().totalduration(warmUpData);
+      var duration = Functions().totalDuration(warmUpData);
       expect(duration,equals('3m 0s'));
     });
 
     test('totalduration function with no data', () {
-      var duration = Functions().totalduration([]);
+      var duration = Functions().totalDuration([]);
       expect(duration,equals('0m 0s'));
     });
   });
@@ -102,17 +100,17 @@ void main() {
     });
 
     test('Muscle group switch with a 2', () {
-      var str = Functions().MuscleGroup(2);
+      var str = Functions().muscleGroup(2);
       expect(str, equals('Core'));
     });
 
     test('Difficulty switch with a 0', () {
-      var str = Functions().MuscleGroup(0);
+      var str = Functions().muscleGroup(0);
       expect(str, equals('Upper Body'));
     });
 
     test('Difficulty switch with unintended value', () {
-      var str = Functions().MuscleGroup(10);
+      var str = Functions().muscleGroup(10);
       expect(str, equals(''));
     });
 

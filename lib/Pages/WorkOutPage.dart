@@ -5,7 +5,7 @@ import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 
 class WorkOutPage extends StatefulWidget {
-  final List<exerciseData> items;
+  final List<ExerciseData> items;
 
   WorkOutPage({Key? key, required this.items}) : super(key: key);
 
@@ -15,7 +15,7 @@ class WorkOutPage extends StatefulWidget {
 
 class _WorkOutPageState extends State<WorkOutPage> {
   final listKey = GlobalKey<AnimatedListState>();
-  final List<exerciseData> items;
+  final List<ExerciseData> items;
   int restDuration = 5;
 
   _WorkOutPageState(this.items);
@@ -34,12 +34,12 @@ class _WorkOutPageState extends State<WorkOutPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<exerciseData> copyItems = <exerciseData>[];
+    List<ExerciseData> copyItems = <ExerciseData>[];
     for (int i = 0; i < items.length; i++) {
       copyItems.add(items[i]);
       if(items[i].exerciseName != 'Rest' && (i+1 == items.length ? false : items[i+1].exerciseName != 'Rest')){
         copyItems.add(
-          exerciseData(
+          ExerciseData(
               exerciseId: 'R1',
               exerciseTime: restDuration,
               exerciseName: 'Rest',
@@ -116,7 +116,7 @@ class _WorkOutPageState extends State<WorkOutPage> {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            Functions().totalduration(items),
+                            Functions().totalDuration(items),
                             style: Theme.of(context).textTheme.headline5!
                                 .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
                           ),

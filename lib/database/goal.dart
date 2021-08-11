@@ -72,6 +72,6 @@ class Goal {
 
   @override
   String toString() {
-    return "goalId: $goalId, goal: $goal, difficulty: $difficultyLevel, startdate: $startDate, endDate: $endDate, multiplier $multiplier, progress $progress, daysAWeek $daysAWeek";
+    return "goalId: $goalId, goal: $goal, difficulty: $difficultyLevel, startDate: $startDate, endDate: $endDate, multiplier $multiplier, progress $progress, daysAWeek $daysAWeek";
   }
 }

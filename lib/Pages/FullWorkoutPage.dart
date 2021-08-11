@@ -16,10 +16,10 @@ import 'WarmUpPage.dart';
 import '../elements/card_button.dart';
 
 class FullWorkoutPage extends StatelessWidget {
-  final List<exerciseData> warmUpItems = List.from(warmUpData);
-  final List<exerciseData> coolDownItems = List.from(coolDownData);
+  final List<ExerciseData> warmUpItems = List.from(warmUpData);
+  final List<ExerciseData> coolDownItems = List.from(coolDownData);
   final int restDuration = 5;
-  final List<exerciseData> workoutItems;
+  final List<ExerciseData> workoutItems;
   final bool oneTime;
   final int? difficultyLevel;
   final bool? recalibrate;
@@ -66,7 +66,7 @@ class FullWorkoutPage extends StatelessWidget {
                 iconData: Icons.whatshot,
                 buttonName: "Warm Up",
                 nextPage: WarmUpPage(),
-                duration: Functions().totalduration(warmUpItems),
+                duration: Functions().totalDuration(warmUpItems),
               ),
               CardButton(
                 iconData: Icons.sports_handball_outlined,
@@ -74,13 +74,13 @@ class FullWorkoutPage extends StatelessWidget {
                 nextPage: WorkOutPage(
                   items: workoutItems,
                 ),
-                duration: Functions().totalduration(workoutItems),
+                duration: Functions().totalDuration(workoutItems),
               ),
               CardButton(
                 iconData: Icons.ac_unit_outlined,
                 buttonName: "Cool Down",
                 nextPage: CoolDownPage(),
-                duration: Functions().totalduration(coolDownData),
+                duration: Functions().totalDuration(coolDownData),
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

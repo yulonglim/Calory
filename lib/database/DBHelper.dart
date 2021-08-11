@@ -111,7 +111,7 @@ class DBHelper {
   }
 
   Future<void> insertExerciseData(
-      String table, List<exerciseData> exerciseList) async {
+      String table, List<ExerciseData> exerciseList) async {
     Database db = await database;
     var count = Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM ' + table));
@@ -142,32 +142,32 @@ class DBHelper {
     return workout;
   }
 
-  Future<List<exerciseData>> getExercises(int type) async {
+  Future<List<ExerciseData>> getExercises(int type) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
     final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
-    List<exerciseData> exercise = <exerciseData>[];
+    List<ExerciseData> exercise = <ExerciseData>[];
 
     switch (type) {
       case 0:
         {
           for (int i = 0; i < core.length; i++) {
-            exercise.add(exerciseData.fromMap(core[i]));
+            exercise.add(ExerciseData.fromMap(core[i]));
           }
           return exercise;
         }
       case 1:
         {
           for (int i = 0; i < upperBody.length; i++) {
-            exercise.add(exerciseData.fromMap(upperBody[i]));
+            exercise.add(ExerciseData.fromMap(upperBody[i]));
           }
           return exercise;
         }
       case 2:
         {
           for (int i = 0; i < lowerBody.length; i++) {
-            exercise.add(exerciseData.fromMap(lowerBody[i]));
+            exercise.add(ExerciseData.fromMap(lowerBody[i]));
           }
           return exercise;
         }
@@ -208,14 +208,14 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> generateExercises(int goal) async {
+  Future<List<ExerciseData>> generateExercises(int goal) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
     final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
-    final List<Map<String, Object?>> cardio = await db.query(tableCardio);
+    //final List<Map<String, Object?>> cardio = await db.query(tableCardio);
 
-    List<exerciseData> exercise = <exerciseData>[];
+    List<ExerciseData> exercise = <ExerciseData>[];
     switch (goal) {
       case 0:
         {
@@ -224,22 +224,22 @@ class DBHelper {
             if (firstRand >= core.length) {
               firstRand -= core.length;
             }
-            exercise.add(exerciseData.fromMap(core[firstRand]));
+            exercise.add(ExerciseData.fromMap(core[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
 
             if (firstRand >= upperBody.length) {
               firstRand -= upperBody.length;
             }
-            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(upperBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
 
             if (firstRand >= lowerBody.length) {
               firstRand -= lowerBody.length;
             }
-            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(lowerBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
-              exerciseData(
+              ExerciseData(
                   exerciseId: 'R1',
                   exerciseTime: 30,
                   exerciseName: 'Rest',
@@ -258,21 +258,21 @@ class DBHelper {
               if (firstRand >= core.length) {
                 firstRand -= core.length;
               }
-              exercise.add(exerciseData.fromMap(core[firstRand]));
+              exercise.add(ExerciseData.fromMap(core[firstRand]));
             }
             firstRand = firstRand + 1 + Random().nextInt(2);
             if (firstRand >= upperBody.length) {
               firstRand -= upperBody.length;
             }
-            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(upperBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
             if (firstRand >= lowerBody.length) {
               firstRand -= lowerBody.length;
             }
-            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(lowerBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
-              exerciseData(
+              ExerciseData(
                   exerciseId: 'R1',
                   exerciseTime: 30,
                   exerciseName: 'Rest',
@@ -289,22 +289,22 @@ class DBHelper {
             if (firstRand >= core.length) {
               firstRand -= core.length;
             }
-            exercise.add(exerciseData.fromMap(core[firstRand]));
+            exercise.add(ExerciseData.fromMap(core[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
 
             if (firstRand >= upperBody.length) {
               firstRand -= upperBody.length;
             }
-            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(upperBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
 
             if (firstRand >= lowerBody.length) {
               firstRand -= lowerBody.length;
             }
-            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(lowerBody[firstRand]));
             firstRand = firstRand + 1 + Random().nextInt(2);
             exercise.add(
-              exerciseData(
+              ExerciseData(
                   exerciseId: 'R1',
                   exerciseTime: 30,
                   exerciseName: 'Rest',
@@ -319,25 +319,25 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> generateExercisesByMuscles(
+  Future<List<ExerciseData>> generateExercisesByMuscles(
       int muscleGroup, int sets) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
     final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
-    final List<Map<String, Object?>> cardio = await db.query(tableCardio);
+    //final List<Map<String, Object?>> cardio = await db.query(tableCardio);
 
-    List<exerciseData> exercise = <exerciseData>[];
+    List<ExerciseData> exercise = <ExerciseData>[];
 
     switch (muscleGroup) {
       case 0:
         {
           int firstRand = Random().nextInt(upperBody.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(exerciseData.fromMap(upperBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(upperBody[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
-                exerciseData(
+                ExerciseData(
                     exerciseId: 'R1',
                     exerciseTime: 30,
                     exerciseName: 'Rest',
@@ -357,10 +357,10 @@ class DBHelper {
         {
           int firstRand = Random().nextInt(lowerBody.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(exerciseData.fromMap(lowerBody[firstRand]));
+            exercise.add(ExerciseData.fromMap(lowerBody[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
-                exerciseData(
+                ExerciseData(
                     exerciseId: 'R1',
                     exerciseTime: 30,
                     exerciseName: 'Rest',
@@ -379,10 +379,10 @@ class DBHelper {
         {
           int firstRand = Random().nextInt(core.length);
           for (int i = 0; i < 4 * sets; i++) {
-            exercise.add(exerciseData.fromMap(core[firstRand]));
+            exercise.add(ExerciseData.fromMap(core[firstRand]));
             if (i % 2 == 1) {
               exercise.add(
-                exerciseData(
+                ExerciseData(
                     exerciseId: 'R1',
                     exerciseTime: 30,
                     exerciseName: 'Rest',
@@ -402,18 +402,18 @@ class DBHelper {
     }
   }
 
-  Future<List<exerciseData>> previousExercises(String exerciseList) async {
+  Future<List<ExerciseData>> previousExercises(String exerciseList) async {
     final Database db = await database;
     final List<Map<String, Object?>> core = await db.query(tableCoreExercise);
     final List<Map<String, Object?>> upperBody = await db.query(tableUpperBody);
     final List<Map<String, Object?>> lowerBody = await db.query(tableLowerBody);
     final List<Map<String, Object?>> cardio = await db.query(tableCardio);
-    List<exerciseData> exercise = <exerciseData>[];
+    List<ExerciseData> exercise = <ExerciseData>[];
     List<String> list = exerciseList.split('\n');
     for (int i = 0; i < list.length; i++) {
       if (list[i] == 'Rest') {
         exercise.add(
-          exerciseData(
+          ExerciseData(
               exerciseId: 'R1',
               exerciseTime: 30,
               exerciseName: 'Rest',
@@ -422,26 +422,26 @@ class DBHelper {
         );
       }
       for (int j = 0; j < core.length; j++) {
-        if (exerciseData.fromMap(core[j]).exerciseName == list[i]) {
-          exercise.add(exerciseData.fromMap(core[j]));
+        if (ExerciseData.fromMap(core[j]).exerciseName == list[i]) {
+          exercise.add(ExerciseData.fromMap(core[j]));
           continue;
         }
       }
       for (int j = 0; j < upperBody.length; j++) {
-        if (exerciseData.fromMap(upperBody[j]).exerciseName == list[i]) {
-          exercise.add(exerciseData.fromMap(upperBody[j]));
+        if (ExerciseData.fromMap(upperBody[j]).exerciseName == list[i]) {
+          exercise.add(ExerciseData.fromMap(upperBody[j]));
           continue;
         }
       }
       for (int j = 0; j < lowerBody.length; j++) {
-        if (exerciseData.fromMap(lowerBody[j]).exerciseName == list[i]) {
-          exercise.add(exerciseData.fromMap(lowerBody[j]));
+        if (ExerciseData.fromMap(lowerBody[j]).exerciseName == list[i]) {
+          exercise.add(ExerciseData.fromMap(lowerBody[j]));
           continue;
         }
       }
       for (int j = 0; j < cardio.length; j++) {
-        if (exerciseData.fromMap(cardio[j]).exerciseName == list[i]) {
-          exercise.add(exerciseData.fromMap(cardio[j]));
+        if (ExerciseData.fromMap(cardio[j]).exerciseName == list[i]) {
+          exercise.add(ExerciseData.fromMap(cardio[j]));
           continue;
         }
       }

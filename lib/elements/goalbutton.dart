@@ -47,13 +47,15 @@ class _GoalButtonState extends State<GoalButton> {
                 children: [
                   Text(
                     planned ? 'Update' : 'Set a',
-                    style: Theme.of(context).textTheme.bodyText1!
-                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    style: Theme.of(context).textTheme.bodyText1!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   ),
                   Text(
                     widget._text,
-                    style: Theme.of(context).textTheme.bodyText1!
-                        .merge(TextStyle(color: Theme.of(context).secondaryHeaderColor)),
+                    style: Theme.of(context).textTheme.bodyText1!.merge(
+                        TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor)),
                   ),
                 ],
               ),

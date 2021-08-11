@@ -5,7 +5,7 @@ import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 
 class Exercising extends StatefulWidget {
-  final List<exerciseData> items;
+  final List<ExerciseData> items;
   final int rest;
 
   Exercising({Key? key, required this.items, required this.rest})
@@ -19,9 +19,9 @@ class _ExercisingState extends State<Exercising> {
   CountDownController _controller = new CountDownController();
   final listKey = GlobalKey<AnimatedListState>();
   final listKey2 = GlobalKey<AnimatedListState>();
-  final List<exerciseData> items;
+  final List<ExerciseData> items;
   final int rest;
-  List<exerciseData> temp = <exerciseData>[];
+  List<ExerciseData> temp = <ExerciseData>[];
 
   void removeItem(int index) {
     final removedItem = temp[index];
@@ -47,7 +47,7 @@ class _ExercisingState extends State<Exercising> {
     if (this.rest == 0) {
       while (count2 < items.length) {
         this.temp.add(this.items[count2]);
-        this.temp.add(exerciseData(
+        this.temp.add(ExerciseData(
             exerciseId: 'R',
             exerciseTime: rest,
             exerciseName: 'Rest',

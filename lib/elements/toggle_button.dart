@@ -26,7 +26,7 @@ class _ToggleButtonsState extends State<MyToggleButtons> {
 
   @override
   Widget build(BuildContext context) {
-    //wrap the GridView wiget in an Ink wiget and set the width and height,
+    //wrap the GridView widget in an Ink widget and set the width and height,
     //otherwise the GridView widget will fill up all the space of its parent widget
     return Ink(
       width: 200,

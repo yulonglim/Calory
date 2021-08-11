@@ -27,10 +27,10 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
   late bool planned = false;
   late bool done = false;
   late bool recalibrate = false;
-  final List<exerciseData> warmUpItems = List.from(warmUpData);
-  final List<exerciseData> coolDownItems = List.from(coolDownData);
-  late List<exerciseData> workOutItems = [];
-  late List<exerciseData> tempWorkOutItems = [];
+  final List<ExerciseData> warmUpItems = List.from(warmUpData);
+  final List<ExerciseData> coolDownItems = List.from(coolDownData);
+  late List<ExerciseData> workOutItems = [];
+  late List<ExerciseData> tempWorkOutItems = [];
   late String difficulty = 'Error ';
   late int duration = 0;
   final bool? test;
@@ -62,7 +62,7 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
           .previousExercises(workout.last.workoutList!)
           .then((prevList) => setState(() {
                 for (int i = 0; i < prevList.length; i++) {
-                  this.workOutItems.add(exerciseData(
+                  this.workOutItems.add(ExerciseData(
                       exerciseId: prevList[i].exerciseId,
                       exerciseTime: prevList[i].exerciseTime,
                       exerciseName: prevList[i].exerciseName,
@@ -87,7 +87,7 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
                   this.difficulty =
                       Functions().difficultyToString(goal.last.difficultyLevel);
                   workOutItems.forEach((element) {
-                    this.tempWorkOutItems.add(exerciseData(
+                    this.tempWorkOutItems.add(ExerciseData(
                         exerciseId: element.exerciseId,
                         exerciseValue: element.exerciseValue != null
                             ? (element.exerciseValue! *
@@ -112,7 +112,7 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
                   this.difficulty =
                       Functions().difficultyToString(goal.last.difficultyLevel);
                   workOutItems.forEach((element) {
-                    this.tempWorkOutItems.add(exerciseData(
+                    this.tempWorkOutItems.add(ExerciseData(
                         exerciseId: element.exerciseId,
                         exerciseValue: element.exerciseValue != null
                             ? (element.exerciseValue! *
@@ -148,10 +148,10 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
   @override
   Widget build(BuildContext context) {
     if (done) {
-      return doneWorkout(this.workOutItems);
+      return DoneWorkout(this.workOutItems);
     }
     if (!planned) {
-      return noPlan();
+      return NoPlan();
     }
     return Padding(
       padding: const EdgeInsets.all(4.0),
@@ -181,7 +181,7 @@ class _TodayWorkOutState extends State<TodayWorkOut> {
                     children: [
                       RectangleDisplay('Difficulty: ' + this.difficulty),
                       RectangleDisplay('Duration: ' +
-                          Functions().totalduration(this.workOutItems)),
+                          Functions().totalDuration(this.workOutItems)),
                     ],
                   )
                 ],

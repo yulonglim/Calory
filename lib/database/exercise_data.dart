@@ -1,10 +1,10 @@
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 
-List<exerciseData> upperBodyData2 = [];
-List<exerciseData> lowerBodyData2 = [];
-List<exerciseData> coreExerciseData2 = [];
-List<exerciseData> cardioData2 = [];
+List<ExerciseData> upperBodyData2 = [];
+List<ExerciseData> lowerBodyData2 = [];
+List<ExerciseData> coreExerciseData2 = [];
+List<ExerciseData> cardioData2 = [];
 
 void openExcel() async {
   ByteData data = await rootBundle.load("assets/Database.xlsx");
@@ -39,7 +39,7 @@ void openExcel() async {
           .value
           .toString();
 
-      exerciseData excelDetails = new exerciseData(
+      ExerciseData excelDetails = new ExerciseData(
           exerciseId: exerciseId,
           exerciseValue: exerciseValue,
           exerciseTime: exerciseTime,
@@ -56,14 +56,14 @@ void openExcel() async {
   }
 }
 
-class exerciseData {
+class ExerciseData {
   String exerciseId;
   int? exerciseValue;
   int exerciseTime;
   String exerciseName;
   String exerciseDescription;
 
-  exerciseData(
+  ExerciseData(
       {required this.exerciseId,
       this.exerciseValue,
       required this.exerciseTime,
@@ -82,14 +82,14 @@ class exerciseData {
     return map;
   }
 
-  static exerciseData fromMap(Map<String, dynamic> map) {
+  static ExerciseData fromMap(Map<String, dynamic> map) {
     String exerciseId = map['exerciseId'];
     int? exerciseValue = map['exerciseValue'];
     int exerciseTime = map['exerciseTime'];
     String exerciseName = map['exerciseName'];
     String exerciseDescription = map['exerciseDescription'];
 
-    return exerciseData(
+    return ExerciseData(
         exerciseId: exerciseId,
         exerciseValue: exerciseValue,
         exerciseTime: exerciseTime,

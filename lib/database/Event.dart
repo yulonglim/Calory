@@ -19,6 +19,6 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
   );
 }
 
-final Now = DateTime.now();
-final FirstDay = DateTime(Now.year, Now.month - 4, Now.day);
-final LastDay = DateTime(Now.year, Now.month + 4, Now.day);
+final now = DateTime.now();
+final firstDay = DateTime(now.year, now.month - 4, now.day);
+final lastDay = DateTime(now.year, now.month + 4, now.day);

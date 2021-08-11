@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/exercise_data.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
 
   runApp(MyApp());
 }
 
-late List<exerciseData> workoutData = [];
+late List<ExerciseData> workoutData = [];
 late DateTime? tempDate;
 
 void clearWorkOutData() {
   workoutData = [];
 }
 
-void setWorkOutData(List<exerciseData> list) async {
+void setWorkOutData(List<ExerciseData> list) async {
   await DBHelper().getWorkOut().then((value) => value.isNotEmpty
       ? tempDate = DateTime.parse(value.first.workoutDate)
       : null);
