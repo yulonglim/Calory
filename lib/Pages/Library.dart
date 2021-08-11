@@ -7,7 +7,7 @@ class LibraryPage extends StatefulWidget {
   final List<exerciseData> upperBody;
   final List<exerciseData> lowerBody;
   final List<exerciseData> core;
-  const LibraryPage(
+  LibraryPage(
       {Key? key,
       required this.upperBody,
       required this.lowerBody,
@@ -20,12 +20,13 @@ class LibraryPage extends StatefulWidget {
 }
 
 class _LibraryPageState extends State<LibraryPage> {
+  List<bool> _isOpen = [false, false, false];
   final List<exerciseData> upperBody;
   final List<exerciseData> lowerBody;
   final List<exerciseData> core;
-  final corelistKey = new GlobalKey<AnimatedListState>();
-  final ubodylistKey = new GlobalKey<AnimatedListState>();
-  final lbodylistKey = new GlobalKey<AnimatedListState>();
+  final coreListKey = new GlobalKey<AnimatedListState>();
+  final uBodyListKey = new GlobalKey<AnimatedListState>();
+  final lBodyListKey = new GlobalKey<AnimatedListState>();
 
   _LibraryPageState(this.upperBody, this.lowerBody, this.core);
 
@@ -48,12 +49,8 @@ class _LibraryPageState extends State<LibraryPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
-        // title: Text(
-        //   "Exercise Library",
-        //   style: Theme.of(context).textTheme.headline5!.merge(
-        //     TextStyle(color: Theme.of(context).primaryColor,)
-        //   ),
-        // ),
+        title: Text("Exercise Library",
+            style: Theme.of(context).textTheme.headline5),
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -64,87 +61,80 @@ class _LibraryPageState extends State<LibraryPage> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            "Exercise Library",
-            style: Theme.of(context).textTheme.headline5,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.9,
+        child: ListView(children: [
+          ExpansionPanelList(
+            expansionCallback: (int index, bool isExpanded) {
+              setState(() {
+                _isOpen[index] = !_isOpen[index];
+              });
+            },
+            dividerColor: Theme.of(context).secondaryHeaderColor,
+            children: [
+              ExpansionPanel(
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isOpen) {
+                    return Text(
+                      "Core",
+                      style: Theme.of(context).textTheme.headline5,
+                    );
+                  },
+                  body: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: AnimatedList(
+                      initialItemCount: core.length,
+                      itemBuilder: (context, index, animation) => ExerciseCard(
+                        item: core[index],
+                        animation: animation,
+                        onClicked: () => removeItem(index, coreListKey, core),
+                      ),
+                    ),
+                  ),
+                  isExpanded: _isOpen[0]),
+              ExpansionPanel(
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isOpen) {
+                    return Text(
+                      "Upper Body",
+                      style: Theme.of(context).textTheme.headline5,
+                    );
+                  },
+                  body: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: AnimatedList(
+                      initialItemCount: upperBody.length,
+                      itemBuilder: (context, index, animation) => ExerciseCard(
+                        item: upperBody[index],
+                        animation: animation,
+                        onClicked: () => removeItem(index, uBodyListKey, core),
+                      ),
+                    ),
+                  ),
+                  isExpanded: _isOpen[1]),
+              ExpansionPanel(
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isOpen) {
+                    return Text(
+                      "Lower Body",
+                      style: Theme.of(context).textTheme.headline5,
+                    );
+                  },
+                  body: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: AnimatedList(
+                      initialItemCount: lowerBody.length,
+                      itemBuilder: (context, index, animation) => ExerciseCard(
+                        item: lowerBody[index],
+                        animation: animation,
+                        onClicked: () => removeItem(index, lBodyListKey, core),
+                      ),
+                    ),
+                  ),
+                  isExpanded: _isOpen[2]),
+            ],
           ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          Text(
-            "Core",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.right,
-          ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22,
-            child: AnimatedList(
-              key: corelistKey,
-              initialItemCount: core.length,
-              itemBuilder: (context, index, animation) => ExerciseCard(
-                item: core[index],
-                animation: animation,
-                onClicked: () => removeItem(index, corelistKey, core),
-              ),
-            ),
-          ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          Text(
-            "Upper Body",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22,
-            child: AnimatedList(
-              key: ubodylistKey,
-              initialItemCount: upperBody.length,
-              itemBuilder: (context, index, animation) => ExerciseCard(
-                item: upperBody[index],
-                animation: animation,
-                onClicked: () => removeItem(index, ubodylistKey, upperBody),
-              ),
-            ),
-          ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          Text(
-            "Lower Body",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          Divider(
-            height: 10,
-            thickness: 2,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22,
-            child: AnimatedList(
-              key: lbodylistKey,
-              initialItemCount: lowerBody.length,
-              itemBuilder: (context, index, animation) => ExerciseCard(
-                item: lowerBody[index],
-                animation: animation,
-                onClicked: () => removeItem(index, lbodylistKey, lowerBody),
-              ),
-            ),
-          ),
-        ],
+        ]),
       ),
     );
   }
