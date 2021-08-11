@@ -70,14 +70,17 @@ class _LibraryPageState extends State<LibraryPage> {
                 _isOpen[index] = !_isOpen[index];
               });
             },
-            dividerColor: Theme.of(context).secondaryHeaderColor,
+            animationDuration: Duration(milliseconds: 600),
+            dividerColor: Theme.of(context).primaryColor,
             children: [
               ExpansionPanel(
                   canTapOnHeader: true,
                   headerBuilder: (context, isOpen) {
-                    return Text(
-                      "Core",
-                      style: Theme.of(context).textTheme.headline5,
+                    return Center(
+                      child: Text(
+                        "Core",
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
                     );
                   },
                   body: SizedBox(
@@ -95,9 +98,11 @@ class _LibraryPageState extends State<LibraryPage> {
               ExpansionPanel(
                   canTapOnHeader: true,
                   headerBuilder: (context, isOpen) {
-                    return Text(
-                      "Upper Body",
-                      style: Theme.of(context).textTheme.headline5,
+                    return Center(
+                      child: Text(
+                        "Upper Body",
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
                     );
                   },
                   body: SizedBox(
@@ -115,9 +120,11 @@ class _LibraryPageState extends State<LibraryPage> {
               ExpansionPanel(
                   canTapOnHeader: true,
                   headerBuilder: (context, isOpen) {
-                    return Text(
-                      "Lower Body",
-                      style: Theme.of(context).textTheme.headline5,
+                    return Center(
+                      child: Text(
+                        "Lower Body",
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
                     );
                   },
                   body: SizedBox(
