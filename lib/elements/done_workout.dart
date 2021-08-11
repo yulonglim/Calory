@@ -23,16 +23,6 @@ class doneWorkout extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Text(
-            //     "Today's Workout",
-            //     style: TextStyle(
-            //       //color: Theme.of(context).primaryColor,
-            //       fontSize: 40,
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),

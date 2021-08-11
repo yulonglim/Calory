@@ -42,7 +42,7 @@ class _TestPage3State extends State<TestPage3> {
     return Scaffold(
       body: ListView(
         children: [
-          TodaysWorkOut(),
+          TodayWorkOut(),
           SizedBox(
             child: Text('Test with a goal planned + workout completed today'),
           ),

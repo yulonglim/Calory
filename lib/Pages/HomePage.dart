@@ -121,12 +121,12 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
           ),
-          TodaysWorkOut(),
+          TodayWorkOut(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
           Row(
-            //buttons
+            //row of buttons
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GoalButton(Icons.settings, 'Goal'),

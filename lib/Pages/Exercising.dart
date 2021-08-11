@@ -4,18 +4,18 @@ import 'package:flutter_app/database/exercise_data.dart';
 import 'package:flutter_app/elements/exercise_card.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 
-class exercising extends StatefulWidget {
+class Exercising extends StatefulWidget {
   final List<exerciseData> items;
   final int rest;
 
-  exercising({Key? key, required this.items, required this.rest})
+  Exercising({Key? key, required this.items, required this.rest})
       : super(key: key);
 
   @override
-  _exercisingState createState() => _exercisingState(this.items, this.rest);
+  _ExercisingState createState() => _ExercisingState(this.items, this.rest);
 }
 
-class _exercisingState extends State<exercising> {
+class _ExercisingState extends State<Exercising> {
   CountDownController _controller = new CountDownController();
   final listKey = GlobalKey<AnimatedListState>();
   final listKey2 = GlobalKey<AnimatedListState>();
@@ -42,7 +42,7 @@ class _exercisingState extends State<exercising> {
             ));
   }
 
-  _exercisingState(this.items, this.rest) {
+  _ExercisingState(this.items, this.rest) {
     int count2 = 0;
     if (this.rest == 0) {
       while (count2 < items.length) {
@@ -161,7 +161,9 @@ class _exercisingState extends State<exercising> {
           SizedBox(
             width: 8,
           ),
-          _button(title: "Resume", onPressed: () => _controller.resume()),
+          _button(title: "Resume", onPressed: () {
+            _controller.resume();
+          }),
         ],
       ),
     );

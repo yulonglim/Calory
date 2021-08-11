@@ -66,6 +66,7 @@ class EndWorkOutPageState extends State<EndWorkOutPage> {
   void initState() {
     initializeSetting();
     tz.initializeTimeZones();
+
     super.initState();
   }
 

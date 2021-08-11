@@ -17,8 +17,7 @@ class ProgressPage extends StatefulWidget {
 
 class _ProgressPageState extends State<ProgressPage> {
   late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -53,7 +52,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 value: (item) => [
                       Event(item.toString()),
                     ]);
-            this.kEvents = LinkedHashMap<DateTime, List<Event>>(
+            this.kEvents = LinkedHashMap<DateTime, List<Event>>( //populating event hashmaps
               equals: isSameDay,
               hashCode: getHashCode,
             )..addAll(_kEventSource);
@@ -83,13 +82,6 @@ class _ProgressPageState extends State<ProgressPage> {
     return kEvents[day] ?? [];
   }
 
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
@@ -98,28 +90,9 @@ class _ProgressPageState extends State<ProgressPage> {
         _focusedDay = focusedDay;
         _rangeStart = null;
         _rangeEnd = null;
-        _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
       _selectedEvents.value = _getEventsForDay(selectedDay);
-    }
-  }
-
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      _rangeStart = start;
-      _rangeEnd = end;
-      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
-
-    if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
     }
   }
 
@@ -129,6 +102,10 @@ class _ProgressPageState extends State<ProgressPage> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 1,
+          title: Text(
+            "Your Progress",
+            style: Theme.of(context).textTheme.headline5,
+          ),
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -143,24 +120,20 @@ class _ProgressPageState extends State<ProgressPage> {
           padding: EdgeInsets.only(left: 16, top: 20, right: 16),
           child: ListView(
             children: [
-              Text(
-                "Your Progress",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              SizedBox(
-                height: 4,
-              ),
+              // SizedBox(
+              //   height: 4,
+              // ),
               Row(
                 children: [
                   Icon(
-                    Icons.person,
+                    Icons.calendar_today,
                     color: Theme.of(context).primaryColor,
                   ),
                   SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "Account",
+                    "Calendar Tracker",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                 ],
@@ -181,17 +154,15 @@ class _ProgressPageState extends State<ProgressPage> {
                           isSameDay(_selectedDay, day),
                       rangeStartDay: _rangeStart,
                       rangeEndDay: _rangeEnd,
-                      calendarFormat: _calendarFormat,
-                      rangeSelectionMode: _rangeSelectionMode,
                       eventLoader: _getEventsForDay,
                       startingDayOfWeek: StartingDayOfWeek.sunday,
                       calendarStyle: CalendarStyle(
-                        selectedDecoration: BoxDecoration(
+                        selectedDecoration: BoxDecoration( // Changes how icon looks when selected
                           color: Theme.of(context).primaryColor,
                           shape: BoxShape.circle,
                           //shape: BoxShape.rectangle,
                         ),
-                        todayDecoration: BoxDecoration(
+                        todayDecoration: BoxDecoration( // Changes how icon looks for today's date
                           color:
                               Theme.of(context).primaryColor.withOpacity(0.3),
                           shape: BoxShape.circle,
@@ -201,14 +172,15 @@ class _ProgressPageState extends State<ProgressPage> {
                           color: Colors.green,
                           shape: BoxShape.circle,
                         ),
-                        // image: DecorationImage(
-                        //     fit: BoxFit.fill,
-                        //     image: AssetImage('assets/images/check-mark.png'))),
+                        /* uncomment to change how the event indicator will look like
+                         image: DecorationImage(
+                             fit: BoxFit.fill,
+                             image: AssetImage('assets/images/check-mark.png'))),*/
                         outsideDaysVisible: false,
                       ),
                       onDaySelected: _onDaySelected,
-                      onRangeSelected: _onRangeSelected,
-                      onFormatChanged: (format) {
+                      calendarFormat: _calendarFormat,
+                      onFormatChanged: (format) { //
                         if (_calendarFormat != format) {
                           setState(() {
                             _calendarFormat = format;
@@ -275,6 +247,22 @@ class _ProgressPageState extends State<ProgressPage> {
                     ),
                   ],
                 ),
+              ),
+
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Current Goal",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
               Divider(
                 height: 15,
@@ -346,7 +334,7 @@ class _ProgressPageState extends State<ProgressPage> {
                   Text("Days Left:",
                       style: Theme.of(context).textTheme.bodyText2),
                   Text(
-                    (endDate.difference(DateTime.now()).inDays + 1).toString(),
+                    (endDate.difference(DateTime.now()).inDays + 1 <= 0 ? 0 : endDate.difference(DateTime.now()).inDays + 1).toString(),
                     style:
                         Theme.of(context).textTheme.bodyText2!.merge(TextStyle(
                               color: Colors.grey[600],

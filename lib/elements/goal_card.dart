@@ -18,7 +18,7 @@ class GoalCard extends StatelessWidget {
     return SizeTransition(
       sizeFactor: animation,
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.all(6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Theme.of(context).primaryColor,
@@ -39,42 +39,42 @@ class GoalCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Start Date: ',
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                           Text(Functions().dateTime2(item.startDate),
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('End Date: ',
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                           Text(Functions().dateTime2(item.endDate),
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Difficulty: ',
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                           Text(
                               Functions()
                                   .difficultyToString(item.difficultyLevel),
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Days Done: ',
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                           Text(
                               (Functions().daysWorkedOut(item.startDate,
                                           item.endDate, item.daysAWeek) -
                                       item.progress)
                                   .toString(),
-                              style: Theme.of(context).textTheme.bodyText1!),
+                              style: Theme.of(context).textTheme.bodyText2!),
                         ],
                       ),
                     ],

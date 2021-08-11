@@ -3,7 +3,6 @@ import 'package:flutter_app/Pages/HomePage.dart';
 import 'package:flutter_app/database/DBHelper.dart';
 import 'package:flutter_app/database/goal.dart';
 import 'package:flutter_app/elements/dateselector.dart';
-import 'package:flutter_app/elements/image_banner.dart';
 
 import 'package:flutter_app/elements/toggle_button.dart';
 
@@ -47,7 +46,6 @@ class _GoalSetPageState extends State<GoalSetPage> {
         ),
         body: Column(
           children: [
-            //ImageBanner("assets/images/reach_goal.jpg"),
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Text('Set Your Goal',

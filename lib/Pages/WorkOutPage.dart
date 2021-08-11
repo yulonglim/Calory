@@ -70,7 +70,7 @@ class _WorkOutPageState extends State<WorkOutPage> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.16,
             child: Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -150,7 +150,7 @@ class _WorkOutPageState extends State<WorkOutPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          exercising(items: copyItems, rest: restDuration)),
+                          Exercising(items: copyItems, rest: restDuration)),
                 );
               },
               child: Container(

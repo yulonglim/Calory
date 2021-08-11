@@ -63,7 +63,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.16,
             child: Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -74,9 +74,8 @@ class _WarmUpPageState extends State<WarmUpPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    // height: MediaQuery.of(context).size.height * 0.1,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -143,7 +142,7 @@ class _WarmUpPageState extends State<WarmUpPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          exercising(items: copyItems, rest: restDuration)),
+                          Exercising(items: copyItems, rest: restDuration)),
                 );
               },
               child: Container(

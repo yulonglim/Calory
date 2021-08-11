@@ -4,21 +4,18 @@ import 'package:flutter_app/database/exercise_data.dart';
 
 class ExerciseCard extends StatelessWidget {
   final exerciseData item;
-  final Animation<double> animation;
+  final Animation<double>? animation;
   final VoidCallback onClicked;
 
   ExerciseCard(
-      {Key? key,
-      required this.item,
-      required this.animation,
-      required this.onClicked})
+      {Key? key, required this.item, this.animation, required this.onClicked})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (item.exerciseValue == null) {
+    if (item.exerciseValue == null) { //check if time based or rep based
       return SizeTransition(
-        sizeFactor: animation,
+        sizeFactor: animation!,
         child: Container(
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -74,7 +71,7 @@ class ExerciseCard extends StatelessWidget {
       );
     } else {
       return SizeTransition(
-        sizeFactor: animation,
+        sizeFactor: animation!,
         child: Container(
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(

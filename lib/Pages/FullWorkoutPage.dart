@@ -16,10 +16,10 @@ import 'WarmUpPage.dart';
 import '../elements/card_button.dart';
 
 class FullWorkoutPage extends StatelessWidget {
-  final List<exerciseData> WarmUpItems = List.from(warmUpData);
-  final List<exerciseData> CoolDownItems = List.from(coolDownData);
-  int restduration = 5;
-  List<exerciseData> workoutItems;
+  final List<exerciseData> warmUpItems = List.from(warmUpData);
+  final List<exerciseData> coolDownItems = List.from(coolDownData);
+  final int restDuration = 5;
+  final List<exerciseData> workoutItems;
   final bool oneTime;
   final int? difficultyLevel;
   final bool? recalibrate;
@@ -32,7 +32,8 @@ class FullWorkoutPage extends StatelessWidget {
       required this.oneTime,
       this.recalibrate,
       this.difficultyLevel,
-      this.done, this.test})
+      this.done,
+      this.test})
       : super(key: key);
 
   @override
@@ -65,7 +66,7 @@ class FullWorkoutPage extends StatelessWidget {
                 iconData: Icons.whatshot,
                 buttonName: "Warm Up",
                 nextPage: WarmUpPage(),
-                duration: Functions().totalduration(WarmUpItems),
+                duration: Functions().totalduration(warmUpItems),
               ),
               CardButton(
                 iconData: Icons.sports_handball_outlined,
@@ -92,7 +93,9 @@ class FullWorkoutPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EndWorkOutPage(
-                                  recalibrate: this.recalibrate,testing: this.test,)),
+                                    recalibrate: this.recalibrate,
+                                    testing: this.test,
+                                  )),
                         );
                       } else {
                         Navigator.pop(context);
@@ -109,7 +112,6 @@ class FullWorkoutPage extends StatelessWidget {
                         if (workoutItems[i].exerciseName == 'Rest' &&
                             workoutItems[i].exerciseTime == 5) {
                         } else {
-                          print(workoutItems[i].exerciseName);
                           workoutList =
                               workoutList + '\n' + workoutItems[i].exerciseName;
                         }

@@ -14,16 +14,16 @@ import '../Pages/FullWorkoutPage.dart';
 
 //Today's Workout Widget on the Homepage
 
-class TodaysWorkOut extends StatefulWidget {
+class TodayWorkOut extends StatefulWidget {
   final bool? test;
 
-  const TodaysWorkOut({Key? key, this.test}) : super(key: key);
+  const TodayWorkOut({Key? key, this.test}) : super(key: key);
 
   @override
-  _TodaysWorkOutState createState() => _TodaysWorkOutState(this.test);
+  _TodayWorkOutState createState() => _TodayWorkOutState(this.test);
 }
 
-class _TodaysWorkOutState extends State<TodaysWorkOut> {
+class _TodayWorkOutState extends State<TodayWorkOut> {
   late bool planned = false;
   late bool done = false;
   late bool recalibrate = false;
@@ -35,7 +35,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
   late int duration = 0;
   final bool? test;
 
-  _TodaysWorkOutState(this.test);
+  _TodayWorkOutState(this.test);
 
   void asyncInitialize() async {
     List<Goal> goal = [];
@@ -74,7 +74,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                               .round()
                           : null));
                 }
-                this.done = this.done;
+                this.done = true;
                 this.duration = workout.last.workoutDuration;
               }));
     } else if (planned) {
@@ -126,7 +126,7 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
                   });
                   if (DateTime.parse(goal.last.endDate).isBefore(DateTime.now()
                       .add(Duration(
-                          days: goal.last.progress == 0
+                          days: goal.last.progress <= 0
                               ? 0
                               : goal.last.progress - 1)))) {
                     this.recalibrate = true;
@@ -165,18 +165,6 @@ class _TodaysWorkOutState extends State<TodaysWorkOut> {
         ),
         child: Column(
           children: [
-            /*
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Today's Workout",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .merge(TextStyle(color: Colors.black)),
-              ),
-            ),
-             */
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),

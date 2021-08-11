@@ -65,7 +65,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.16,
             child: Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -153,7 +153,7 @@ class _CoolDownPageState extends State<CoolDownPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          exercising(items: copyItems, rest: restDuration)),
+                          Exercising(items: copyItems, rest: restDuration)),
                 );
               },
               child: Container(

@@ -38,7 +38,7 @@ class _TestPage2State extends State<TestPage2> {
     return Scaffold(
       body: ListView(
         children: [
-          TodaysWorkOut(test: true,),
+          TodayWorkOut(test: true,),
           SizedBox(
             child: Text('Test with a goal planned + not completed'),
           ),

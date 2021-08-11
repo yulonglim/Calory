@@ -22,7 +22,7 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
 
   late Goal currentGoal;
 
-  var ExercisesPerWeek = 1;
+  var exercisesPerWeek = 1;
 
   int daysAWeek = 1;
 
@@ -107,15 +107,15 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
               ),
             ),
             Slider(
-                value: ExercisesPerWeek.toDouble(),
+                value: exercisesPerWeek.toDouble(),
                 min: 1,
                 max: 6,
                 divisions: 5,
-                label: ExercisesPerWeek.round().toString() + " Days",
+                label: exercisesPerWeek.round().toString() + " Days",
                 onChanged: (double value) {
                   setState(() {
                     this.daysAWeek = value.round();
-                    ExercisesPerWeek = value.round();
+                    exercisesPerWeek = value.round();
                   });
                 }),
             SizedBox(
@@ -139,16 +139,16 @@ class _GoalUpdatePageState extends State<GoalUpdatePage> {
                               : 20 + difficultyLevel * 20,
                       //if user doesn't change their difficulty and goal type, progress is still saved
                       progress: currentGoal.endDate == endDate &&
-                              currentGoal.daysAWeek == ExercisesPerWeek.round()
+                              currentGoal.daysAWeek == exercisesPerWeek.round()
                           ? currentGoal.progress
                           : Functions().daysWorkedOut(currentGoal.startDate,
-                                      endDate, ExercisesPerWeek) -
+                                      endDate, exercisesPerWeek) -
                                   (Functions().daysWorkedOut(
                                           currentGoal.startDate,
                                           currentGoal.endDate,
                                           currentGoal.daysAWeek) -
                                       currentGoal.progress),
-                      daysAWeek: ExercisesPerWeek.round(),
+                      daysAWeek: exercisesPerWeek.round(),
                     ));
                     //This is to refresh the homepage with the new goal data
                     Navigator.popUntil(context, (route) {

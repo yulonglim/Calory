@@ -37,7 +37,7 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       body: ListView(
         children: [
-          TodaysWorkOut(),
+          TodayWorkOut(),
           SizedBox(
             child: Text('Test with a goal set but completed'),
           ),
