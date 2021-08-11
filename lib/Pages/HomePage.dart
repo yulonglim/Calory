@@ -129,7 +129,7 @@ class _HomepageState extends State<Homepage> {
             //row of buttons
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GoalButton(Icons.settings, 'Goal'),
+              GoalButton('Goal'),
               SquareButton(
                 Icons.book,
                 'Exercise Library',

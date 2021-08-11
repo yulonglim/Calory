@@ -20,7 +20,7 @@ class LibraryPage extends StatefulWidget {
 }
 
 class _LibraryPageState extends State<LibraryPage> {
-  List<bool> _isOpen = [false, false, false];
+  List<bool> _isOpen = [true, true, true  ];
   final List<ExerciseData> upperBody;
   final List<ExerciseData> lowerBody;
   final List<ExerciseData> core;
@@ -84,7 +84,7 @@ class _LibraryPageState extends State<LibraryPage> {
                     );
                   },
                   body: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.45,
                     child: AnimatedList(
                       initialItemCount: core.length,
                       itemBuilder: (context, index, animation) => ExerciseCard(

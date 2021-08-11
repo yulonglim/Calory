@@ -7,10 +7,9 @@ import 'package:flutter_app/database/DBHelper.dart';
 // Used for the goal set square buttons at the bottom of the HomePage
 
 class GoalButton extends StatefulWidget {
-  final IconData _icon;
   final String _text;
 
-  GoalButton(this._icon, this._text);
+  GoalButton(this._text);
 
   @override
   _GoalButtonState createState() => _GoalButtonState();
@@ -39,8 +38,9 @@ class _GoalButtonState extends State<GoalButton> {
           width: MediaQuery.of(context).size.width * 0.24,
           child: Column(
             children: [
-              Icon(
-                widget._icon,
+              ImageIcon(
+                AssetImage("assets/images/target.png"),
+                color: Theme.of(context).secondaryHeaderColor,
                 size: 48,
               ),
               Column(
