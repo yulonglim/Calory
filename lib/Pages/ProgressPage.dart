@@ -47,12 +47,12 @@ class _ProgressPageState extends State<ProgressPage> {
             this.startDate = DateTime.parse(value.last.startDate);
             this.endDate = DateTime.parse(value.last.endDate);
             this.progress = value.last.progress;
-            this._kEventSource = Map.fromIterable(workouts,
+            this._kEventSource = Map.fromIterable(workouts, //populating event source
                 key: (item) => DateTime.parse(item.workoutDate),
                 value: (item) => [
                       Event(item.toString()),
                     ]);
-            this.kEvents = LinkedHashMap<DateTime, List<Event>>( //populating event hashmaps
+            this.kEvents = LinkedHashMap<DateTime, List<Event>>( //populating event hashmaps to be read by calendar widget
               equals: isSameDay,
               hashCode: getHashCode,
             )..addAll(_kEventSource);

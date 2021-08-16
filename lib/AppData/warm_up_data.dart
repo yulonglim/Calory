@@ -1,6 +1,6 @@
 import 'package:flutter_app/database/exercise_data.dart';
 
-//warm ups are most likely going to be same throughout
+//warm ups are going to be same throughout
 
 final List<ExerciseData> warmUpData = [
   ExerciseData(

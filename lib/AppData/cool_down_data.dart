@@ -1,6 +1,6 @@
 import 'package:flutter_app/database/exercise_data.dart';
 
-//cool downs are most likely going to be same throughout
+//cool downs are going to be same throughout
 
 final List<ExerciseData> coolDownData = [
   ExerciseData(
